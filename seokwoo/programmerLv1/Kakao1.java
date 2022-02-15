@@ -3,7 +3,8 @@ package seokwoo.programmerLv1;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-//https://programmers.co.kr/learn/courses/30/lessons/77484
+// https://programmers.co.kr/learn/courses/30/lessons/77484
+// 로또의 최고 순위와 최저 순위
 public class Kakao1 {
 
 	public int[] solution(int[] lottos, int[] win_nums) {
