@@ -3,7 +3,7 @@ package seokwoo.programmerLv1;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+//https://programmers.co.kr/learn/courses/30/lessons/77484
 public class Kakao1 {
 
 	public int[] solution(int[] lottos, int[] win_nums) {
