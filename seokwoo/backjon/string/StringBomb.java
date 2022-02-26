@@ -7,7 +7,7 @@ import java.util.Stack;
 
 // 문자열 폭발(gold4)
 // https://www.acmicpc.net/problem/9935
-// 스택이용
+// 스택을 이용한 문제풀이
 public class StringBomb {
 
 	public static void main(String[] args) throws IOException {
