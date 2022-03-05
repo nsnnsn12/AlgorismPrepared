@@ -1,5 +1,5 @@
 package sunggyu.programmersLv2;
-import java.util.*;
+
 //https://programmers.co.kr/learn/courses/30/lessons/92342
 //양궁대회
 class kakao1 {

@@ -1,6 +1,5 @@
 package sunggyu.programmersLv2;
 
-import java.util.*;
 //https://programmers.co.kr/learn/courses/30/lessons/17687
 //[3차] n진수 게임
 class kakao4 {
