@@ -2,10 +2,10 @@ package seokwoo.programmerLv1;
 
 public class Main {
 	public static void main(String[] args) {
-		Kakao5 kakao5 = new Kakao5();
-		int[] numbers = {7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2};
-		String hand = 	"left";
-		System.out.println(kakao5.solution(numbers,hand));
+		Kakao6 kakao6 = new Kakao6();
+		int n = 5;
+		int[] stages = {2,1,2,6,2,4,3,3};
+		System.out.println(kakao6.solution(n, stages));
 
 	}
 
