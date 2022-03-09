@@ -3,7 +3,7 @@ package seokwoo.programmerLv2;
 import java.util.LinkedList;
 import java.util.Queue;
 // https://programmers.co.kr/learn/courses/30/lessons/1829
-// 카카오 ㄴ프렌즈 컬러링북
+// 카카오 프렌즈 컬러링북
 
 public class Kakao1 {
 	public int[] solution(int m, int n, int[][] picture) {
