@@ -1,8 +1,9 @@
 package sunggyu.algorism;
+import sunggyu.algorism.greedy.*;
 
 public class Main {
     public static void main(String[] args) {
-        BubbleSort bubbleSort = new BubbleSort();
-        bubbleSort.sort2();
+        Greedy3 greedy = new Greedy3();
+        greedy.run();
     }
 }
