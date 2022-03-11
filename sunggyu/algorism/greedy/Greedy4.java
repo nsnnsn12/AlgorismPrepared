@@ -2,6 +2,7 @@ package sunggyu.algorism.greedy;
 import java.util.*;
 import java.io.*;
 //https://www.acmicpc.net/problem/1946
+//신입사원
 public class Greedy4 {
     /*
     시험성적이라고 하지만 입력되는 것은 성적의 순위이고 동석차가 없다.
