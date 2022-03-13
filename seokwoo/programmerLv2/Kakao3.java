@@ -37,8 +37,8 @@ class File{
 	
 	public int getFinishHeadIndex() {
 		char[] originFileName = this.originFileName.toCharArray();
-		
 		int finishHeadIndex = 0;
+		
 		for(int i = 0; i<originFileName.length; i++) {
 			if(originFileName[i] >=48 && originFileName[i] <= 57) {	
 				finishHeadIndex = i;
