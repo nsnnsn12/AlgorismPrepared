@@ -7,7 +7,7 @@ import java.util.List;
 // 1. 단위를 일치시키기
 // 2. 단가가 가장 싼 기준으로 정렬
 // 3. 단가가 싼 기준으로 나눈 후, 몫은 화폐 단위와 곱해 결과값에 저장
-// 4. 나머지는 다음으로 단가가 싼 화폐를 기준으로 2번 수행
+// 4. 나머지는 다음으로 단가가 싼 화폐를 기준으로 3번 수행
 
 public class SK1 {
 
@@ -33,7 +33,7 @@ public class SK1 {
 			}
 			// 3. 단가가 싼 기준으로 money를 나눈 후, 몫은 화폐 단위와 곱해 결과값에 저장
 			result += (key * hash.get(key)) * (money / hash.get(key));		
-			// 4. 나머지는 다음으로 단가가 싼 화폐를 기준으로 2번 수행
+			// 4. 나머지는 다음으로 단가가 싼 화폐를 기준으로 3번 수행
 			money = money % hash.get(key);
 		}
 		return (int)result;

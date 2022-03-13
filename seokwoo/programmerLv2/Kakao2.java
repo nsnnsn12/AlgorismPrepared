@@ -96,5 +96,6 @@ public class Kakao2 {
 		if (this.hash.get(carNumber).split(",").length % 2 != 0) { // 안나간 경우
 			this.hash.replace(carNumber, this.hash.get(carNumber) + ",23:59");
 		}
+
 	}
 }
