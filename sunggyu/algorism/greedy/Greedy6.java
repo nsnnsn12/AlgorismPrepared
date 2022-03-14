@@ -14,7 +14,9 @@ public class Greedy6 {
         String[] split = bf.readLine().split(" ");
         int n = Integer.parseInt(split[0]);
         int m = Integer.parseInt(split[1]);
-        int[][] mapA = new 
+        int[][] map = new int[n][m];
+
+
         bw.flush();
         bw.close();
     }
