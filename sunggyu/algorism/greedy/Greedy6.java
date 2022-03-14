@@ -4,9 +4,10 @@ import java.io.*;
 //https://www.acmicpc.net/problem/1080
 //행렬
 public class Greedy6 {
-    //3*3을 한 번 다 뒤집었을 때 성공하려면 a와 b가 서로 대칭을 이루어야 한다.
-    //두번 뒤집으면 원래 상태
-    //250 * 250 = 62500
+    //동일한 부분은 짝수번 뒤집어야 하고
+    //다른 부분은 홀수번 뒤집어야 한다.
+
+    //3 * 3 부분행렬을 선택하면 3 * 3은 다 카운트가 한 번씩 올라가는 것.
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
