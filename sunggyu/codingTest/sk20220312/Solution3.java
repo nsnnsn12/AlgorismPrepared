@@ -11,7 +11,7 @@ public class Solution3 {
         //대각선이 존재하는 경우 width+height+1
         //왜? 대각선을 정확히 1번 이용해야 하기 때문에
         //대각선까지의 최단거리 경우의 수 * 대각선으로 부터 최단거리 경우의수
-        //총 합은 대각선까지의 최단거리 경우의 수 * 대각선으로 부터 최단거리 경우의수 * (width+height+1)
+        //총 합은 대각선까지의 최단거리 경우의 수 * 대각선으로 부터 최단거리 경우의수
         //각 좌표에 최단거리 경우의 수를 가지고 있는 map이 필요함
         BigInteger answer = new BigInteger("0");
         this.height = height;
