@@ -12,9 +12,9 @@ import java.io.*;
 
     요소를 추가해야 하는 최솟값을 구하라
 
-    k는 2의 제곱을 만족하는 요소의 최소의 수
-    즉 k가 1이라는 것은 n은 1개의 2의 제곱으로 이루어져야 한다는 것이고
-    k가 2라는 것은 n은 2 이하의 2의 제곱으로 이루어져야 한다는 것이다.
+
+    2의 제곱을 만족하면 요소를 1로 만들 수 있다.
+    2진수는 2의 제곱을 1로 표현하고 있다.
 */
 public class Greedy9 {
     public static void main(String[] args) throws Exception {
@@ -24,47 +24,22 @@ public class Greedy9 {
         String[] split = bf.readLine().split(" ");
         int n = Integer.parseInt(split[0]);
         int k = Integer.parseInt(split[1]);
-        int result = -1;
-        List<Integer> list = getEx();
+        int result = 0;
 
         if(n > k){
-            int count = 1;
-            for(int i = list.size()-1; i >= 0; i--){
-                if(count >= k || n == 0) break;
-                int value = list.get(i);
-                if(n >= value){
-                    n -= value;
-                    count++;
+            while(true){
+                int b = Integer.bitCount(n);
+                if(b <= k){
+                    break;
                 }
+                n++;
+                result++;
             }
-
-            if(k != 0){
-                for(int i : list){
-                    if(n <= i){
-                        result = i - n;
-                        break;
-                    }
-                }
-            }
-        }else{
-            result = 0;
         }
 
         System.out.println(result);
+
         bw.flush();
         bw.close();
-    }
-
-    public static List<Integer> getEx(){
-        List<Integer> result = new ArrayList<Integer>();
-        result.add(1);
-        while(true){
-            int value = result.get(result.size()-1) * 2;
-            if(1000000 < value){
-                break;
-            }
-            result.add(value);
-        }
-        return result;
     }
 }
