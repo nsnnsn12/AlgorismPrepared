@@ -5,13 +5,11 @@ package seokwoo.programmerLv2;
  */
 public class Main {
 	public static void main(String[] args) {
-		Greedy1 greedy1= new Greedy1();
-		String number = "654321";
-		int k = 1;
-		greedy1.solution(number, k);
+		Greedy2 greedy2= new Greedy2();
+		int[] people = {70, 50, 80, 50}; 
+		int limit = 100;
+		greedy2.solution(people, limit);
 
 	}
 
 }
-//입력: "654321" , k = 1 // 결과: "65432"
-//입력: "654321", k = 5 // 결과: "6"
