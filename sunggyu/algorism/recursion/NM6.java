@@ -2,7 +2,7 @@ package sunggyu.algorism.recursion;
 
 import java.util.*;
 //https://www.acmicpc.net/problem/15655
-//N과 M(6)
+//N과 M(6)조합
 public class NM6 {
     public static int n;
     public static int m;

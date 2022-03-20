@@ -2,7 +2,7 @@ package sunggyu.algorism.recursion;
 
 import java.util.*;
 //https://www.acmicpc.net/problem/15654
-//N과 M(5)
+//N과 M(5)순열
 public class NM5 {
     public static int n;
     public static int m;
