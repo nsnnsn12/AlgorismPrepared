@@ -3,6 +3,8 @@ package sunggyu.algorism.recursion;
 import java.util.*;
 //https://www.acmicpc.net/problem/15666
 //N과 M(12)
+//중복되는 요솟 값이 존재할 때 중복되지 않게 조합을 구하라
+//먼저 정렬
 public class NM12 {
     public static int n;
     public static int m;

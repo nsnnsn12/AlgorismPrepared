@@ -3,6 +3,9 @@ package sunggyu.algorism.recursion;
 import java.util.*;
 //https://www.acmicpc.net/problem/15665
 //N과 M(11)
+//중복되는 요솟 값이 존재할 때 중복되지 않게 순열을 구하라
+//먼저 정렬
+//정렬 후 순열을 구할 때 앞의 요소와 동일하다는 것은 그 후의 순열이 동일하기 때문에 배제한다.
 public class NM11 {
     public static int n;
     public static int m;

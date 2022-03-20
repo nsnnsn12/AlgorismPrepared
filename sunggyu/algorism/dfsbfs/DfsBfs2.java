@@ -8,6 +8,7 @@ import java.util.*;
 //41664 * 64 = 2,666,496
 //고로 완전 탐색 가능
 
+//조합구할 때 자꾸 매개변수를 ++해서 재귀를 돌리는 실수를 함.
 public class DfsBfs2 {
     public static int[][] map;
     public static int n;
