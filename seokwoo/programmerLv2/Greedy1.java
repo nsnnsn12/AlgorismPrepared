@@ -1,7 +1,7 @@
 package seokwoo.programmerLv2;
 
 // https://programmers.co.kr/learn/courses/30/lessons/42883
-// 큰 수 만들기 
+// 큰 수 만들기   
 
 public class Greedy1 {
 	public String solution(String number, int k) {
