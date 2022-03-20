@@ -5,11 +5,13 @@ package seokwoo.programmerLv2;
  */
 public class Main {
 	public static void main(String[] args) {
-		Kakao3 kakao3 = new Kakao3();
-		String[] files = {"img12.png", "amg10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"};
-		
-		kakao3.solution(files);
+		Greedy1 greedy1= new Greedy1();
+		String number = "654321";
+		int k = 1;
+		greedy1.solution(number, k);
 
 	}
 
 }
+//입력: "654321" , k = 1 // 결과: "65432"
+//입력: "654321", k = 5 // 결과: "6"
