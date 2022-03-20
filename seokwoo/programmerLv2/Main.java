@@ -5,10 +5,10 @@ package seokwoo.programmerLv2;
  */
 public class Main {
 	public static void main(String[] args) {
-		Kakao3 kakao3 = new Kakao3();
-		String[] files = {"img12.png", "amg10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"};
-		
-		kakao3.solution(files);
+		Greedy2 greedy2= new Greedy2();
+		int[] people = {70, 50, 80, 50}; 
+		int limit = 100;
+		greedy2.solution(people, limit);
 
 	}
 
