@@ -1,4 +1,4 @@
-package sunggyu.algorism.dfsbfs;
+package sunggyu.algorism.bruteforce;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/2468
@@ -7,7 +7,7 @@ import java.util.*;
 //모든 높이에 대해서 확인한다고 했을 때 10000 * 100 = 1000000
 //완전 탐색 가능
 
-public class DfsBfs7{
+public class Bruteforce1{
     public static int N;
     public static int[][] map;
     public static int min = 101;
