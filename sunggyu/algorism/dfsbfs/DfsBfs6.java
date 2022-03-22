@@ -59,6 +59,16 @@ public class DfsBfs6{
         bw.close();
     }
 
+    
+    public static void move(){
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N;j ++){
+                int united = tempMap[i][j] - 1;
+                map[i][j] = unitedInfo.get(united);
+            }
+        }
+    }
+
     public static boolean canUnited(){
         boolean result = false;
         tempMap = new int[N][N];
@@ -84,15 +94,6 @@ public class DfsBfs6{
             }
         }
         return result;
-    }
-
-    public static void move(){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N;j ++){
-                int united = tempMap[i][j] - 1;
-                map[i][j] = unitedInfo.get(united);
-            }
-        }
     }
 
     //dfs를 이용해 조건에 맞는 인접한 지역의 인원과 count를 센다
