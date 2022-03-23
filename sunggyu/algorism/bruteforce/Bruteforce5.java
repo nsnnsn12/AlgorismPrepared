@@ -22,11 +22,12 @@ import java.util.*;
     총 경우의 수 대략 60만
 */
 
-public class Bruteforce6{
+public class Bruteforce5{
     public static int N;
     public static int[][] map;
     public static boolean[] check;
     public static int min = Integer.MAX_VALUE;
+    public static int[] match = new int[2];
     
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -90,10 +91,26 @@ public class Bruteforce6{
 
     public static int getTeamValue(List<Integer> team){
         int result = 0;
-        int n = team.size();
-        if(n == 1) return 0;
+        if(team.size() == 1) return result;
+
+        result = memberMatch(0, 0, team, 0);
 
         return result;
+    }
+
+    public static int memberMatch(int depth, int start, List<Integer> team, int sum){
+        if(depth == 2){
+            sum += map[match[0]][match[1]];
+            sum += map[match[1]][match[0]];
+            return sum;
+        }
+        int total = 0;
+        for(int i = start; i < team.size(); i++){
+            match[depth] = team.get(i);
+            total += memberMatch(depth+1, i+1, team, sum);
+        }
+
+        return total;
     }
 
 }
