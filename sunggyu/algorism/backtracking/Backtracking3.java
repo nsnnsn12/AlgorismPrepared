@@ -1,4 +1,4 @@
-package sunggyu.algorism.backtraking;
+package sunggyu.algorism.backtracking;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/18290
@@ -6,7 +6,7 @@ import java.util.*;
 //최대 격자 칸의 갯수는 100개 최대로 뽑을 수 있는 수는 4개
 //100 C 4 = 최대 경우의 수는 3921225
 //완전 탐색 가능
-public class Backtraking3{
+public class Backtracking3{
     public static int[][] map;
     public static int n;
     public static int m;

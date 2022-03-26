@@ -1,10 +1,10 @@
-package sunggyu.algorism.backtraking;
+package sunggyu.algorism.backtracking;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/21317
 //징검다리 건너기
 
-public class Backtraking5{
+public class Backtracking5{
     public static class Stone{
         int no;
         int smallJump;

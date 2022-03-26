@@ -1,9 +1,9 @@
-package sunggyu.algorism.backtraking;
+package sunggyu.algorism.backtracking;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/12101
 //1, 2, 3 더하기 2
-public class Backtraking2{
+public class Backtracking2{
     public static int N;
     public static int K;
     public static List<Integer> list = new ArrayList<>();

@@ -1,4 +1,4 @@
-package sunggyu.algorism.backtraking;
+package sunggyu.algorism.backtracking;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/10597
@@ -9,7 +9,7 @@ import java.util.*;
 //1에서부터 완전탐색을 하면 너무 경우의 수가 많아짐
 //예) 1을 찾는다고 했을 때 1,11,12,13,14,15,16,17 ....
 //N에서 부터 찾으면 경우의 수가 훨씬 줄어들음
-public class Backtraking4{
+public class Backtracking4{
     public static String targetStr;
     public static boolean[] visit;
     public static List<int[]> list = new ArrayList<>();

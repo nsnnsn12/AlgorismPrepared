@@ -1,4 +1,4 @@
-package sunggyu.algorism.backtraking;
+package sunggyu.algorism.backtracking;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/1342
@@ -6,7 +6,7 @@ import java.util.*;
 //문자열의 최대 길이는 10자리
 //모든 경우의 수 3628800 * 10
 //완전탐색 가능
-public class Backtraking1{
+public class Backtracking1{
     public static int N;
     public static char[] list;
     public static char[] selectedList;
