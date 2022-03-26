@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// https://www.acmicpc.net/problem/2309
+// https://www.acmicpc.net/problem/2309  
 //  ¿œ∞ˆ≥≠¿Ô¿Ã
 
 public class BruteForce1 {
