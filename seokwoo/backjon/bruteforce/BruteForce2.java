@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 // https://www.acmicpc.net/problem/3085
-//  »çÅÁ°ÔÀÓ
+//  ì‚¬íƒ•ê²Œì„
 
 public class BruteForce2 {
 	public static char[][] map;
@@ -78,7 +78,7 @@ public class BruteForce2 {
 	public static int count() {
 		int count = 0;
 		int max = 0;
-		for (int x = 0; x < n; x++) { // °¡·Î¹æÇâ
+		for (int x = 0; x < n; x++) { // ê°€ë¡œë°©í–¥
 			count = 1;
 			for (int y = 0; y < n - 1; y++) {
 				if (map[x][y] == map[x][y + 1]) {
@@ -92,7 +92,7 @@ public class BruteForce2 {
 			}
 		}
 
-		for (int y = 0; y < n; y++) { // ¼¼·Î¹æÇâ
+		for (int y = 0; y < n; y++) { // ì„¸ë¡œë°©í–¥
 			count = 1;
 			for (int x = 0; x < n - 1; x++) {
 				if (map[x][y] == map[x + 1][y]) {

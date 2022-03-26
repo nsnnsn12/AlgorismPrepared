@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 // https://www.acmicpc.net/problem/2309  
-//  ÀÏ°ö³­ÀïÀÌ
+// ì¼ê³±ë‚œìŸì´
 
 public class BruteForce1 {
 	public static void main(String[] args) {
