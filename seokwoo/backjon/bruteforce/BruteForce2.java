@@ -78,7 +78,7 @@ public class BruteForce2 {
 	public static int count() {
 		int count = 0;
 		int max = 0;
-		for (int x = 0; x < n; x++) { // 가로방향
+		for (int x = 0; x < n; x++) { // 媛�濡쒕갑�뼢
 			count = 1;
 			for (int y = 0; y < n - 1; y++) {
 				if (map[x][y] == map[x][y + 1]) {
@@ -92,7 +92,7 @@ public class BruteForce2 {
 			}
 		}
 
-		for (int y = 0; y < n; y++) { // 세로방향
+		for (int y = 0; y < n; y++) { // �꽭濡쒕갑�뼢
 			count = 1;
 			for (int x = 0; x < n - 1; x++) {
 				if (map[x][y] == map[x + 1][y]) {
