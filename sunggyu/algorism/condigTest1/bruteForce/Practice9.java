@@ -4,6 +4,8 @@ import java.util.*;
 //https://www.acmicpc.net/problem/14501
 //퇴사
 /*
+    dfs를 이용하여 최대값을 가져 올 수 있는 이유
+    현재 값을 기준으로 그 다음 일정의 값 중에 max를 선택하기 때문에
 */
 public class Practice9{
     static int[][] tpList;
