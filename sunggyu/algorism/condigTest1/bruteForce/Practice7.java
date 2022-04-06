@@ -4,6 +4,8 @@ import java.util.*;
 //https://www.acmicpc.net/problem/9095
 //1, 2, 3 더하기
 /*
+    오직 1,2,3만을 이용하여 n을 만들어라
+    
 */
 public class Practice7{
     public static void main(String[] args) throws Exception {
