@@ -15,6 +15,7 @@ public class Graph3{
         int n = Integer.parseInt(nm[0]);
         int m = Integer.parseInt(nm[1]);
         visit = new boolean[n];
+        
         for(int i = 0; i < n; i++){
             graph.add(new ArrayList<>());
         }
