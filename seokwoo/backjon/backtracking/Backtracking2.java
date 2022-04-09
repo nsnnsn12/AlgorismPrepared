@@ -23,7 +23,7 @@ public class Backtracking2 {
 	public static void solution() {
 		array = new int[M];
 		isUsed = new boolean[N+1];
-		for(int i = 0; i<N; i++) {
+		for(int i = 1; i<=N; i++) {
 			isUsed[i] = false;
 		}
 		backtracking(0);

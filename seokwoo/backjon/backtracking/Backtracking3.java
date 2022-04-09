@@ -1,53 +1,48 @@
 package seokwoo.backjon.backtracking;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
-// https://www.acmicpc.net/problem/15649
-// N과 M 1
+// https://www.acmicpc.net/problem/15651
+// N과 M 3
 
-public class Backtracking1 {
+public class Backtracking3 {
 	private static int[] array;
-	private static boolean[] isUsed;
 	private static int N;
 	private static int M;
+	private static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String read = in.readLine();
 		N = Integer.parseInt(read.split(" ")[0]);
 		M = Integer.parseInt(read.split(" ")[1]);
 		
-		solution(N,M);
+		solution();
+		
+		in.close();
+		out.flush();
+		out.close();
 	}
-	public static void solution(int N, int M) {
+	public static void solution() throws IOException {
 		array = new int[M];
-		isUsed = new boolean[N+1];
-		int k = 0;
-		for(int i=1; i<=N; i++) {
-			isUsed[i] = false;
-		}
-		backtracking(k);
-		
-		
+		backtracking(0);
 	}
-	public static void backtracking(int k) {
+	public static void backtracking(int k) throws IOException {
 		if(k == M) {
-			for(int i =0; i<M; i++) {
-				System.out.print(array[i] + " ");
+			for(int i = 0; i<M; i++) {
+				out.write(String.valueOf(array[i]) + " ");
 			}
-			System.out.println();
+			out.newLine();
 			return;
 		}
-		
 		for(int i = 1; i<=N; i++) {
-			if(!isUsed[i]) { //아직 사용안 한 수이라면
 				array[k] = i;
-				isUsed[i] = true;
 				backtracking(k+1);
-				isUsed[i] = false;
-			}
- 		}
+		}
+		
 	}
 
 }
