@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-// https://www.acmicpc.net/problem/15651
-// N과 M 3
+// https://www.acmicpc.net/problem/15652
+// N과 M 4
 
 public class Backtracking4 {
 	private static int[] array;
