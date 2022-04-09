@@ -1,4 +1,4 @@
-package seokwoo.programmerLv1;
+package seokwoo.programmer.programmerLv1;
 
 import java.util.Arrays;
 import java.util.List;

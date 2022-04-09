@@ -1,4 +1,4 @@
-package seokwoo.programmerLv1;
+package seokwoo.programmer.programmerLv1;
 
 public class Main {
 	public static void main(String[] args) {
