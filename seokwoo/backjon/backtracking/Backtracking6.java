@@ -6,10 +6,10 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
-// https://www.acmicpc.net/problem/15654
-// N과 M 5
+// https://www.acmicpc.net/problem/15655
+// N과 M 6
 
-public class Backtracking5 {
+public class Backtracking6 {
 	private static int[] array;
 	private static int N;
 	private static int M;
@@ -45,10 +45,13 @@ public class Backtracking5 {
 		
 		for(int i = 0; i<N; i++) {
 			if(!visited[i]) {
-				array[k] = numArray[i];
-				visited[i] = true;
-				backtracking(k+1);
-				visited[i] = false;
+				if(k == 0 || array[k-1] < numArray[i]) {
+					array[k] = numArray[i];
+					visited[i] = true;
+					backtracking(k+1);
+					visited[i] = false;
+				}
+
 			}
 		}
 		
