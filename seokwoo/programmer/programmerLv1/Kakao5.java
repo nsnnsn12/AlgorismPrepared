@@ -1,6 +1,6 @@
-package seokwoo.programmerLv1;
+package seokwoo.programmer.programmerLv1;
 
-// Å°Æäµå ´©¸£±â(Lv1)
+// Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Lv1)
 // https://programmers.co.kr/learn/courses/30/lessons/67256
 
 /*
@@ -16,16 +16,16 @@ public class Kakao5 {
 		String numberLocation = null;
 		String currentLocation = null;
 		for (int number : numbers) {
-			if (number == 1 || number == 4 || number == 7) { // ¹«Á¶°Ç ¿Þ¼Õ(¿ÞÂÊ¹øÈ£)
+			if (number == 1 || number == 4 || number == 7) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½(ï¿½ï¿½ï¿½Ê¹ï¿½È£)
 				answer += "L";
-				leftLocation = getLocation(number);			//¿Þ¼Õ ÇöÀç À§Ä¡
-			} else if (number == 3 || number == 6 || number == 9) { // ¹«Á¶°Ç ¿À¸¥¼Õ(¿À¸¥ÂÊ¹øÈ£)
+				leftLocation = getLocation(number);			//ï¿½Þ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+			} else if (number == 3 || number == 6 || number == 9) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½È£)
 				answer += "R";
-				rightLocation = getLocation(number);		//¿À¸¥¼Õ ÇöÀç À§Ä¡
-			} else { // Áß°£¹øÈ£ ÀÏ °æ¿ì
-				numberLocation = getLocation(number); 		// µé¾î¿Â ¹øÈ£ À§Ä¡
-				currentLocation = getHand(leftLocation, rightLocation, numberLocation, hand);	// ÇöÀç ¿Þ¼ÕÀ§Ä¡, ¿À¸¥¼ÕÀ§Ä¡, ¹øÈ£ À§Ä¡¸¦ º¸³»¼­ ¾î´À¼ÕÀÌ ´õ °¡±î¿îÁö return
-				if (currentLocation.equals("right")) { // ¿À¸¥¼ÕÀâÀÌÀÌ°Å³ª ¿À¸¥¼ÕÀÌ ´õ °¡±î¿î °æ¿ì
+				rightLocation = getLocation(number);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+			} else { // ï¿½ß°ï¿½ï¿½ï¿½È£ ï¿½ï¿½ ï¿½ï¿½ï¿½
+				numberLocation = getLocation(number); 		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½Ä¡
+				currentLocation = getHand(leftLocation, rightLocation, numberLocation, hand);	// ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡, ï¿½ï¿½È£ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ return
+				if (currentLocation.equals("right")) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					rightLocation = numberLocation;
 					answer += "R";
 				} else {
@@ -39,7 +39,7 @@ public class Kakao5 {
 		return answer;
 	}
 
-	public String getLocation(int number) {				// ¹øÈ£ÀÇ À§Ä¡ return
+	public String getLocation(int number) {				// ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ return
 		String xy = null;
 		switch (number) {
 		case 1:
@@ -76,7 +76,7 @@ public class Kakao5 {
 		return xy;
 	}
 
-	public String getHand(String leftLocation, String rightLocation, String numberLocation, String hand) {		// ¾î´À¼ÕÀÌ ´õ °¡±î¿îÁö return
+	public String getHand(String leftLocation, String rightLocation, String numberLocation, String hand) {		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ return
 		int leftDistance = Math.abs(leftLocation.charAt(0) - numberLocation.charAt(0))
 				+ Math.abs(leftLocation.charAt(1) - numberLocation.charAt(1));
 		int rightDistance = Math.abs(rightLocation.charAt(0) - numberLocation.charAt(0))

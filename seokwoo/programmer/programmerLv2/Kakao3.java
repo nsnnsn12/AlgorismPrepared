@@ -1,18 +1,18 @@
-package seokwoo.programmerLv2;
+package seokwoo.programmer.programmerLv2;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 // https://programmers.co.kr/learn/courses/30/lessons/17686
-// [3Â÷] ÆÄÀÏ¸í Á¤·Ä
+// [3ï¿½ï¿½] ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 /*
- * 	ÀÔ·Â: ["img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"]
- *  Ãâ·Â: ["img1.png", "IMG01.GIF", "img02.png", "img2.JPG", "img10.png", "img12.png"]
+ * 	ï¿½Ô·ï¿½: ["img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"]
+ *  ï¿½ï¿½ï¿½: ["img1.png", "IMG01.GIF", "img02.png", "img2.JPG", "img10.png", "img12.png"]
  *
- *	ÀÔ·Â: ["F-5 Freedom Fighter", "B-50 Superfortress", "A-10 Thunderbolt II", "F-14 Tomcat"]
- *	Ãâ·Â: ["A-10 Thunderbolt II", "B-50 Superfortress", "F-5 Freedom Fighter", "F-14 Tomcat"]
+ *	ï¿½Ô·ï¿½: ["F-5 Freedom Fighter", "B-50 Superfortress", "A-10 Thunderbolt II", "F-14 Tomcat"]
+ *	ï¿½ï¿½ï¿½: ["A-10 Thunderbolt II", "B-50 Superfortress", "F-5 Freedom Fighter", "F-14 Tomcat"]
  */
 
 
@@ -74,7 +74,7 @@ public class Kakao3 {
         }
         
         
-        fileArr.sort(new Comparator<File>() {	//model class type Á¤·ÄÀ» À§ÇÑ comparator Àü´Þ
+        fileArr.sort(new Comparator<File>() {	//model class type ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ comparator ï¿½ï¿½ï¿½ï¿½
 			@Override
 			public int compare(File o1, File o2) {
 				int compare = o1.head.compareTo(o2.head);

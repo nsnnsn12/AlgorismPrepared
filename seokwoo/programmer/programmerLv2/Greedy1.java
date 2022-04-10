@@ -1,7 +1,7 @@
-package seokwoo.programmerLv2;
+package seokwoo.programmer.programmerLv2;
 
 // https://programmers.co.kr/learn/courses/30/lessons/42883
-// Å« ¼ö ¸¸µé±â   
+// Å« ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½   
 
 public class Greedy1 {
 	public String solution(String number, int k) {
