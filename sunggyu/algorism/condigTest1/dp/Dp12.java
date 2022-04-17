@@ -10,30 +10,22 @@ public class Dp12{
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(bf.readLine());
-
-        int[] memo;
-        if(n > 3){
-            memo = new int[n+1];
-        }else{
-            memo = new int[4];
+        int[] list = new int[n];
+        String[] split = bf.readLine().split(" ");
+        for(int i = 0; i < n; i++){
+            list[i] = Integer.parseInt(split[i]);
         }
-        memo[0] = 0;
-        memo[1] = 1;
-        memo[2] = 2;
-        for(int i = 3; i < memo.length; i++){
-            int sqrt = (int)Math.sqrt(i);
-            memo[i] = 1;
-            if(i != sqrt * sqrt){
-                int end = i / 2;
-                int min = 100000;
-                for(int j = 1; j <= end; j++){
-                    int temp = memo[j] + memo[i-j];
-                    min = Math.min(min, temp);
-                }
-                memo[i] = min;
+        int[] memo = new int[n];
+        memo[0] = list[0];
+        for(int i = 1; i < n; i++){
+            int sum = memo[i-1] + list[i];
+            memo[i] = list[i];
+            if(list[i] < sum){
+                memo[i] = sum;
             }
         }
-        System.out.println(memo[n]);
+        int result = Arrays.stream(memo).max().getAsInt();
+        System.out.println(result);
 
         bw.flush();
         bw.close();
