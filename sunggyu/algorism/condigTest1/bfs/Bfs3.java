@@ -5,81 +5,56 @@ import java.util.*;
 //이모티콘
 /*
     복사하기, 붙여넣기, 삭제
-    화면에 있는 이모티콘을 어떻게 나타낼 것인가?
+    각 클립보드의 대한 모든 붙여넣거나 삭제하는 경우를 계산한다.
+    n의 최댓값은 1000개이므로 최대 경우의 수는 백만개
 
-    붙여넣기와 삭제는 이모티콘의 개수가 바뀐다.
-
-    복사하기는 결국 붙여넣기 위해서 하는 것이기 때문에 두 작업을 같이 하면 붙여넣기와 한세트로 움직인다고 생각하면
-    2초가 걸림
-
-    2초가 걸린다는 것은 bfs로 최단거리를 보장하지 못 한다는 뜻
-
-    부모에 대해서만 다시 방문하지 않게끔 처리하고 다 재방문
-    
-    핵심
-    bfs나 dfs는 무조건 방문해서 조건을 걸어야 함.
 */
 public class Bfs3{
-    static int[] seconds = new int[1001];
+    static int[] seconds;
+    static boolean[] visited;
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(bf.readLine());
-        Arrays.fill(seconds, Integer.MAX_VALUE);
-        bfs();
-        System.out.println(seconds[n]);
+        n++;
+        seconds = new int[n];
+        for(int i = 1; i < n; i++){
+            visited = new boolean[n];
+            bfs(i);
+        }
+        System.out.println(seconds[n-1]);
         bw.flush();
         bw.close();
     }
 
-    public static void bfs(){
-        int[] info = {1, 0, 0};
+    public static void bfs(int clipBoardCount){
         Queue<int[]> queue = new LinkedList<>();
+        int[] info = {clipBoardCount, seconds[clipBoardCount]+1};
+
         queue.add(info);
         while(!queue.isEmpty()){
             int[] nowInfo = queue.poll();
-            int diplay = nowInfo[0];
-            int clip = nowInfo[1];
-            int second = nowInfo[2];
-            
-            if(seconds[diplay] > second){
-                seconds[diplay] = second;
+            int count = nowInfo[0];
+            int second = nowInfo[1];
+            if(!canVisit(count)) continue;
+            if(visited[count]) continue;
+            visited[count] = true;
+            if(seconds[count] == 0){
+                seconds[count] = second;
+            }else{
+                seconds[count] = Math.min(seconds[count], second);
             }
 
-            int[][] newSecondInfos = new int[3][3];
-            //삭제
-            if(diplay != 0){
-                int[] nextInfo = {diplay - 1, clip, second+1};
-                newSecondInfos[0] = nextInfo;
-            }
-
-            //복붙
-            if(diplay != 0){
-                int[] nextInfo = {diplay + diplay, diplay, second+2};
-                newSecondInfos[1] = nextInfo;
-            }
-
-            //붙여넣기
-            if(clip != 0){
-                int[] nextInfo = {diplay + clip, clip, second+1};
-                newSecondInfos[2] = nextInfo;
-            }
-
-            for(int[] nextSecondInfo : newSecondInfos){
-                int newDisplay = nextSecondInfo[0];
-                int newSecond = nextSecondInfo[2];
-                if(canVisit(newDisplay) && seconds[newDisplay] > newSecond){
-                    queue.add(nextSecondInfo);
-                }
-
-            }
+            int[] removeInfo = {count-1, second+1};
+            int[] pasteInfo = {count + clipBoardCount, second + 1};
+            queue.add(removeInfo);
+            queue.add(pasteInfo);
         }
     }
 
-    public static boolean canVisit(int n){
-        if(n < 0 || n >= 1001) return false;
-
+    public static boolean canVisit(int i){
+        int n = visited.length;
+        if(i < 0 || i >= n) return false;
         return true;
     }
-
 }
