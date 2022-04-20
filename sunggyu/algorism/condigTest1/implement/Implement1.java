@@ -45,10 +45,10 @@ public class Implement1{
                     map = four(map);
                     break;
                 case 5:
-                    
+                    map = five(map);
                     break;
                 case 6:
-                    
+                    map = six(map);
                     break;
             
                 default:
@@ -120,5 +120,81 @@ public class Implement1{
         }
 
         return temp;
+    }
+
+    public static int[][] five(int[][] map){
+        int n = map.length;
+        int m = map[0].length;
+        int[][] temp = new int[n][m];
+
+        int[][][] splitMap = splitMap(map);
+        for(int i = 0; i < 4; i++){
+            int nx = 0;
+            int ny = 0;
+            if(i == 0) ny = m /2;
+            if(i == 1){
+                nx = n/2; 
+                ny = m/2;
+            }
+            if(i == 2) nx = n /2;
+
+
+            for(int x = 0; x < splitMap[i].length; x++){
+                for(int y = 0; y < splitMap[i][x].length; y++){
+                    temp[nx+x][ny+y] = splitMap[i][x][y];
+                }
+            }
+        }
+        return temp;
+    }
+
+    public static int[][] six(int[][] map){
+        int n = map.length;
+        int m = map[0].length;
+        int[][] temp = new int[n][m];
+
+        int[][][] splitMap = splitMap(map);
+        for(int i = 0; i < 4; i++){
+            int nx = 0;
+            int ny = 0;
+            if(i == 2) ny = m /2;
+            if(i == 3){
+                nx = n/2; 
+                ny = m/2;
+            }
+            if(i == 0) nx = n /2;
+
+
+            for(int x = 0; x < splitMap[i].length; x++){
+                for(int y = 0; y < splitMap[i][x].length; y++){
+                    temp[nx+x][ny+y] = splitMap[i][x][y];
+                }
+            }
+        }
+        return temp;
+    }
+
+    public static int[][][] splitMap(int[][] map){
+        int n = map.length;
+        int m = map[0].length;
+        int[][][] splitmap = new int[4][n/2][m/2];
+        for(int i = 0; i < 4; i++){
+            int nx = 0;
+            int ny = 0;
+
+            if(i == 1) ny = m /2;
+            if(i == 3) nx = n /2;
+            if(i == 2){
+                nx = n/2; 
+                ny = m/2;
+            }
+            for(int x = 0; x < n/2; x++){
+                for(int y = 0; y < m/2; y++){
+                    splitmap[i][x][y] = map[nx+x][ny+y];
+                }
+            }
+        }
+
+        return splitmap;
     }
 }
