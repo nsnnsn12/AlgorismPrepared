@@ -6,6 +6,7 @@ import java.util.*;
 /*
 */
 public class Implement2{
+    //동남서북
     static int[][] directions = {{0,1},{1,0},{0,-1},{-1,0}};
     static int n;
     static int m;
@@ -27,79 +28,105 @@ public class Implement2{
             }
         }
 
-        rotate(map);
-        
+        rotate();
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
-                System.out.print(map[i][j] + " ");
+                bw.write(map[i][j] + " ");
             }
-            System.out.println();
+            bw.newLine();
         }
         bw.flush();
         bw.close();
     }
-    public static List<Integer> getList(int[] firstNM, int[] lastNM){
-        int nowX = firstNM[0];
-        int nowY = firstNM[1];
-        int startX = firstNM[0];
-        int startY = firstNM[1];
-        int endX = lastNM[0];
-        int endY = lastNM[1];
-        List<Integer> list = new ArrayList<>();
-        list.add(map[nowX][nowY]);
+    
+    public static void rotate(){
+        List<List<Integer>> sidesOfRectangle = getSidesOfRectangle();
+        Scope scope = new Scope(0, 0, n, m);
+        for(List<Integer> sides : sidesOfRectangle){
+            swap(scope, sides);
+            scope.next();
+        }
+    }
+
+    public static void swap(Scope scope, List<Integer> sides){
+        int nowX = scope.startX;
+        int nowY = scope.satrtY;
+        int nowIndex = r;
         for(int[] direct : directions){
             while(true){
                 int nx = nowX + direct[0];
                 int ny = nowY + direct[1];
-                if(nx < startX || nx >= endX || ny < startY || ny >= endY){
+                if(nx < scope.startX || nx >= scope.endX || ny < scope.satrtY || ny >= scope.endY){
                     break;
                 }
+                map[nowX][nowY] = sides.get(nowIndex % sides.size());
+                nowIndex++;
                 nowX = nx;
                 nowY = ny;
-                list.add(map[nowX][nowY]);
             }
         }
 
-        return list;
-
     }
-    public static void rotate(int[][] map){
-        int[] firstNM = {0,0};
-        int[] lastNM = {n, m};
-        
+
+    public static List<List<Integer>> getSidesOfRectangle(){
+        List<List<Integer>> sidesOfRectangle = new ArrayList<>();
+        Scope scope = new Scope(0, 0, n, m);
+
         while(true){
-            if(firstNM[0] >= lastNM[0] || firstNM[1] >= lastNM[1]) break;
-            List<Integer> list = getList(firstNM, lastNM);
-
-            
-
-            firstNM[0]++;
-            firstNM[1]++;
-            lastNM[0]--;
-            lastNM[1]--;
+            if(!scope.isValid()) break;
+            List<Integer> sides = getSide(scope);
+            scope.next();
+            sidesOfRectangle.add(sides);
         }
+
+        return sidesOfRectangle;
     }
 
-    public static void swap(int[] firstNM, int[] lastNM){
-        int nowX = firstNM[0];
-        int nowY = firstNM[1];
-        int startX = firstNM[0];
-        int startY = firstNM[1];
-        int endX = lastNM[0];
-        int endY = lastNM[1];
-        int temp = map[nowX][nowY];
+    public static List<Integer> getSide(Scope scope){
+        int nowX = scope.startX;
+        int nowY = scope.satrtY;
+        List<Integer> sides = new ArrayList<>();
+        //sides.add(map[nowX][nowY]);
         for(int[] direct : directions){
             while(true){
                 int nx = nowX + direct[0];
                 int ny = nowY + direct[1];
-                if(nx < startX || nx >= endX || ny < startY || ny >= endY){
+                if(nx < scope.startX || nx >= scope.endX || ny < scope.satrtY || ny >= scope.endY){
                     break;
                 }
-                map[nowX][nowY] = map[nx][ny];
+                sides.add(map[nowX][nowY]);
                 nowX = nx;
                 nowY = ny;
             }
         }
-        map[startX+1][startY] = temp;
+
+        return sides;
+
+    }
+
+    public static class Scope{
+        int startX;
+        int satrtY;
+        int endX;
+        int endY;
+
+        public Scope(int startX, int startY, int endX, int endY){
+            this.startX = startX;
+            this.satrtY = startY;
+            this.endX = endX;
+            this.endY = endY;
+        }
+
+        public boolean isValid(){
+            if(startX >= endX || satrtY >= endY) return false;
+            return true;
+        }
+
+        public void next(){
+            startX++;
+            satrtY++;
+            endX--;
+            endY--;
+        }
     }
 }
