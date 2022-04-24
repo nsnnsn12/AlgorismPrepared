@@ -56,16 +56,16 @@ public class Implement3{
         int nowY = scope.startY;
         int index = r;
         for(int[] direct : directions){
+            //이 부분 이해 잘하기
             while(true){
-                if(!scope.canVisit(nowX, nowY)){
-                    nowX -= direct[0];
-                    nowY -= direct[1];
-                    break;
-                }
+                int nx = nowX + direct[0];
+                int ny = nowY + direct[1];
+                if(!scope.canVisit(nx, ny)) break;
                 rectangle[nowX][nowY] = sides.get(index % sides.size());
                 index++;
-                nowX += direct[0];
-                nowY += direct[1];
+
+                nowX = nx;
+                nowY = ny;
             }
         }
     }
@@ -87,14 +87,13 @@ public class Implement3{
         int nowY = scope.startY;
         for(int[] direct : directions){
             while(true){
-                if(!scope.canVisit(nowX, nowY)){
-                    nowX -= direct[0];
-                    nowY -= direct[1];
-                    break;
-                }
+                int nx = nowX + direct[0];
+                int ny = nowY + direct[1];
+                if(!scope.canVisit(nx, ny)) break;
+
                 sides.add(rectangle[nowX][nowY]);
-                nowX += direct[0];
-                nowY += direct[1];
+                nowX = nx;
+                nowY = ny;
             }
         }
         return sides;
