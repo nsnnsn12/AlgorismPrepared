@@ -4,6 +4,12 @@ import java.util.*;
 //https://www.acmicpc.net/problem/15685
 //드래곤커브
 /*
+    좌표 평면 위에서 오른쪽으로 가는 선분을 시계 방향으로 꺾으면 위로가게 된다.
+    이와 같은 방법을 사용하면
+    오른쪽 -> 위쪽
+    위쪽 -> 왼쪽
+    아래쪽 -> 오른쪽
+    
 */
 public class Implement8{
     static int[][] map;
