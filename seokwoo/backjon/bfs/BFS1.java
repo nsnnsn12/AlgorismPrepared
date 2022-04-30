@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
-
+//https://www.acmicpc.net/problem/1697
+//숨바꼭질
+//최소값을 구하는 것이므로 bfs이용
 public class BFS1 {
 	static int[] matrix;
 	static int k;
