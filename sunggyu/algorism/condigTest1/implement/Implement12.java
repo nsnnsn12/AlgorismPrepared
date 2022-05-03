@@ -17,9 +17,9 @@ import java.util.*;
 public class Implement12{
     static int n;
     static int r;
-    static int squared = 2;
+    static int squared = 1;
     static int[][] map;
-    static int[][] kl;
+    static int[][] orders;
     //동남서북
     static int[][] directions = {{0,1},{1,0},{0,-1},{-1,0}};
     public static void main(String[] args) throws Exception {
@@ -28,7 +28,7 @@ public class Implement12{
         String[] nr = bf.readLine().split(" ");
         n = Integer.parseInt(nr[0]);
         r = Integer.parseInt(nr[1]);
-        for(int i = 0; i < n-1; i++){
+        for(int i = 0; i < n; i++){
             squared *= 2;
         }
         map = new int[squared][squared];
@@ -39,19 +39,19 @@ public class Implement12{
             }
         }
 
-        kl = new int[r][2];
+        orders = new int[r][2];
         for(int i = 0; i < r; i++){
             String[] split = bf.readLine().split(" ");
-            int k = Integer.parseInt(split[0]);
-            int l = Integer.parseInt(split[1]);
-            kl[i][0] = k;
-            kl[i][1] = l;
+            int calcType = Integer.parseInt(split[0]);
+            int scope = Integer.parseInt(split[1]);
+            orders[i][0] = calcType;
+            orders[i][1] = scope;
         }
 
         for(int i = 0; i < r; i++){
-            int k = kl[i][0];
-            int l = kl[i][1];
-            calc(k, l);
+            int calcType = orders[i][0];
+            int scope = orders[i][1];
+            calc(calcType, scope);
         }
 
         for(int i = 0 ; i < squared; i++){
@@ -65,41 +65,55 @@ public class Implement12{
         bw.close();
     }
 
-    public static void calc(int k, int l){
-        int size = getSize(l);
+    public static void calc(int calcType, int scope){
+        if(calcType == 1 || calcType == 2 || calcType == 3 || calcType == 4){
+            calcByColumn(calcType, scope);
+        }else{
+            calcByGroup(calcType, scope);
+        }
+    }
+
+    public static void calcByColumn(int calcType, int scope){
+        int size = getSize(scope);
 
         for(int i = 0; i < squared; i+= size){
             for(int j = 0; j < squared; j+=size){
-                calcByType(i, j, k, size);
+                switch (calcType) {
+                    case 1:
+                    //각 부분 배열의 상하반전
+                    reverseHeight(i, j, size);
+                    break;
+                    case 2:
+                    //각 부분 배열의 좌우반전
+                    reverseWidth(i, j, size);
+                    break;
+                    case 3:
+                    //각 부분 배열의 오른쪽으로 90도 회전
+                    boolean isRight = true;
+                    turn(i, j, size, isRight);
+                    break;
+                    case 4:
+                    //각 부분 배열의 왼쪽으로 90도 회전
+                    isRight = false;
+                    turn(i, j, size, isRight);
+                    break;
+                    default:
+                        break;
+                }
             }
         }
     }
 
-    public static void calcByType(int x, int y, int k, int size){
-        switch (k) {
-            case 1:
-            //각 부분 배열의 상하반전
-            reverseTopAndDown(x, y, size);
-            break;
-            case 2:
-            //각 부분 배열의 좌우반전
-            reverseLeftAndRight(x, y, size);
-            break;
-            case 3:
-            //각 부분 배열의 오른쪽으로 90도 회전
-            boolean isRight = true;
-            turn(x, y, size, isRight);
-            break;
-            case 4:
-            //각 부분 배열의 왼쪽으로 90도 회전
-            isRight = false;
-            turn(x, y, size, isRight);
-            break;
+    public static void calcByGroup(int calcType, int scope){
+        int size = getSize(scope);
+        switch (calcType) {
             case 5:
             //상하반전
+            reverseGroupHeight(size);
             break;
             case 6:
             //좌우반전
+            reverseGroupWidth(size);
             break;
             case 7:
             //오른쪽으로 90도 회전
@@ -112,22 +126,70 @@ public class Implement12{
         }
     }
 
-    public static void reverseTopAndDown(int x, int y, int size){
+    public static int getSize(int n){
+        int size = 1;
+        for(int i = 0; i < n; i++){
+            size *= 2;
+        }
+
+        return size;
+    }
+
+    public static void reverseHeight(int x, int y, int size){
+        int endRowIndex = x + size - 1;
         for(int i = 0; i < size / 2; i++){
             for(int j = 0; j < size; j++){
                 int temp = map[x+i][y+j];
-                int reverseIndex = x + size - 1 - i;
+                int reverseIndex = endRowIndex - i;
                 map[x+i][y+j] = map[reverseIndex][y+j];
                 map[reverseIndex][y+j] = temp;
             }
         }
     }
 
-    public static void reverseLeftAndRight(int x, int y, int size){
+    public static void reverseGroupHeight(int size){
+        int endRowIndex = squared;
+        for(int i = 0; i < squared / 2; i+= size){
+            endRowIndex -= size;
+            for(int x = 0; x < size; x++){
+                for(int y = 0; y < squared; y++){
+                    int temp = map[i+x][y];
+                    map[i+x][y] = map[endRowIndex+x][y];
+                    map[endRowIndex+x][y] = temp;
+                }
+            }
+        }
+    }
+
+    public static void reverseGroupWidth(int size){
+        int endColumnIndex = squared;
+        for(int i = 0; i < squared / 2; i+= size){
+            endColumnIndex -= size;
+            for(int x = 0; x < squared; x++){
+                for(int y = 0; y < size; y++){
+                    int temp = map[x][y+i];
+                    map[x][y+i] = map[x][endColumnIndex+y];
+                    map[x][endColumnIndex+y] = temp;
+                }
+            }
+        }
+    }
+
+    public static int[][] getTemp(int x, int[][] temp, int size){
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < squared; j++){
+                temp[x][j] = map[x+i][j];
+            }
+        }
+        return temp;
+    }
+
+    public static void reverseWidth(int x, int y, int size){
+        int endColumnIndex = y + size - 1;
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size / 2; j++){
                 int temp = map[x+i][y+j];
-                int reverseIndex = y + size - 1 - j;
+                int reverseIndex = endColumnIndex - j;
                 map[x+i][y+j] = map[x+i][reverseIndex];
                 map[x+i][reverseIndex] = temp;
             }
@@ -135,8 +197,8 @@ public class Implement12{
     }
 
     public static void turn(int x, int y, int size, boolean isRight){
-        int mx = x + size;
-        int my = y + size;
+        int mx = x + size - 1;
+        int my = y + size - 1;
         while(true){
             if(x >= mx || y >= my) break;
             rotate(x, y, mx, my, isRight);
@@ -149,24 +211,35 @@ public class Implement12{
 
     public static void rotate(int x, int y, int mx, int my, boolean isRight){
         List<Integer> list = getRotateList(x, y, mx, my);
+        /*
+        System.out.println("x:"+x+"y:"+y+"mx:"+mx+"my:"+my);
+        list.forEach(i -> System.out.print(i+" "));
+        System.out.println();
+        */
+
+        int size = list.size();
         int nowIndex = 0;
         int distance = mx - x;
+        //시계방향은 --
+        //반대방향은 ++
         if(isRight){
-            nowIndex = list.size() - distance;
+            nowIndex = size - distance;
         }else{
-            nowIndex = distance;
+            nowIndex = distance % size;
         }
 
-
+        //시작 값을 기준하는 것 잊지 않기
+        int startX = x;
+        int startY = y;
         for(int[] direct : directions){
             while(true){
                 int nx = x + direct[0];
                 int ny = y + direct[1];
-                if(!canVisit(nx, ny) || nx >= mx || ny >= my){
+                if(!canVisit(nx, ny) || nx > mx || ny > my || nx < startX || ny < startY){
                     break;
                 }
-                map[x][y] = nowIndex;
-                nowIndex = (nowIndex + 1) % list.size();
+                map[x][y] = list.get(nowIndex++);
+                nowIndex = nowIndex % size;
                 x = nx;
                 y = ny;
             }
@@ -174,12 +247,14 @@ public class Implement12{
     }
 
     public static List<Integer> getRotateList(int x, int y, int mx, int my){
+        int startX = x;
+        int startY = y;
         List<Integer> result = new ArrayList<>();
         for(int[] direct : directions){
             while(true){
                 int nx = x + direct[0];
                 int ny = y + direct[1];
-                if(!canVisit(nx, ny) || nx >= mx || ny >= my){
+                if(!canVisit(nx, ny) || nx > mx || ny > my || nx < startX || ny < startY){
                     break;
                 }
                 result.add(map[x][y]);
@@ -194,14 +269,5 @@ public class Implement12{
         if(x < 0 || x >= squared || y < 0 || y >= squared) return false;
 
         return true;
-    }
-
-    public static int getSize(int l){
-        int size = 1;
-        for(int i = 0; i < l; i++){
-            size *= 2;
-        }
-
-        return size;
     }
 }
