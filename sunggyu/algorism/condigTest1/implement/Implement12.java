@@ -75,7 +75,7 @@ public class Implement12{
 
     public static void calcByColumn(int calcType, int scope){
         int size = getSize(scope);
-
+        boolean isRight;
         for(int i = 0; i < squared; i+= size){
             for(int j = 0; j < squared; j+=size){
                 switch (calcType) {
@@ -89,8 +89,9 @@ public class Implement12{
                     break;
                     case 3:
                     //각 부분 배열의 오른쪽으로 90도 회전
-                    boolean isRight = true;
-                    turn(i, j, size, isRight);
+                    //isRight = true;
+                    //turn(i, j, size, isRight);
+                    right(i, j, size);
                     break;
                     case 4:
                     //각 부분 배열의 왼쪽으로 90도 회전
@@ -195,7 +196,48 @@ public class Implement12{
             }
         }
     }
+    public static void right(int x, int y, int size){
+        while(size >= 2){
+            swap(x, y, size);
+            x++;
+            y++;
+            size -= 2;
+        }
+    }
+    /*
+        1. 각 변의 시작점을 설정한다.
+        2. 각 변의 시잠점을 swap한다.
+        3. 각 변의 시작점을 이동한다.
+        4. size - 1번 만큼 실행한다.
+    */
+    public static void swap(int x, int y, int size){
+        int maxIndex = size - 1;
+        //1. 각 변의 시작점을 설정 한다.
+        int[][] sides = {{x,y},{x,y+maxIndex},{x + maxIndex, y + maxIndex}, {x + maxIndex, y}};
 
+        //4. size - 1번 만큼 실행한다.
+        for(int i = 0; i < maxIndex; i++){
+            int temp = map[sides[0][0]][sides[0][1]];
+            //2. 각 변의 시잠점을 swap한다.
+            for(int j = 0; j < 4; j++){
+                int nextIndex = (j+1) % 4;
+                int nextX = sides[nextIndex][0];
+                int nextY = sides[nextIndex][1];
+                int nextTemp = map[nextX][nextY];
+                map[nextX][nextY] = temp;
+
+                temp = nextTemp;
+            }
+
+            //3. 각 변의 시작점을 이동한다.
+            for(int j = 0; j < 4; j++){
+                int nx = sides[j][0] + directions[j][0];
+                int ny = sides[j][1] + directions[j][1];
+                sides[j][0] = nx;
+                sides[j][1] = ny;
+            }
+        }
+    }
     public static void turn(int x, int y, int size, boolean isRight){
         int mx = x + size - 1;
         int my = y + size - 1;
