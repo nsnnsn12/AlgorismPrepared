@@ -1,6 +1,5 @@
 package sunggyu.algorism.condigTest1.implement;
 import java.io.*;
-import java.time.format.SignStyle;
 import java.util.*;
 //https://www.acmicpc.net/problem/20327
 //배열 돌리기 6
@@ -89,9 +88,8 @@ public class Implement12{
                     break;
                     case 3:
                     //각 부분 배열의 오른쪽으로 90도 회전
-                    //isRight = true;
-                    //turn(i, j, size, isRight);
-                    right(i, j, size);
+                    isRight = true;
+                    turn(i, j, size, isRight);
                     break;
                     case 4:
                     //각 부분 배열의 왼쪽으로 90도 회전
@@ -118,6 +116,8 @@ public class Implement12{
             break;
             case 7:
             //오른쪽으로 90도 회전
+            //System.out.println(String.format("size : %s, length: %s", size, squared));
+            right(size, squared);
             break;
             case 8:
             //왼쪽으로 90도 회전
@@ -176,15 +176,6 @@ public class Implement12{
         }
     }
 
-    public static int[][] getTemp(int x, int[][] temp, int size){
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < squared; j++){
-                temp[x][j] = map[x+i][j];
-            }
-        }
-        return temp;
-    }
-
     public static void reverseWidth(int x, int y, int size){
         int endColumnIndex = y + size - 1;
         for(int i = 0; i < size; i++){
@@ -196,12 +187,15 @@ public class Implement12{
             }
         }
     }
-    public static void right(int x, int y, int size){
-        while(size >= 2){
-            swap(x, y, size);
-            x++;
-            y++;
-            size -= 2;
+    public static void right(int size, int sideLength){
+        int x = 0;
+        int y = 0;
+        while(sideLength > size){
+            //System.out.println(String.format("x : %d, y : %d, length: %d, size : %d", x, y, sideLength, size));
+            swap(x, y, size, sideLength);
+            x += size;
+            y += size;
+            sideLength -= size * 2;
         }
     }
     /*
@@ -210,33 +204,51 @@ public class Implement12{
         3. 각 변의 시작점을 이동한다.
         4. size - 1번 만큼 실행한다.
     */
-    public static void swap(int x, int y, int size){
-        int maxIndex = size - 1;
+    public static void swap(int x, int y, int size, int sideLength){
+        int count = (sideLength / size) - 1;
+        int distance = sideLength - size;
         //1. 각 변의 시작점을 설정 한다.
-        int[][] sides = {{x,y},{x,y+maxIndex},{x + maxIndex, y + maxIndex}, {x + maxIndex, y}};
-
+        int[][] sides = {{x,y},{x,y+distance},{x + distance, y + distance}, {x + distance, y}};
+        int[][] temp = new int[size][size];
+        int[][] nextTemp = new int[size][size];
         //4. size - 1번 만큼 실행한다.
-        for(int i = 0; i < maxIndex; i++){
-            int temp = map[sides[0][0]][sides[0][1]];
+        for(int i = 0; i < count; i++){
+            temp = getTemp(temp, sides[0][0], sides[0][1], size);
             //2. 각 변의 시잠점을 swap한다.
             for(int j = 0; j < 4; j++){
                 int nextIndex = (j+1) % 4;
                 int nextX = sides[nextIndex][0];
                 int nextY = sides[nextIndex][1];
-                int nextTemp = map[nextX][nextY];
-                map[nextX][nextY] = temp;
+                nextTemp = getTemp(nextTemp, nextX, nextY, size);
+                swapTemp(temp, nextX, nextY, size);
 
                 temp = nextTemp;
             }
 
             //3. 각 변의 시작점을 이동한다.
             for(int j = 0; j < 4; j++){
-                int nx = sides[j][0] + directions[j][0];
-                int ny = sides[j][1] + directions[j][1];
+                int nx = sides[j][0] + (directions[j][0] * size);
+                int ny = sides[j][1] + (directions[j][1] * size);
                 sides[j][0] = nx;
                 sides[j][1] = ny;
             }
         }
+    }
+    public static void swapTemp(int[][] temp, int x, int y, int size){
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                map[x+i][y+j] = temp[i][j];
+            }
+        }
+    }
+    public static int[][] getTemp(int[][] temp, int x, int y, int size){
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                temp[i][j] = map[x+i][y+j];
+            }
+        }
+
+        return temp;
     }
     public static void turn(int x, int y, int size, boolean isRight){
         int mx = x + size - 1;
