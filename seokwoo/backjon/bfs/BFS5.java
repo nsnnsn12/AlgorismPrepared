@@ -56,7 +56,7 @@ public class BFS5 {
 				}else if(i == 1) {//화면에 붙여넣기
 					int currentWindow = beforeWindow + beforeClipboard;
 					int currentClipboard = beforeClipboard;
-					if(beforeClipboard != 0 && currentWindow < max) {//클립보드에 이모티콘이 있는경우(클립보드에 이모티콘 없으면 붙여넣기 불가능)
+					if(beforeClipboard != 0 && currentWindow < max) {//클립보드에 이모티콘이 있는경우(클립보드에 이모티콘 없으면 붙여넣기 불가능) + 화면 이모티콘 개수 최대 2000개
 						if(isGo(beforeWindow, beforeClipboard, currentWindow, currentClipboard)) {
 							queue.offer(new int[] {currentWindow, currentClipboard});
 						}
