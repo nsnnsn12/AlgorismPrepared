@@ -121,6 +121,7 @@ public class Implement12{
             break;
             case 8:
             //왼쪽으로 90도 회전
+            left(size, squared);
             break;
             default:
                 break;
@@ -198,6 +199,50 @@ public class Implement12{
             sideLength -= size * 2;
         }
     }
+
+    public static void left(int size, int sideLength){
+        int x = 0;
+        int y = 0;
+        while(sideLength > size){
+            //System.out.println(String.format("x : %d, y : %d, length: %d, size : %d", x, y, sideLength, size));
+            leftSwap(x, y, size, sideLength);
+            x += size;
+            y += size;
+            sideLength -= size * 2;
+        }
+    }
+
+    public static void leftSwap(int x, int y, int size, int sideLength){
+        int count = (sideLength / size) - 1;
+        int distance = sideLength - size;
+        //1. 각 변의 시작점을 설정 한다.
+        int[][] sides = {{x,y},{x,y+distance},{x + distance, y + distance}, {x + distance, y}};
+        int[][] temp = new int[size][size];
+        int[][] nextTemp = new int[size][size];
+        //4. size - 1번 만큼 실행한다.
+        for(int i = 0; i < count; i++){
+            temp = getTemp(temp, sides[0][0], sides[0][1], size);
+            //2. 각 변의 시잠점을 swap한다.
+            for(int j = 3; j >= 0; j--){
+                int nextIndex = j;
+                int nextX = sides[nextIndex][0];
+                int nextY = sides[nextIndex][1];
+                nextTemp = getTemp(nextTemp, nextX, nextY, size);
+                swapTemp(temp, nextX, nextY, size);
+
+                temp = copyTemp(temp, nextTemp, size);
+            }
+
+            //3. 각 변의 시작점을 이동한다.
+            for(int j = 3; j >= 0; j--){
+                int nx = sides[j][0] + (directions[j][0] * size);
+                int ny = sides[j][1] + (directions[j][1] * size);
+                sides[j][0] = nx;
+                sides[j][1] = ny;
+            }
+        }
+    }
+
     /*
         1. 각 변의 시작점을 설정한다.
         2. 각 변의 시잠점을 swap한다.
@@ -222,7 +267,7 @@ public class Implement12{
                 nextTemp = getTemp(nextTemp, nextX, nextY, size);
                 swapTemp(temp, nextX, nextY, size);
 
-                temp = nextTemp;
+                temp = copyTemp(temp, nextTemp, size);
             }
 
             //3. 각 변의 시작점을 이동한다.
@@ -234,6 +279,17 @@ public class Implement12{
             }
         }
     }
+
+    public static int[][] copyTemp(int[][] temp, int[][] paste, int size){
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                temp[i][j] = paste[i][j];
+            }
+        }
+
+        return temp;
+    }
+
     public static void swapTemp(int[][] temp, int x, int y, int size){
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
