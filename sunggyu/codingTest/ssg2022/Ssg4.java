@@ -9,50 +9,69 @@ class Ssg4 {
         String[] answer = {};
         for(int i = 0; i < macaron.length; i++){
             drop(macaron[i]);
+            //printMap(i+1);
         }
         return answer;
     }
+    
+    public void printMap(int index){
+        System.out.println(index+"번 드롭");
+        for(int i = 0; i < 6; i++){
+            for(int j  =0; j < 6; j++){
+                System.out.print(map[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
 
     public void drop(int[] macaron){
-        int x = macaron[0];
-        int y = searchPosition(x);
+        int y = macaron[0] - 1;
+        int x = searchPosition(y);
         int color = macaron[1];
         map[x][y] = color;
-        while(canPop()){
+        while(isPoped()){
             sort();
+            printMap(1);
         }
     }
 
     public void sort(){
-        
+        int[] list = new int[6];
+        for(int y = 0; y < 6; y++){
+            int count = 0;
+            for(int x = 0; x < 6; x++){
+                if(map[x][y] != 0) list[count++] = map[x][y];
+            }
+            for(int x = 0; x < count; x++){
+                map[x][y] = list[x];
+            }
+        }
     }
 
     public int searchPosition(int position){
         for(int i = 0; i < 6; i++){
-            if(map[position][i] == 0){
+            if(map[i][position] == 0){
                 return i;
             }
         }
         return 0;
     }
 
-    public boolean canPop(){
-        int count = 0;
+    public boolean isPoped(){
+        boolean result = false;
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 6; j++){
                 if(map[i][j] != 0){
-                    count += pop(i, j, map[i][j]);
+                    if(getPopCount(i, j, map[i][j]) >= 3) result = true;
                 }
             }
         }
-        if(count > 0) return true;
-        return false;
+        return result;
     }
 
-    public int pop(int i, int j, int color){
-        int popCount = 0;
-        boolean[][] visited = new boolean[6][6];
+    public int getPopCount(int i, int j, int color){
         int count = 0;
+        boolean[][] visited = new boolean[6][6];
         Queue<int[]> queue = new LinkedList<>();
         int[] xy = {i,j};
         queue.add(xy);
@@ -80,16 +99,19 @@ class Ssg4 {
         }
 
         if(count >= 3){
-            popCount++;
-            for(int x = 0; x < 6; x++){
-                for(int y = 0; y < 6; y++){
-                    if(visited[x][y]){
-                        map[x][y] = 0;
-                    }
+            pop(visited);
+        }
+        return count;
+    }
+
+    public void pop(boolean[][] visited){
+        for(int x = 0; x < 6; x++){
+            for(int y = 0; y < 6; y++){
+                if(visited[x][y]){
+                    map[x][y] = 0;
                 }
             }
         }
-        return popCount;
     }
 
     public boolean canVisit(int x, int y){
