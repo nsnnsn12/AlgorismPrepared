@@ -6,16 +6,26 @@ class Ssg4 {
     int[][] direction = {{1,0},{0,1},{-1,0},{0,-1}};
     int[][] map = new int[6][6];
     public String[] solution(int[][] macaron) {
-        String[] answer = {};
+        String[] answer = new String[6];
         for(int i = 0; i < macaron.length; i++){
             drop(macaron[i]);
             //printMap(i+1);
         }
+        for(int i = 5; i >= 0; i--){
+            StringBuilder sb = new StringBuilder();
+            for(int j = 0; j < 6; j++){
+                sb.append(map[i][j]);
+            }
+            answer[5-i] = sb.toString();
+        }
+        for(String str : answer){
+            System.out.println(str);
+        }
+        //printMap();
         return answer;
     }
     
-    public void printMap(int index){
-        System.out.println(index+"번 드롭");
+    public void printMap(){
         for(int i = 0; i < 6; i++){
             for(int j  =0; j < 6; j++){
                 System.out.print(map[i][j]+" ");
@@ -31,18 +41,19 @@ class Ssg4 {
         map[x][y] = color;
         while(isPoped()){
             sort();
-            printMap(1);
+            //printMap();
         }
     }
 
     public void sort(){
         int[] list = new int[6];
         for(int y = 0; y < 6; y++){
+            Arrays.fill(list, 0);
             int count = 0;
             for(int x = 0; x < 6; x++){
                 if(map[x][y] != 0) list[count++] = map[x][y];
             }
-            for(int x = 0; x < count; x++){
+            for(int x = 0; x < 6; x++){
                 map[x][y] = list[x];
             }
         }
