@@ -6,8 +6,12 @@ import java.util.*;
 /*
     3잔 연속으로 마실 수 없다.
 
-    각 인덱스는 n-1을 방문할 때, n-2부터 방문할 때의 정보가 있어야 한다.
-    내가 제대로 이해하지 못 하기 때문에 예외가 생긴다.
+    인접한 index의 최댓값 = memo[n-1][인접하지 않은 index]
+    인접하지 않은 index의 최댓값 = max(memo[n-2 .... 0][인접한 Index], memo[n-2 .... 0][인접하지 않은 Index]);
+    
+    인접하지 않은 index의 최댓값을 방문하는 경우의 수
+    n의 최대 갯수는 10000
+    (10000 + 1) * (10000/2) = 50,005,000 = 대략 5천만으로 탐색 가능
 */
 public class Dp19{
     public static final int oneBlock = 0;
@@ -31,7 +35,12 @@ public class Dp19{
 
             //인접하지 않은 경우
             if(i - 2 >= 0){
-                memo[i][oneBlock] += memo[i-2][twoBlock];
+                int maxCapacity = 0;
+                for(int j = 0; j <= i - 2; j++){
+                    maxCapacity = Math.max(maxCapacity, memo[j][oneBlock]);
+                    maxCapacity = Math.max(maxCapacity, memo[j][twoBlock]);
+                }
+                memo[i][oneBlock] += maxCapacity;
             }
             
         }
