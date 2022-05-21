@@ -1,10 +1,10 @@
 package seokwoo.codingtest;
 
-import seokwoo.codingtest.eleven.Eleven1;
-import seokwoo.codingtest.ssg.Ssg1;
-import seokwoo.codingtest.ssg.Ssg2;
-import seokwoo.codingtest.ssg.Ssg3;
-import seokwoo.codingtest.ssg.Ssg4;
+import seokwoo.codingtest.eleven202205.Eleven1;
+import seokwoo.codingtest.ssg202205.Ssg1;
+import seokwoo.codingtest.ssg202205.Ssg2;
+import seokwoo.codingtest.ssg202205.Ssg3;
+import seokwoo.codingtest.ssg202205.Ssg4;
 import seokwoo.codingtest.summerCodingTest220508.SummerCoding1;
 import seokwoo.codingtest.summerCodingTest220508.SummerCoding2;
 
@@ -17,12 +17,12 @@ public class Main {
 		System.out.println(summerCoding1.solution(a));
 		*/
 		
-		/*
+		
 		SummerCoding2 summerCoding2 = new SummerCoding2();
 		String[] a = {"[403]James", "[404]Azad,Louis,Andy", "[101]Azad,Guard"};
 		int target = 403;
 		summerCoding2.solution(a, target);
-		*/
+		
 		
 		/*
 		Ssg1  ssg1 = new Ssg1();
@@ -64,10 +64,13 @@ public class Main {
 		}
 		*/
 		
+		/*
 		Eleven1 eleven1 = new Eleven1();
 		int a = 53000;
 		int b = 1578653000;
 		System.out.println(eleven1.solution(a,b));
+		*/
+		
 	}
 
 }

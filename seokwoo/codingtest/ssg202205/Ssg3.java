@@ -1,4 +1,4 @@
-package seokwoo.codingtest.ssg;
+package seokwoo.codingtest.ssg202205;
 
 import java.util.Arrays;
 

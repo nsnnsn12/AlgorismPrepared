@@ -1,4 +1,4 @@
-package seokwoo.codingtest.eleven;
+package seokwoo.codingtest.eleven202205;
 
 public class Eleven1 {
 
