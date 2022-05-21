@@ -15,7 +15,21 @@ public class Dp20{
         maxList[0][0] = Integer.parseInt(bf.readLine());
         for(int i = 1; i < n; i++){
             int[] list = getList(bf.readLine());
+            int length = list.length;
+            list[0] += maxList[i-1][0];
+            list[length-1] += maxList[i-1][length-2];
+            for(int j = 1; j < length-1; j++){
+                list[j] += Math.max(maxList[i-1][j-1], maxList[i-1][j]);
+            }
+            maxList[i] = list;
         }
+
+        int max = 0;
+        for(int i = 0; i < maxList[n-1].length; i++){
+            max = Math.max(max, maxList[n-1][i]);
+        }
+
+        System.out.println(max);
         bw.flush();
         bw.close();
     }
