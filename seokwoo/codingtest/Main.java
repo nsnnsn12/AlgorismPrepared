@@ -1,5 +1,6 @@
 package seokwoo.codingtest;
 
+import seokwoo.codingtest.eleven.Eleven1;
 import seokwoo.codingtest.ssg.Ssg1;
 import seokwoo.codingtest.ssg.Ssg2;
 import seokwoo.codingtest.ssg.Ssg3;
@@ -46,11 +47,13 @@ public class Main {
 		ssg2.solution(logs);
 		*/
 		
+		/*
 		Ssg3 ssg3 = new Ssg3();
 		int[][] masks = {{3651,365},{10,1}};
 		String[] dates = {"2025/01/01~2025/12/31"};
 		ssg3.solution(masks, dates);
-
+		*/
+		
 		/*
 		Ssg4 ssg4 = new Ssg4();
 		//int[][] macaron = {{1,1},{2,1},{1,2},{3,3},{6,4},{3,1},{3,3},{3,3},{3,4},{2,1}};
@@ -60,6 +63,11 @@ public class Main {
 			System.out.println(ssg4.solution(macaron)[i]);
 		}
 		*/
+		
+		Eleven1 eleven1 = new Eleven1();
+		int a = 53000;
+		int b = 1578653000;
+		System.out.println(eleven1.solution(a,b));
 	}
 
 }
