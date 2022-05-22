@@ -34,27 +34,15 @@ public class SummerCoding2 {
 			insertPersonArray(nameArray,roomNo);
 		}
 		Collections.sort(this.personArray);
-		//임시 출력////////////////////////////////////
-		for(int i = 0; i<this.personArray.size(); i++) {
-			System.out.println(this.personArray.get(i).name);
-			for(int j = 0; j<this.personArray.get(i).roomNoArray.size(); j++) {
-				System.out.print(this.personArray.get(i).roomNoArray.get(j) + " ");
-			}
-			System.out.println();
-		}
-		/////////////////////////////////////////////
+
 		answer = new String[this.personArray.size()];
-		
+		for(int i = 0; i<this.personArray.size(); i++) {
+			answer[i] = this.personArray.get(i).name;
+		//	System.out.println(answer[i]);
+		}
 		
 		
 		return answer;
-	}
-	
-
-
-	private boolean isAlreadyExistThisRoom() {
-		boolean flag= false;
-		return false;
 	}
 
 	private void insertPersonArray(String[] nameArray,String roomNo) {
@@ -115,11 +103,18 @@ public class SummerCoding2 {
 			}else if(this.roomNoArray.size() > o.roomNoArray.size()) {
 				temp =  1;
 			}else {	//방번호 같으면 인접한 방번호 비교해서 정렬
-				//for문돌려서 절대값 가장 낮은 방번호 찾아줘야함
-				if(1==1) {//절대값 끼리 비교
-					
-				}else if(1==1) {//절대값 끼리 비고
-					
+				int absRoomNo1 = 999;
+				int absRoomNo2 = 999;
+				for(int i = 0; i<this.roomNoArray.size(); i++) {
+					absRoomNo1 = Math.min(absRoomNo1,Math.abs(Integer.parseInt(this.roomNoArray.get(i)) - targetRoomNo));
+				}
+				for(int i = 0; i<o.roomNoArray.size(); i++) {
+					absRoomNo2 = Math.min(absRoomNo2,Math.abs(Integer.parseInt(o.roomNoArray.get(i)) - targetRoomNo));
+				}
+				if(absRoomNo1 < absRoomNo2) {//절대값 최고값끼리 비교
+					temp = -1;
+				}else if(absRoomNo1 > absRoomNo2) {//절대값 끼리 비고
+					temp = 1;
 				}else {	
 					temp = this.name.compareTo(o.name);	//인접한 방번호 같으면 이름순으로 정렬해라
 				}

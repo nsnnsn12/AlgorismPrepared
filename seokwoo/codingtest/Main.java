@@ -19,7 +19,7 @@ public class Main {
 		
 		
 		SummerCoding2 summerCoding2 = new SummerCoding2();
-		String[] a = {"[403]James", "[404]Azad,Louis,Andy", "[101]Azad,Guard"};
+		String[] a = {"[402]Sindy","[403]James", "[405]Azad,Louis,Andy,asd", "[101]Azad,Guard","[501]Sindy,Guard,Azad"};
 		int target = 403;
 		summerCoding2.solution(a, target);
 		
