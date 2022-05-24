@@ -134,6 +134,7 @@ public class Implement6 {
 			tempInfo[i] = currentInfo[i+1];
 		}
 		gearArray[gearInfo.gearNo -1] = tempInfo;
+		
 	}
 	
 
