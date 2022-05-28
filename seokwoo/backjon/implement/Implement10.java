@@ -2,7 +2,9 @@ package seokwoo.backjon.implement;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+
+//https://www.acmicpc.net/problem/16931
+//겉넓이 구하기
 
 public class Implement10 {
 	static int[][] matrix;
