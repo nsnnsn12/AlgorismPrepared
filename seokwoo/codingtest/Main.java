@@ -1,5 +1,9 @@
 package seokwoo.codingtest;
 
+import seokwoo.codingtest.Nhn202205.Nhn1;
+import seokwoo.codingtest.Nhn202205.Nhn2;
+import seokwoo.codingtest.Nhn202205.Nhn3;
+import seokwoo.codingtest.Nhn202205.Nhn4;
 import seokwoo.codingtest.eleven202205.Eleven1;
 import seokwoo.codingtest.ssg202205.Ssg1;
 import seokwoo.codingtest.ssg202205.Ssg2;
@@ -23,7 +27,7 @@ public class Main {
 		 * "[501]Sindy,Guard,Azad" }; int target = 403; summerCoding2.solution(a,
 		 * target);
 		 */
-		
+
 		/*
 		 * Ssg1 ssg1 = new Ssg1(); int[] v = {4,5,5}; int a = 2; int b = 1;
 		 * System.out.println(ssg1.solution(v,a,b));
@@ -60,9 +64,33 @@ public class Main {
 
 		/*
 		 * Eleven1 eleven1 = new Eleven1(); int a = 53000; int b = 1578653000;
-		 * System.out.println(eleven1.solution(a,b));
+		 * eleven1.solution(a,b);
 		 */
 
+		/*
+		 * Nhn1 nhn1 = new Nhn1(); int[][] cards1 = {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+		 * int[][] cards2 = {{5, 7, 9, 11, 13}, {11, 13, 15, 17, 19}};
+		 * nhn1.solution(cards1,cards2);
+		 */
+
+		/*
+		 * Nhn2 nhn2 = new Nhn2(); int[] balance = {30, 30, 30, 30}; int[][] transaction
+		 * = {{1, 2, 10}, {2, 3, 20}, {3, 4, 5}, {3, 4, 30}}; int[] abnormal = {2, 3};
+		 * nhn2.solution(balance, transaction, abnormal);
+		 */
+		
+		/*
+		 * Nhn3 nhn3 = new Nhn3(); String[] maze = {"AAAAA", "AABBB", "CAEFG", "AAEFF"};
+		 * String[] queries = {"1 1 1 5 AF", "1 1 4 5 AF", "2 1 4 5 FAE", "1 5 4 5 ABF",
+		 * "1 1 4 1 A"}; nhn3.solution(maze, queries);
+		 */
+		
+		Nhn4 nhn4 = new Nhn4();
+				
+		long[] players = {10, 11, 15, 14, 16, 18, 19, 20};
+		int power = 10;
+		int k =2;
+		nhn4.solution(players, power, k);
 	}
 
 }
