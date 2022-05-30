@@ -27,14 +27,14 @@ public class Dp25{
 
     public static void getResult(int n){
         n2List = new long[n];
-        n2List[0] = 1;
+        n2List[0] = 1L;
         for(int i = 1; i < n; i++){
-            if(i-2 < 0){
-                n2List[i] = 2;
-            }else{
-                n2List[i] = n2List[i-2];
-                n2List[i] += n2List[i-1];
+            if(i == 1){
+                n2List[i] = 2L;
+                continue;
             }
+            n2List[i] = n2List[i-2];
+            n2List[i] += n2List[i-1];
         }
         char[] list = new char[n/2];
         dfs(0, n/2, list);
@@ -43,7 +43,7 @@ public class Dp25{
 
     public static void dfs(int depth, int n, char[] list){
         if(depth == n){
-            //System.out.println(new String(list));
+            System.out.println(new String(list));
             test(list);
             return;
         }
@@ -69,5 +69,6 @@ public class Dp25{
         }
         sum *= n2List[count*2-1];
         result += sum-1;
+        System.out.println(sum-1);
     }
 }
