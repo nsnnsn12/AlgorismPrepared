@@ -7,7 +7,6 @@ import java.util.*;
     n이 홀수인 경우는 타일로 채울 수 없다.
     2 * n의 경우의 수를 먼저 구한다.
     2개인 경우는 3개이다.
-
 */
 public class Dp25{
     public static long[] n2List;
@@ -23,6 +22,30 @@ public class Dp25{
         System.out.println(result);
         bw.flush();
         bw.close();
+    }
+
+    public static void getResult2(int n){
+        n2List = new long[n];
+        n2List[0] = 1L;
+        for(int i = 1; i < n; i++){
+            if(i == 1){
+                n2List[i] = 2L;
+                continue;
+            }
+            n2List[i] = n2List[i-2];
+            n2List[i] += n2List[i-1];
+        }
+        long[] n3List = new long[n];
+        n3List[0] = 1;
+        n3List[1] = 3;
+        for(int i = 3; i < n; i+=2){
+            n3List[i] = n3List[i-2] * 3;
+            long value = n2List[i];
+            value -= n2List[i-2];
+        }
+        char[] list = new char[n/2];
+        dfs(0, n/2, list);
+        result++;
     }
 
     public static void getResult(int n){
