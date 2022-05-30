@@ -10,13 +10,23 @@ import java.util.*;
 
 */
 public class Dp25{
+    public static long[] n2List;
+    public static long result = 0L;
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(bf.readLine());
-        int result = 0;
-        long[] n2List = new long[n];
-        long[] n3List = new long[n];
+        if(n % 2 == 0){
+            getResult(n);
+        }
+
+        System.out.println(result);
+        bw.flush();
+        bw.close();
+    }
+
+    public static void getResult(int n){
+        n2List = new long[n];
         n2List[0] = 1;
         for(int i = 1; i < n; i++){
             if(i-2 < 0){
@@ -26,17 +36,38 @@ public class Dp25{
                 n2List[i] += n2List[i-1];
             }
         }
-        if(n > 1){
-            n3List[1] = 3;
-            for(int i = 3; i < n; i+= 2){
-                n3List[i] = n3List[i-2] * 3;
-                n3List[i] += n2List[i-3] * 2;
+        char[] list = new char[n/2];
+        dfs(0, n/2, list);
+        result++;
+    }
 
-            }
+    public static void dfs(int depth, int n, char[] list){
+        if(depth == n){
+            //System.out.println(new String(list));
+            test(list);
+            return;
         }
 
-        System.out.println(n3List[n-1]);
-        bw.flush();
-        bw.close();
+        for(int i = 0; i < 2; i++){
+            list[depth] = (char)(i+'0');
+            dfs(depth+1, n, list);
+        }
+    }
+
+    public static void test(char[] list){
+        long sum = 1L;
+        char first = list[0];
+        int count = 1;
+        for(int i = 1; i < list.length; i++){
+            if(list[i] == first){
+                count++;
+            }else{
+                first = list[i];
+                sum *= n2List[count*2-1];
+                count = 1;
+            }
+        }
+        sum *= n2List[count*2-1];
+        result += sum-1;
     }
 }
