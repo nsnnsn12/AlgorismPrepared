@@ -5,10 +5,15 @@ package seokwoo.programmer.programmerLv2;
  */
 public class Main {
 	public static void main(String[] args) {
-		Greedy2 greedy2= new Greedy2();
-		int[] people = {70, 50, 80, 50}; 
-		int limit = 100;
-		greedy2.solution(people, limit);
+//		Greedy2 greedy2= new Greedy2();
+//		int[] people = {70, 50, 80, 50}; 
+//		int limit = 100;
+//		greedy2.solution(people, limit);
+		
+		
+		Kakao5 k = new Kakao5();
+		String[] data = {"N~F=0","R~T>2"};
+		k.solution(2, data);
 
 	}
 
