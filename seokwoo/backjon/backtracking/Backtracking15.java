@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+//https://www.acmicpc.net/problem/1759
+//암호 만들기
 public class Backtracking15 {
 	static String[] array;
 	static boolean[] isVisit;
