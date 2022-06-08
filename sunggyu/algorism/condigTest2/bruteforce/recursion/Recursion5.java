@@ -2,13 +2,9 @@ package sunggyu.algorism.condigTest2.bruteforce.recursion;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-//https://www.acmicpc.net/problem/14888
-//연산자 끼워넣기
+//https://www.acmicpc.net/problem/15658
+//연산자 끼워넣기 (2)
 /*
-    N의 최대 갯수는 11개
-    연산자는 N - 1개이므로 최대 10개
-    10개 연산자의 대한 순열이므로 10팩토리얼이지만
-    연산자 종류는 4개이므로 중복되는 순열을 제거하면 완전 탐색 가능.
 */
 public class Recursion5{
     static BufferedReader bf;
