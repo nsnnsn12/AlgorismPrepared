@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
     1 + 3 = 4
     1 + 4 = 5
     3 + 2 = 5
+
+    1. 스도쿠의 조건을 만족시켜야 한다.
+    2. 도미노의 쌍이 중복되어서는 안 된다.
 */
 public class Recursion10{
     static BufferedReader bf;
@@ -23,6 +26,7 @@ public class Recursion10{
     static boolean[][] xVisited;
     static boolean[][] yVisited;
     static boolean[][] squareVisited;
+    static boolean[][] dominoVisited;
     static boolean flag;
     static int count = 1;
     static StringBuilder sb = new StringBuilder();
@@ -74,10 +78,11 @@ public class Recursion10{
         map[x][y] = value;
     }
 
-    public static void resolve() throws Exception{
+    public static void resolve(){
         xVisited = new boolean[9][9];
         yVisited = new boolean[9][9];
         squareVisited = new boolean[9][9];
+        dominoVisited = new boolean[9][9];
         flag = false;
         for(int i  = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
@@ -86,16 +91,17 @@ public class Recursion10{
                     squareVisited[squareNo][map[i][j]-1] = true;
                     xVisited[i][map[i][j]-1] = true;
                     yVisited[j][map[i][j]-1] = true;
+                    dominoVisited[i][j] = true;
+                    dominoVisited[j][i] = true;
                 }
             }
         }
-
-        ySelected(0);
+        selected(0, 0);
     }
-
-    public static void ySelected(int y) throws Exception{
+    public static void selected(int x, int y){
         if(flag) return;
-        if(y == 9){
+        if(x == 9){
+            //출력
             flag = true;
             sb.append("Puzzle "+count+"\n");
             count++;
@@ -107,9 +113,33 @@ public class Recursion10{
             }
             return;
         }
-        //세로를 채우는 여러가지 경우의 수가 존재한다.
-        xSeleted(0, y);
+
+        if(y == 9){
+            selected(x+1, 0);
+        }
+
+        int squareNo = getSquareNo(x, y);
+        if(map[x][y] == 0){
+            for(int i = 0; i < 9; i++){
+                if(!xVisited[x][i] && !yVisited[y][i] && !squareVisited[squareNo][i]){
+                    xVisited[x][i] = true;
+                    yVisited[y][i] = true;
+                    squareVisited[squareNo][i] = true;
+                    map[x][y] = i+1;
+
+                    selected(x, y+1);
+
+                    map[x][y] = 0;
+                    xVisited[x][i] = false;
+                    yVisited[y][i] = false;
+                    squareVisited[squareNo][i] = false;
+                }
+            }
+        }else{
+            selected(x, y+1);
+        }
     }
+
     public static int getSquareNo(int x, int y){
         int result = 0;
         if(3 <= x && x < 6){
@@ -130,31 +160,10 @@ public class Recursion10{
         return result;
     }
 
-    public static void xSeleted(int x, int y) throws Exception{
-        if(flag) return;
-        if(x == 9){
-            ySelected(y+1);
-            return;
+    public static boolean canVisit(int x, int y, int i, int squareNo){
+        if(!xVisited[x][i] && !yVisited[y][i] && !squareVisited[squareNo][i]){
+            return true;
         }
-        int squareNo = getSquareNo(x, y);
-        if(map[x][y] == 0){
-            for(int i = 0; i < 9; i++){
-                if(!xVisited[x][i] && !yVisited[y][i] && !squareVisited[squareNo][i]){
-                    xVisited[x][i] = true;
-                    yVisited[y][i] = true;
-                    squareVisited[squareNo][i] = true;
-                    map[x][y] = i+1;
-
-                    xSeleted(x+1, y);
-
-                    map[x][y] = 0;
-                    xVisited[x][i] = false;
-                    yVisited[y][i] = false;
-                    squareVisited[squareNo][i] = false;
-                }
-            }
-        }else{
-            xSeleted(x+1, y);
-        }
+        return false;
     }
 }
