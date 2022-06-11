@@ -1,5 +1,4 @@
 package seokwoo.backjon.bfs;
-
 import java.util.*;
 import java.io.*;
 
@@ -35,22 +34,25 @@ public class BFS8 {
 				matrix[i][j] = Integer.parseInt(def2[j]);
 			}
 		}
-		setWall(0);
+		setWall(0,0,0);
 		System.out.println(max);
 	}
 
-	private static void setWall(int depth) {// 같은곳 또 갈 필요없고, 오름차순이고
+	private static void setWall(int depth, int x, int y) {// 같은곳 또 갈 필요없고, 오름차순이고
 		if (depth == 3) {
 			max = Math.max(virusCount(), max);
 			return;
 		}
-		for (int i = 0; i < n; i++) {
+		for (int i = x; i < n; i++) {
 			for (int j = 0; j < m; j++) {
+                if(i==x && j<y){
+                    continue;
+                 }
 				if (!isVisitWall[i][j]) {
 					if (matrix[i][j] == 0) {
 						isVisitWall[i][j] = true;
 						matrix[i][j] = 1;
-						setWall(depth + 1);
+						setWall(depth + 1,i,j+1);
 						isVisitWall[i][j] = false;
 						matrix[i][j] = 0;
 					}
@@ -103,7 +105,7 @@ public class BFS8 {
 		}
 		return result;
 
-	}
+	} 
 
 	private static boolean isGo(int nx, int ny) {
 		if (0 <= nx && nx < n && 0 <= ny && ny < m) {
@@ -125,3 +127,4 @@ public class BFS8 {
 	}
 
 }
+
