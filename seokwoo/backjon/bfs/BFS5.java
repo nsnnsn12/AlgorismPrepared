@@ -6,83 +6,65 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-//https://www.acmicpc.net/problem/14226
-//이모티콘
-
-/*
- * 1. 클립보드에 저장
- * 2. 화면에 붙여넣기
- * 3. 화면 이모티콘 1개 삭제
- * 4. map[화면에 이모티콘 개수][클립보드 개수] = 시간
- * 5. countMap[화면에 이모티콘 개수][클립보드 개수] = 시간
- */
 public class BFS5 {
-	static int[][] map;
+//https://www.acmicpc.net/problem/1261
+//알고스팟
 	static boolean[][] isVisited;
-	static int max = 2000;
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	static char[][] matrix;
+	static int[][] countMatrix;
+	static int[] dx = {1,0,-1,0};
+	static int[] dy = {0,1,0,-1};
+	static int n;
+	static int m;
+	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		int s = Integer.parseInt(in.readLine());
-		map = new int[max][max];		// 현재 화면 이모티콘 개수 1000개 + 현재 클립보드 이모티콘 개수 1000개
-		isVisited = new boolean[max][max];
-		bfs(1,0);
-		int result = max;
-		for(int i = 0; i<map[s].length; i++) {
-			if(map[s][i] != 0) {
-				result = Math.min(result, map[s][i]);
-			}
+		String[] def = in.readLine().split(" ");
+		n = Integer.parseInt(def[0]);
+		m = Integer.parseInt(def[1]);
+		isVisited = new boolean[m][n];
+		matrix = new char[m][n];
+		countMatrix = new int[m][n];
+		for(int i = 0; i<m; i++) {
+			matrix[i] = in.readLine().toCharArray();
 		}
-		System.out.println(result);
+		
+		bfs(0,0);
+
+		System.out.println(countMatrix[m-1][n-1]);
 	}
-	private static void bfs(int window, int clipboard) {
+	private static void bfs(int x, int y) {
 		Queue<int[]> queue = new LinkedList<>();
-		queue.offer(new int[] {window, clipboard});
-		isVisited[window][clipboard] = true;
+		queue.offer(new int[] {x,y});
+		isVisited[x][y] = true;
+		
 		while(!queue.isEmpty()) {
-			int[] inf = queue.poll();
-			int beforeWindow = inf[0];
-			int beforeClipboard = inf[1];
+			int[] xy = queue.poll();
+			int startX = xy[0];
+			int startY = xy[1];
 			
-			for(int i = 0; i<3; i++) {
-				if(i == 0) {	//클립보드 저장
-					int currentWindow = beforeWindow;
-					int currentClipboard = beforeWindow;
-					if(currentWindow != 0) {	//화면에 이모티콘이 있는경우(화면에 이모티콘 없으면 복사못해서 그 경로는 끝남)
-						if(isGo(beforeWindow, beforeClipboard, currentWindow, currentClipboard)) {
-							queue.offer(new int[] {currentWindow, currentClipboard});
-						}
+			for(int i =0; i<dx.length; i++) {
+				int nx = startX + dx[i];
+				int ny = startY + dy[i];
 				
-					}
-				}else if(i == 1) {//화면에 붙여넣기
-					int currentWindow = beforeWindow + beforeClipboard;
-					int currentClipboard = beforeClipboard;
-					if(beforeClipboard != 0 && currentWindow < max) {//클립보드에 이모티콘이 있는경우(클립보드에 이모티콘 없으면 붙여넣기 불가능) + 화면 이모티콘 개수 최대 2000개
-						if(isGo(beforeWindow, beforeClipboard, currentWindow, currentClipboard)) {
-							queue.offer(new int[] {currentWindow, currentClipboard});
+				if(0<=nx&& nx<m && 0<=ny && ny<n) {
+					if(matrix[nx][ny] == '1') {//벽을 만난경우
+						if(!isVisited[nx][ny] || countMatrix[startX][startY] + 1 < countMatrix[nx][ny]) { //한번도 방문하지 않은경우  or 현재방문+1이 전 방문 값보다 작은 경우
+							countMatrix[nx][ny] = countMatrix[startX][startY] + 1;
+							isVisited[nx][ny] = true;
+							queue.offer(new int[] {nx,ny});
 						}
-					}
-				}else {//화면 이모티콘 1개 삭제
-					int currentWindow = beforeWindow - 1;
-					int currentClipboard = beforeClipboard;
-					if(beforeWindow != 0) { //화면에 이모티콘이 있는경우 (전 화면의 이모티콘이 0개인 경우 삭제 불가능)
-						if(isGo(beforeWindow, beforeClipboard, currentWindow, currentClipboard)) {
-							queue.offer(new int[] {currentWindow, currentClipboard});
+						
+					}else {//벽을 만나지 않은경우
+						if(!isVisited[nx][ny] || countMatrix[startX][startY] < countMatrix[nx][ny]) { //한번도 방문하지 않은경우 or 현재방문이 전 방문보다 값이 작은 경우 
+							countMatrix[nx][ny] =  countMatrix[startX][startY] ;
+							isVisited[nx][ny] = true;
+							queue.offer(new int[] {nx,ny});
 						}
 					}
 				}
 			}
 		}
-	}
-	
-	public static boolean isGo(int beforeWindow, int beforeClipboard, int currentWindow, int currentClipboard) {
-		//한번도 오지 않은 곳이거나 || 현재 시점의 시간이 과거 방문한 시간보다 적은 경우 경로 지속
-		if(!isVisited[currentWindow][currentClipboard] || map[beforeWindow][beforeClipboard] + 1 < map[currentWindow][currentClipboard]) {
-			map[currentWindow][currentClipboard] = map[beforeWindow][beforeClipboard] + 1;
-			isVisited[currentWindow][currentClipboard] = true;
-			return true;
-		}else {
-			return false;
-		}
+		
 	}
 
 }

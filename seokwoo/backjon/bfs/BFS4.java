@@ -7,62 +7,65 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BFS4 {
-//https://www.acmicpc.net/problem/1261
-//알고스팟
-	static boolean[][] isVisited;
-	static char[][] matrix;
-	static int[][] countMatrix;
-	static int[] dx = {1,0,-1,0};
-	static int[] dy = {0,1,0,-1};
+//https://www.acmicpc.net/problem/13549
+//숨바꼭질3
+/*
+ * 최초에 방문 유무를 map이 0인지 아닌지 판단했는데, 이렇게 되면 *2, *2로 두번 들어간 경우도 처음 방문한 경우로 인지하기 때문에 논리적으로 맞지않아 이 부분을 인지하기 까지 시간이 오래걸렸다.
+ * +1, -1, *2 각각의 경우의 수를 지정해주고, 처음방문이거나/ 현재 시간이 기존 시간보다 작은 경우 현재 시간을 map에 적용해 줌 
+ * 
+ * 정리
+ * 1. 각 경우의 수에 대한 값이 다를 경우, 기존 값과 새로운 값을 비교
+ * 2. 기존 값이 더 결과에 적합한 경우 새로운 값에 대한 경로를 종료 시킨다.
+ * 3. 새로운 값이 더 결과에 적합한 경우 기존값을 새로운 값으로 바꿔준 후 경로 계속 진행
+ */
+	static int[] map;
 	static int n;
-	static int m;
+	static int k;
+	static int max = 100000;
+	static boolean[] isVisited;
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String[] def = in.readLine().split(" ");
 		n = Integer.parseInt(def[0]);
-		m = Integer.parseInt(def[1]);
-		isVisited = new boolean[m][n];
-		matrix = new char[m][n];
-		countMatrix = new int[m][n];
-		for(int i = 0; i<m; i++) {
-			matrix[i] = in.readLine().toCharArray();
-		}
+		k = Integer.parseInt(def[1]);
+		map = new int[max+1];
+		isVisited = new boolean[max+1];
+		bfs(n);
+		System.out.println(map[k]);
 		
-		bfs(0,0);
 
-		System.out.println(countMatrix[m-1][n-1]);
 	}
-	private static void bfs(int x, int y) {
-		Queue<int[]> queue = new LinkedList<>();
-		queue.offer(new int[] {x,y});
-		isVisited[x][y] = true;
-		
+	private static void bfs(int start) {
+		Queue<Integer> queue = new LinkedList<>();
+		queue.offer(start);
 		while(!queue.isEmpty()) {
-			int[] xy = queue.poll();
-			int startX = xy[0];
-			int startY = xy[1];
+			int x = queue.poll();
+			isVisited[x] = true;
 			
-			for(int i =0; i<dx.length; i++) {
-				int nx = startX + dx[i];
-				int ny = startY + dy[i];
-				
-				if(0<=nx&& nx<m && 0<=ny && ny<n) {
-					if(matrix[nx][ny] == '1') {//벽을 만난경우
-						if(!isVisited[nx][ny] || countMatrix[startX][startY] + 1 < countMatrix[nx][ny]) { //한번도 방문하지 않은경우  or 현재방문+1이 전 방문 값보다 작은 경우
-							countMatrix[nx][ny] = countMatrix[startX][startY] + 1;
-							isVisited[nx][ny] = true;
-							queue.offer(new int[] {nx,ny});
-						}
-						
-					}else {//벽을 만나지 않은경우
-						if(!isVisited[nx][ny] || countMatrix[startX][startY] < countMatrix[nx][ny]) { //한번도 방문하지 않은경우 or 현재방문이 전 방문보다 값이 작은 경우 
-							countMatrix[nx][ny] =  countMatrix[startX][startY] ;
-							isVisited[nx][ny] = true;
-							queue.offer(new int[] {nx,ny});
-						}
-					}
+			if(0<= x+1 && x+1 <= max) {		// +1인 경우
+				if(!isVisited[x+1] || map[x] + 1 < map[x+1]) { //처음방문이거나 현재 시간이 기존 시간보다 작은 경우
+					map[x+1] = map[x] + 1;
+					queue.offer(x+1);
+					isVisited[x+1] = true;
 				}
 			}
+			if(0<= x-1 && x-1 <= max) { //-1경우
+				if(!isVisited[x-1] || map[x]+1 < map[x-1]) {
+					map[x-1] = map[x] + 1;
+					queue.offer(x-1);
+					isVisited[x-1] = true;
+				}
+			}
+			if(0<= x*2  && x*2 <= max) {	//*2경우
+				if(!isVisited[x*2] || map[x] < map[x*2]) {
+					map[x*2] = map[x];
+					queue.offer(x*2);
+					isVisited[x*2] = true;
+				}
+			}
+			
+			
 		}
 		
 	}
