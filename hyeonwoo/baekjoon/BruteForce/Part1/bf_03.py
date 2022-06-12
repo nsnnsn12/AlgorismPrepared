@@ -29,9 +29,10 @@ for i in range(n + 1):  # I를 i개 선택
     for j in range(n - i + 1):  # V를 j개 선택
         for k in range(n - i - j + 1):  # X를 k개 선택
             l = n - i - j - k  # L을 l개 선택
-            print(i, j, k, l)
             sum = (1 * i) + (5 * j) + (10 * k) + (50 * l)
             resultSet.add(sum)
 
-print(sorted(resultSet))
 print(len(resultSet))
+
+a, b, c = 1, 2, 3
+print([a, b, c])
