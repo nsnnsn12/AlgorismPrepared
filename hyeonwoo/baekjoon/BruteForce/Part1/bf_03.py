@@ -33,6 +33,3 @@ for i in range(n + 1):  # I를 i개 선택
             resultSet.add(sum)
 
 print(len(resultSet))
-
-a, b, c = 1, 2, 3
-print([a, b, c])
