@@ -5,6 +5,7 @@ import seokwoo.codingtest.Nhn202205.Nhn2;
 import seokwoo.codingtest.Nhn202205.Nhn3;
 import seokwoo.codingtest.Nhn202205.Nhn4;
 import seokwoo.codingtest.eleven202205.Eleven1;
+import seokwoo.codingtest.lotte202206.Lotte2;
 import seokwoo.codingtest.ssg202205.Ssg1;
 import seokwoo.codingtest.ssg202205.Ssg2;
 import seokwoo.codingtest.ssg202205.Ssg3;
@@ -85,12 +86,20 @@ public class Main {
 		 * "1 1 4 1 A"}; nhn3.solution(maze, queries);
 		 */
 		
+		/*
 		Nhn4 nhn4 = new Nhn4();
 				
 		long[] players = {10, 11, 15, 14, 16, 18, 19, 20};
 		int power = 10;
 		int k =2;
 		nhn4.solution(players, power, k);
+		*/
+		
+		Lotte2 lotte2 = new Lotte2();
+		int r = 3;
+		int c = 5;
+		lotte2.solution(r, c);
+		
 	}
 
 }
