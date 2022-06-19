@@ -1,4 +1,4 @@
-package seokwoo.backjon.bfs;
+package seokwoo.backjon.bfs2;
 
 import java.util.*;
 import java.io.*;
@@ -6,7 +6,7 @@ import java.io.*;
 //https://www.acmicpc.net/problem/16948
 //데스 나이트
 
-public class BFS7 {
+public class BFS2 {
     static int[][] matrix;
     static boolean[][] isVisit;
     static int[] dx = {-2,-2,0,0,2,2};
