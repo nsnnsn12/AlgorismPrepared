@@ -1,6 +1,6 @@
 package seokwoo.backjon.dp;
-
 import java.util.*;
+
 //https://www.acmicpc.net/problem/11726
 //2×n 타일링
 public class DP2 {
