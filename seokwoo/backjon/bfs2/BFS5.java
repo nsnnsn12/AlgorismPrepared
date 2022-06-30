@@ -1,4 +1,4 @@
-package seokwoo.backjon.bfs;
+package seokwoo.backjon.bfs2;
 
 import java.io.*;
 import java.util.*;
@@ -6,7 +6,7 @@ import java.util.*;
 // https://www.acmicpc.net/problem/2206
 // 벽 부수고 이동하기
 
-public class BFS9 {
+public class BFS5 {
 	static int[][] matrix;
 	static int[][] countMatrix;
 	static boolean[][][] isVisit;

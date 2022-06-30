@@ -1,4 +1,4 @@
-package seokwoo.backjon.bfs;
+package seokwoo.backjon.bfs2;
 import java.util.*;
 import java.io.*;
 
@@ -8,7 +8,7 @@ import java.io.*;
 //1. 벽 3개를 세운 모든 matrix구하기 -> 백트래킹으로 벽 세우기
 //2. bfs를 이용하여 각 matrix에 바이러스 전파시키기
 //3. 최대값 저장
-public class BFS8 {
+public class BFS3 {
 	static int[][] matrix;
 	static boolean[][] isVisitWall;
 	static boolean[][] isVisitVirus;
