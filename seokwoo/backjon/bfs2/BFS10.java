@@ -48,7 +48,7 @@ public class BFS10 {
 				// 우선순위 높은 먹이를 잡아먹고 그 위치로 이동
 				Feed feed = feedArray.poll();
 				count++;
-				System.out.println("x: " + feed.x + " y:" + feed.y + " dis:" + feed.distance + " size:" + currentSize);
+				//System.out.println("x: " + feed.x + " y:" + feed.y + " dis:" + feed.distance + " size:" + currentSize);
 				matrix[feed.x][feed.y] = 0;	//잡아먹은 물고기 위치 빈칸으로 바꾸기
 				startX = feed.x;	//상어 위치 변경
 				startY = feed.y;	//상어 위치 변경
@@ -61,9 +61,6 @@ public class BFS10 {
 			}else {
 				break;
 			}
-
-			
-
 		}
 		System.out.println(result);
 	}
@@ -101,7 +98,6 @@ public class BFS10 {
 					queue.add(new int[] { nx, ny, dis + 1 });
 					isVisit[nx][ny] = true;
 				}
-
 			}
 		}
 	}
@@ -125,12 +121,13 @@ public class BFS10 {
 		}
 
 		@Override
-		public int compareTo(Feed o) {
+		public int compareTo(Feed o) { //거리 가장 가깝고, 가장 위, 가장 왼쪽
             if(o.distance == this.distance) {
-                if(o.x == this.x)
-                    return o.x - this.x;
-                else
-                    return o.y - this.y;
+                if(o.x == this.x) {
+                	return this.y - o.y;
+                }else {
+                	return this.x - o.x;
+                }
             }
             return this.distance - o.distance;
 		}

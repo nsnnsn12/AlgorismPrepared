@@ -4,6 +4,7 @@ import seokwoo.codingtest.Nhn202205.Nhn1;
 import seokwoo.codingtest.Nhn202205.Nhn2;
 import seokwoo.codingtest.Nhn202205.Nhn3;
 import seokwoo.codingtest.Nhn202205.Nhn4;
+import seokwoo.codingtest.dev2_0723.Dev3;
 import seokwoo.codingtest.eleven202205.Eleven1;
 import seokwoo.codingtest.lotte202206.Lotte2;
 import seokwoo.codingtest.ssg202205.Ssg1;
@@ -95,11 +96,20 @@ public class Main {
 		nhn4.solution(players, power, k);
 		*/
 		
+		/*
 		Lotte2 lotte2 = new Lotte2();
 		int r = 3;
 		int c = 5;
 		lotte2.solution(r, c);
+		*/
 		
+		/*
+		Dev3 dev3 = new Dev3();
+		int a = 9;
+		int b = 7;
+		int[][] lands = {{2, 2}, {2, 3}, {2, 5}, {3, 2}, {3, 4}, {3, 5}, {3, 6}, {4, 3}, {4, 6}, {5, 2}, {5, 5}, {6, 2}, {6, 3}, {6, 4}, {6, 6}, {7, 2}, {7, 6}, {8, 3}, {8, 4}, {8, 5}};
+		dev3.solution(a,b,lands);
+		*/
 	}
 
 }
