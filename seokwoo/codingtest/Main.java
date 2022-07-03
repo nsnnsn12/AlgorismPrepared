@@ -4,6 +4,7 @@ import seokwoo.codingtest.Nhn202205.Nhn1;
 import seokwoo.codingtest.Nhn202205.Nhn2;
 import seokwoo.codingtest.Nhn202205.Nhn3;
 import seokwoo.codingtest.Nhn202205.Nhn4;
+import seokwoo.codingtest.dev2_0723.Dev1;
 import seokwoo.codingtest.dev2_0723.Dev3;
 import seokwoo.codingtest.eleven202205.Eleven1;
 import seokwoo.codingtest.lotte202206.Lotte2;
@@ -102,6 +103,13 @@ public class Main {
 		int c = 5;
 		lotte2.solution(r, c);
 		*/
+		
+		Dev1 dev1 = new Dev1();
+		// ex) {1,3,2} -> {1,2,2}  result: 1
+		// ex) {4,3,2} -> {2,2,2}  result: 3
+		// ex) {5,2,1,1,5,3,4} -> {1,1,1,1,3,3,4} result: 7
+		int[] array = {5,2,1,1,5,3,4};
+		dev1.solution(array);
 		
 		/*
 		Dev3 dev3 = new Dev3();

@@ -17,5 +17,9 @@ package seokwoo.codingtest.dev2_0723;
  */     
 
 public class Dev2 {
-
+	private int[][] matrix;
+	public void solution(int t, int n) {	//t: 1:수평, 2:수직 n: 배열 len
+		matrix = new int[n][n];
+		
+	}
 }
