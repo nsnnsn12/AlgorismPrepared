@@ -60,7 +60,7 @@ public class Kakao6 {
             }
 		}
 
-		public void pickMenu(int depth, String current,int index, int size, char[] sb){
+		public void pickMenu(int depth, String current,int index, int size, char[] order){
 	        if(depth == size){
 	        	boolean flag = false;
 	        	for(int i = 0; i<menuArray.size(); i++) {
@@ -77,10 +77,10 @@ public class Kakao6 {
 	            return;
 	        }
 	        
-	        for(int i = index; i<sb.length; i++){
+	        for(int i = index; i<order.length; i++){
 	            if(!isVisit[i]){
 	                isVisit[i] = true;
-	                pickMenu(depth+1,current+sb[i],i+1,size,sb);
+	                pickMenu(depth+1,current+order[i],i+1,size,order);
 	                isVisit[i] = false;
 	            }
 	        }
