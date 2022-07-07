@@ -31,7 +31,6 @@ class kakao11 {
         }
         return answer;
     }
-    
     public int binarySearch(List<Applicant> applicants, int score, int start,int end){
         if(end > start) return end;
         
