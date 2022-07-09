@@ -35,7 +35,6 @@ class kakao11 {
             }
         }
         int mid = (start + end) /2;
-        int size = applicants.size();
         
         if(applicants.get(mid).score >= score){
             return binarySearch(applicants, score, start, mid-1);
