@@ -13,14 +13,37 @@ class kakao11 {
     public int[] solution(String[] info, String[] query) {
         init(info, query);
         for(Query q : querys){
-            binarySearch(wheres.get(q.query),q. score);
+            List<Applicant> aplicant = wheres.get(q.query);
+            
+            int r = binarySearch(aplicant,q.score, 0, aplicant.size()-1);
+            //System.out.println(r);
+            result.add(aplicant.size() - r);
         }
         int[] answer = new int[result.size()];
+        for(int i = 0; i < result.size(); i++){
+            answer[i] = result.get(i);
+        }
         return answer;
     }
     
-    public int binarySearch(List<Applicant> applicants, int score){
-        return 0;
+    public int binarySearch(List<Applicant> applicants, int score, int start,int end){
+        if(applicants.size() == 0) return 0;
+        if(applicants.get(0).score >= score) return 0;
+        if(applicants.get(applicants.size()-1).score < score) return applicants.size();
+        
+        if(end - start < 3){
+            for(int i = 0; i < 3; i++){
+                if(applicants.get(start + i).score >= score) return start + i;
+            }
+        }
+        int mid = (start + end) /2;
+        int size = applicants.size();
+        
+        if(applicants.get(mid).score >= score){
+            return binarySearch(applicants, score, start, mid-1);
+        }else{
+            return binarySearch(applicants, score, mid + 1, end);
+        }
     }
     
     public void init(String[] info, String[] query){
