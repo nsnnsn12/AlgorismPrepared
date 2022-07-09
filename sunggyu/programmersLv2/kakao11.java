@@ -3,7 +3,6 @@ package sunggyu.programmersLv2;
 import java.util.*;
 //https://programmers.co.kr/learn/courses/30/lessons/72412
 //순위 검색
-
 class kakao11 {
     List<Applicant> applicants = new ArrayList<>();
     List<Query> querys = new ArrayList<>();
@@ -25,7 +24,6 @@ class kakao11 {
         }
         return answer;
     }
-    
     public int binarySearch(List<Applicant> applicants, int score, int start,int end){
         if(applicants.size() == 0) return 0;
         if(applicants.get(0).score >= score) return 0;
