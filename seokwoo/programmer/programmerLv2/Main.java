@@ -23,9 +23,13 @@ public class Main {
 			System.out.println(a[i]);
 		}
 		*/
-		
+		/*
 		Kakao7 k = new Kakao7();
 		k.solution(")(");
+		*/
+		
+		Kakao8 k = new Kakao8();
+		k.solution("50*6-3*2");
 	}
 
 }
