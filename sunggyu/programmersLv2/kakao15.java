@@ -35,8 +35,8 @@ class kakao15 {
         return count;
     }
     public int getJacquard(){
+        if(list1.size() + list2.size() == 0) return 65536; 
         int intersection = getIntersection();
-        if(intersection == 0) return 65536;
         int union = list1.size() + list2.size() - intersection;
         //System.out.println(String.format("intersection : %d, union : %d", intersection, union));
         double jacquard = (double)intersection / union;
