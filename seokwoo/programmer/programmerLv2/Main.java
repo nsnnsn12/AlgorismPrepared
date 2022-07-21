@@ -28,13 +28,14 @@ public class Main {
 		k.solution(")(");
 		*/
 		
-		/*
+		
 		Kakao8 k = new Kakao8();
 		k.solution("50*6-3*2");
-		*/
 		
+		/*
 		Kakao9 k = new Kakao9();
 		k.solution(4,5,new String[] {"CCBDE", "AAADE", "AAABF", "CCBBF"});		
+		*/
 	}
 
 }
