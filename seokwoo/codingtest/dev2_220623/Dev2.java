@@ -1,4 +1,4 @@
-package seokwoo.codingtest.dev2_0723;
+package seokwoo.codingtest.dev2_220623;
 
 /*
  * 수직과 수평이 존재
