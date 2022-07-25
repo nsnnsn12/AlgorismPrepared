@@ -24,9 +24,9 @@ public class Etc4{
     static int[] list;
     static int[] list1;
     static int[] list2;
-    static List<Integer> comboList = new ArrayList<>();
+    static List<Integer> comboList1 = new ArrayList<>();
+    static List<Integer> comboList2 = new ArrayList<>();
     static int result;
-    static int length;
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -47,12 +47,43 @@ public class Etc4{
 
         list1 = Arrays.copyOfRange(list, 0, N / 2);
         list2 = Arrays.copyOfRange(list, N / 2, list.length);
-        Arrays.stream(list1).forEach(i -> System.out.print(i+" "));
+
+        dfs(0, comboList1, list1, 0);
+        dfs(0, comboList2, list2, 0);
+        //comboList2.stream().forEach(i -> System.out.print(i+" "));
+        //System.out.println();
+
+        Collections.sort(comboList2);
+        comboList2.stream().forEach(i -> System.out.print(i+" "));
         System.out.println();
-        Arrays.stream(list2).forEach(i -> System.out.print(i+" "));
-        System.out.println();
+        for(int i : comboList1){
+            if(binarySearch(0, comboList2.size()-1, i, comboList2)) result++;
+        }
         System.out.println(result);
         bw.flush();
         bw.close();
+    }
+
+    public static boolean binarySearch(int startIndex, int endIndex, int selectedValue, List<Integer> list){
+        if(startIndex > endIndex) return false;
+        int mid = (startIndex + endIndex) / 2;
+        int value = selectedValue + list.get(mid);
+        if(value == S) return true;
+
+        if(value > S){
+            return binarySearch(startIndex, mid-1, selectedValue, list);
+        }else{
+            return binarySearch(mid + 1, endIndex, selectedValue, list);
+        }
+    }
+
+    public static void dfs(int startIndex, List<Integer> combo, int[] list, int sum){
+        for(int i = startIndex; i < list.length; i++){
+            sum += list[i];
+            if(sum == S) result++;
+            combo.add(sum);
+            dfs(i+1, combo, list, sum);
+            sum -= list[i];
+        }
     }
 }
