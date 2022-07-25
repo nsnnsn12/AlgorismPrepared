@@ -10,12 +10,11 @@ import java.util.*;
     원 수열의 순서가 변하지는 않는다.
 
     최대갯수는 40개
-    완전탐색을 사용할 경우
-    모든 조합의 경우의 수가 필요
-    40C1
-    40C2
-    40C3
-    ...
+    40개의 대한 경우의 수 = 110959725789045
+    20개의 대한 모든 경우의 수 = 1048575(대략 100만)
+
+    절반을 잘라 각각 모든 경우의 수를 구한다.
+    그리고 이진 탐색을 이용하여 경우의 수를 탐색
 */
 public class Etc4{
     static BufferedReader bf;
@@ -23,48 +22,37 @@ public class Etc4{
     static int N;
     static int S;
     static int[] list;
+    static int[] list1;
+    static int[] list2;
+    static List<Integer> comboList = new ArrayList<>();
     static int result;
-    static int count;
     static int length;
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        /*
-         * String[] split =bf.readLine().split(" ");
-            N = Integer.parseInt(split[0]);
-            S = Integer.parseInt(split[1]);
-            split = bf.readLine().split(" ");
-            list = new int[N];
-            for(int i = 0; i < N; i++){
-                list[i] = Integer.parseInt(split[i]);
-            }
-            for(int i = 0; i < list.length; i++){
-                dfs(i+1, list[i]);
-            }
+        String[] split =bf.readLine().split(" ");
+        N = Integer.parseInt(split[0]);
+        S = Integer.parseInt(split[1]);
+        split = bf.readLine().split(" ");
+        list = new int[N];
+        for(int i = 0; i < N; i++){
+            list[i] = Integer.parseInt(split[i]);
+        }
+
+        if(N == 1){
+            if(list[0] == S) result++;
             System.out.println(result);
-         */
-        length =Integer.parseInt(bf.readLine());
-        getNumberOfCases(0);
-        System.out.println(count);
+            return;
+        }
+
+        list1 = Arrays.copyOfRange(list, 0, N / 2);
+        list2 = Arrays.copyOfRange(list, N / 2, list.length);
+        Arrays.stream(list1).forEach(i -> System.out.print(i+" "));
+        System.out.println();
+        Arrays.stream(list2).forEach(i -> System.out.print(i+" "));
+        System.out.println();
+        System.out.println(result);
         bw.flush();
         bw.close();
-    }
-
-    public static void dfs(int startIndex, int sum){
-        if(sum == S){
-            result++;
-        }
-
-        for(int i = startIndex; i < list.length; i++){
-            sum += list[i];
-            dfs(i + 1, sum);
-            sum -= list[i];
-        }
-    }
-    public static void getNumberOfCases(int startIndex){
-        for(int i = startIndex; i < length; i++){
-            count++;
-            getNumberOfCases(i + 1);
-        }
     }
 }
