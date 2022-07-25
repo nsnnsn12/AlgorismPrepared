@@ -1,4 +1,4 @@
-package seokwoo.codingtest.dev2_0723;
+package seokwoo.codingtest.dev2_220623;
 
 // array 주고, 오름차순으로 바꿔줘라
 // 최소값만큼만 바꿔줘야 하며, 바꾼 값들을 다 더해 return
