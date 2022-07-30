@@ -11,27 +11,27 @@ import java.util.*;
     dfs의 탐색 경로는 트리와 동일하다.
     트리와 동일한 이유는 이미 방문한 노드의 대해서 다시 방문하지 않기 때문이다.
 
-    부모 노드로 돌아가지 않는다.
-    부모 노드로 돌아가지 않고 재방문하는 경우가 있는가?
-    1. 순환 그래프 상에서 처음과 끝이 만나는 경우
+    dfs로 순환이 존재하는 그래프를 탐색하는 경우 특징
+    1. 트리가 일렬이 된다.
+    1. 순환 그래프 탐색의 시작과 끝이 만나게 된다.
 
-    고로 dfs를 이용한 탐색 후 남는 간선은 사이클의 처음과 끝을 잇는 간선이다.
+    로직
+    1. 순환 그래프의 속한 노드를 찾는다.
+    2. bfs를 이용하여 순환그래프로부터 떨어진 노드의 거리를 찾는다.
 
-    지선과 순환선 사이의 거리를 구하라.
-    순환그래프의 속한 노드를 찾는다.
-    순환그래프의 속하지 않은 노드와 순환 노드간의 거리를 찾는다.
-
-    dfs를 이용하여 트리 간선 정보를 구함.
-    주어진 간선 정보와 비교하여 남는 간선을 찾는다.
-    남는 간선이 처음과 끝을 잇는 간선이다.
+    간선의 최대 갯수 3000개
+    노드당 bfs를 실행한다고 했을 때의 최악의 경우의 수는 3000 * 3000 = 9000000
 */
 public class Graph2{
     static BufferedReader bf;
     static BufferedWriter bw;    
-    static List<List<Integer>> graph = new ArrayList<>();
-    static boolean[][] visitedEdge;
+    static List<List<Integer>> graph = new ArrayList<>(); //그래프
+    static List<Node> tree = new ArrayList<>(); //dfs를 이용한 탐색 경로
     static int N;
     static boolean[] visited;
+    static boolean[] isCycleNode; //순환그래프에 속한 노드 여부
+    static boolean isFirst = true;;
+    static int[] distances;
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -45,36 +45,29 @@ public class Graph2{
         }
 
         setGraph(nodeInfos);
-        System.out.println();
-        //graph.stream().forEach(list -> System.out.println(list.toString()));
+        
         dfs(new Node(1, 0));
+        
+        for(int i = 1; i < N+1; i++){
+            if(!isCycleNode[i]){
+                distances[i] = bfs(i);
+            }
+        }
 
+        for(int i = 1; i < distances.length; i++){
+            bw.append(distances[i]+"").append(" ");
+        }
         bw.flush();
         bw.close();
     }
 
     public static void init(){
         visited = new boolean[N+1];
-        visitedEdge = new boolean[N+1][N+1];
+        isCycleNode = new boolean[N+1];
+        distances = new int[N+1];
         for(int i = 0; i <= N; i++){
             graph.add(new ArrayList<>());
-        }
-    }
-
-    public static void dfs(Node node){
-        visitedEdge[node.nodeNo][node.beforeNo] = true;
-        visitedEdge[node.beforeNo][node.nodeNo] = true;
-        visited[node.nodeNo] = true;
-
-        List<Integer> childs = graph.get(node.nodeNo);
-        for(int i = 0; i < childs.size(); i++){
-            int nodeNo = childs.get(i);
-            if(!visited[nodeNo]){
-                dfs(new Node(nodeNo, node.nodeNo));
-            }
-            if(nodeNo != node.beforeNo && visited[nodeNo]){
-                System.out.println(String.format("startIndex : %d, endIndex : %d", node.nodeNo, nodeNo));
-            }
+            tree.add(new Node(i, 0));
         }
     }
 
@@ -88,9 +81,76 @@ public class Graph2{
         }
     }
 
+    public static void dfs(Node node){
+        if(!isFirst) return;
+        int parentNo = node.beforeNo;
+        int nodeNo = node.nodeNo;
+
+        //재방문인 경우
+        //고로 순환하는 그래프의 처음과 끝이 만난 경우
+        if(visited[nodeNo]){
+            int startIndex = nodeNo;
+            int endIndex = parentNo;
+            
+            setCycle(startIndex, endIndex);
+            isFirst = false;
+            return;
+        }
+
+        visited[nodeNo] = true;
+        //순환그래프를 dfs로 탐색하는 경우
+        //일렬로 탐색하기 때문에 부모 노드의 정보만 있어도 순환 그래프의 속한 노드들을 알 수 있다.
+        tree.get(nodeNo).beforeNo = parentNo;
+
+        List<Integer> childs = graph.get(nodeNo);
+        for(int i = 0; i < childs.size(); i++){
+            int charildNo = childs.get(i);
+            //부모 노드가 아닌 경우
+            if(charildNo != parentNo){
+                dfs(new Node(charildNo, nodeNo));
+            }
+        }
+    }
+
+    //부모노드를 확인하며 순환그래프의 속한 노드를 찾는다.
+    public static void setCycle(int startIndex, int endIndex){
+        isCycleNode[startIndex] = true;
+        int beforeNo = endIndex;
+        while(beforeNo != startIndex){
+            isCycleNode[beforeNo] = true;
+            beforeNo = tree.get(beforeNo).beforeNo;
+        }
+    }
+
+    //bfs를 이용하여 현재 노드로 부터 순환노드까지의 최단거리를 탐색한다.
+    public static int bfs(int node){
+        visited = new boolean[N+1];
+        int result = 0;
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{node, 0});
+        while(!queue.isEmpty()){
+            int[] info = queue.poll();
+            int nowNode = info[0];
+            int distances = info[1];
+            if(isCycleNode[nowNode]){
+                result = distances;
+                break;
+            }
+
+            if(visited[nowNode]) continue;
+
+            visited[nowNode] = true;
+
+            List<Integer> childs = graph.get(nowNode);
+            for(int i = 0; i < childs.size(); i++){
+                queue.add(new int[]{childs.get(i), distances + 1});
+            }
+        }
+
+        return result;
+    }
     public static class Node{
         int beforeNo;
-        int next;
         int nodeNo;
         public Node(int nodeNo, int beforeNo){
             this.nodeNo = nodeNo;
