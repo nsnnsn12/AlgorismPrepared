@@ -12,27 +12,22 @@ import java.util.*;
  */
 public class Kakao13 {
 	public String solution(String m, String[] musicinfos) {
+		m = changeSyllable(m);
 		int size = musicinfos.length;
 		Info[] infoArray = new Info[size];
 		String startTime = "";
 		String endTime = "";
 		int totalTime = 0;
 		String musicName = "";
-		ArrayList<String> syllable;
+		String syllable = "";
 		for (int i = 0; i < size; i++) {
 			String[] temp = musicinfos[i].split(",");
 			startTime = temp[0];
 			endTime = temp[1];
 			totalTime = getTotalTime(startTime, endTime);
 			musicName = temp[2];
-			syllable = getSyllable(temp[3], totalTime);
+			syllable = getSyllable(changeSyllable(temp[3]), totalTime);
 			Info info = new Info(startTime, endTime, totalTime, musicName, syllable);
-
-			for (String a : info.syllable) {
-				System.out.print(a + " ");
-			}
-			System.out.print(info.totalTime);
-			System.out.println();
 
 			infoArray[i] = info;
 
@@ -40,39 +35,27 @@ public class Kakao13 {
 		String answer = "(None)";
 
 		int total = Integer.MIN_VALUE;
-		ArrayList<String> listenMusic = getSyllable(m, 0);
-
-		for (int i = 0; i < size; i++) {
-			if (isContain(listenMusic, infoArray[i].syllable)) {
-				if (total < infoArray[i].totalTime) {
+		
+		for(int i = 0; i<size; i++) {
+			if(infoArray[i].syllable.contains(m)) {
+				if(infoArray[i].totalTime > total) {
 					answer = infoArray[i].musicName;
 					total = infoArray[i].totalTime;
 				}
 			}
 		}
-
 		return answer;
 	}
 
-	private boolean isContain(ArrayList<String> listenMusic, ArrayList<String> syllable) {
-		for (int i = 0; i < syllable.size() - listenMusic.size(); i++) {
-			int index2 = i;
-			int index = 0;
-			int tempCount = 0;
-			while (index < listenMusic.size()) {
-				if (syllable.get(index2).equals(listenMusic.get(index))) {
-					tempCount++;
-					index++;
-					index2++;
-				} else {
-					break;
-				}
-			}
-			if (tempCount == listenMusic.size()) {
-				return true;
-			}
-		}
-		return false;
+	private String changeSyllable(String m) {
+		
+		m = m.replaceAll("C#","H");
+		m = m.replaceAll("D#", "I");
+		m = m.replaceAll("F#", "J");
+		m = m.replaceAll("G#", "K");
+		m = m.replaceAll("A#", "L");
+		
+		return m;
 	}
 
 	public int getTotalTime(String startTime, String endTime) {
@@ -86,34 +69,20 @@ public class Kakao13 {
 		return ((endHour - startHour) * 60 + (endMin - startMin));
 	}
 
-	public ArrayList<String> getSyllable(String sy, int totalTime) {
-		ArrayList<String> result = new ArrayList<>();
-		char[] temp = sy.toCharArray();
+	public String getSyllable(String sy, int totalTime) {
 		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < temp.length; i++) {
-			if (temp[i] != '#' && sb.length() != 0) {
-				result.add(sb.toString());
-				sb.delete(0, sb.length());
-				sb.append(temp[i]);
-			} else if (temp[i] == '#') {
-				sb.append(temp[i]);
-				result.add(sb.toString());
-				sb.delete(0, sb.length());
-			} else if (sb.length() == 0) {
-				sb.append(temp[i]);
+		
+		if(totalTime > sy.length()) {
+			for(int i = 0; i<totalTime/sy.length(); i++) {
+				sb.append(sy);
 			}
+			sb.append(sy.substring(0,totalTime % sy.length()));
+			sy = sb.toString();
+		}else {
+			sy = sy.substring(0,totalTime);
 		}
-		result.add(sb.toString());
-
-		int extra = totalTime - result.size();
-		int index = 0;
-		while (extra > 0) {
-			result.add(result.get(index));
-			extra--;
-			index++;
-		}
-		return result;
+		//System.out.println(sy);
+		return sy;
 	}
 
 	private class Info {
@@ -121,9 +90,9 @@ public class Kakao13 {
 		String endTime;
 		int totalTime;
 		String musicName;
-		ArrayList<String> syllable;
+		String syllable;
 
-		public Info(String startTime, String endTime, int totalTime, String musicName, ArrayList<String> syllable) {
+		public Info(String startTime, String endTime, int totalTime, String musicName, String syllable) {
 			this.startTime = startTime;
 			this.endTime = endTime;
 			this.totalTime = totalTime;
