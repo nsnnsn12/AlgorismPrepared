@@ -5,11 +5,6 @@ import java.util.*;
 // https://school.programmers.co.kr/learn/courses/30/lessons/17683
 // [3차]방금그곡
 
-/*
- * 내가 들은 곡의 사이즈를 기준으로 music정보를 잘라서 array add 
- * array에 내가 들은 곡이 있는지 확인 (isContain다시)
- * 
- */
 public class Kakao13 {
 	public String solution(String m, String[] musicinfos) {
 		m = changeSyllable(m);
@@ -35,10 +30,10 @@ public class Kakao13 {
 		String answer = "(None)";
 
 		int total = Integer.MIN_VALUE;
-		
-		for(int i = 0; i<size; i++) {
-			if(infoArray[i].syllable.contains(m)) {
-				if(infoArray[i].totalTime > total) {
+
+		for (int i = 0; i < size; i++) {
+			if (infoArray[i].syllable.contains(m)) {
+				if (infoArray[i].totalTime > total) {
 					answer = infoArray[i].musicName;
 					total = infoArray[i].totalTime;
 				}
@@ -48,13 +43,11 @@ public class Kakao13 {
 	}
 
 	private String changeSyllable(String m) {
-		
-		m = m.replaceAll("C#","H");
+		m = m.replaceAll("C#", "H");
 		m = m.replaceAll("D#", "I");
 		m = m.replaceAll("F#", "J");
 		m = m.replaceAll("G#", "K");
 		m = m.replaceAll("A#", "L");
-		
 		return m;
 	}
 
@@ -71,17 +64,17 @@ public class Kakao13 {
 
 	public String getSyllable(String sy, int totalTime) {
 		StringBuilder sb = new StringBuilder();
-		
-		if(totalTime > sy.length()) {
-			for(int i = 0; i<totalTime/sy.length(); i++) {
+
+		if (totalTime > sy.length()) {
+			for (int i = 0; i < totalTime / sy.length(); i++) {
 				sb.append(sy);
 			}
-			sb.append(sy.substring(0,totalTime % sy.length()));
+			sb.append(sy.substring(0, totalTime % sy.length()));
 			sy = sb.toString();
-		}else {
-			sy = sy.substring(0,totalTime);
+		} else {
+			sy = sy.substring(0, totalTime);
 		}
-		//System.out.println(sy);
+		// System.out.println(sy);
 		return sy;
 	}
 
@@ -99,6 +92,5 @@ public class Kakao13 {
 			this.musicName = musicName;
 			this.syllable = syllable;
 		}
-
 	}
 }
