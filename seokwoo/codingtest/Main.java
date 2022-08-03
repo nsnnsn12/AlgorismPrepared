@@ -4,6 +4,8 @@ import seokwoo.codingtest.Nhn202205.Nhn1;
 import seokwoo.codingtest.Nhn202205.Nhn2;
 import seokwoo.codingtest.Nhn202205.Nhn3;
 import seokwoo.codingtest.Nhn202205.Nhn4;
+import seokwoo.codingtest.dev2_220623.Dev1;
+import seokwoo.codingtest.dev2_220623.Dev3;
 import seokwoo.codingtest.eleven202205.Eleven1;
 import seokwoo.codingtest.lotte202206.Lotte2;
 import seokwoo.codingtest.ssg202205.Ssg1;
@@ -12,6 +14,7 @@ import seokwoo.codingtest.ssg202205.Ssg3;
 import seokwoo.codingtest.ssg202205.Ssg4;
 import seokwoo.codingtest.summerCodingTest220508.SummerCoding1;
 import seokwoo.codingtest.summerCodingTest220508.SummerCoding2;
+import seokwoo.codingtest.wooribank220723.WooriBank2;
 
 public class Main {
 
@@ -95,10 +98,35 @@ public class Main {
 		nhn4.solution(players, power, k);
 		*/
 		
+		/*
 		Lotte2 lotte2 = new Lotte2();
 		int r = 3;
 		int c = 5;
 		lotte2.solution(r, c);
+		*/
+		
+		/*
+		Dev1 dev1 = new Dev1();
+		// ex) {1,3,2} -> {1,2,2}  result: 1
+		// ex) {4,3,2} -> {2,2,2}  result: 3
+		// ex) {5,2,1,1,5,3,4} -> {1,1,1,1,3,3,4} result: 7
+		int[] array = {5,2,1,1,5,3,4};
+		dev1.solution(array);
+		*/
+		
+		/*
+		Dev3 dev3 = new Dev3();
+		int a = 9;
+		int b = 7;
+		int[][] lands = {{2, 2}, {2, 3}, {2, 5}, {3, 2}, {3, 4}, {3, 5}, {3, 6}, {4, 3}, {4, 6}, {5, 2}, {5, 5}, {6, 2}, {6, 3}, {6, 4}, {6, 6}, {7, 2}, {7, 6}, {8, 3}, {8, 4}, {8, 5}};
+		dev3.solution(a,b,lands);
+		*/
+		
+		WooriBank2 wooriBank2 = new WooriBank2();
+		String[] grid = {"......####", "...#...###", "..#.##..##", "..#...#..#", "...#.#....", "....#..###"};
+		String[] grid2 = {"...#......","..#.##....","..#...#...","...#.#...."};
+		wooriBank2.solution(grid);
+		
 		
 	}
 
