@@ -58,7 +58,6 @@ public class Solution3 {
 				if (next == 0) {
 					continue;
 				}
-				System.out.println(save[next]+ "dddd");
 				if (save[next] != 0) {
 					return save[next] + length + 1;
 				}
