@@ -14,6 +14,7 @@ import seokwoo.codingtest.ssg202205.Ssg3;
 import seokwoo.codingtest.ssg202205.Ssg4;
 import seokwoo.codingtest.summerCodingTest220508.SummerCoding1;
 import seokwoo.codingtest.summerCodingTest220508.SummerCoding2;
+import seokwoo.codingtest.toss220806.Toss2;
 import seokwoo.codingtest.wooribank220723.WooriBank2;
 
 public class Main {
@@ -122,11 +123,16 @@ public class Main {
 		dev3.solution(a,b,lands);
 		*/
 		
+		/*
 		WooriBank2 wooriBank2 = new WooriBank2();
 		String[] grid = {"......####", "...#...###", "..#.##..##", "..#...#..#", "...#.#....", "....#..###"};
 		String[] grid2 = {"...#......","..#.##....","..#...#...","...#.#...."};
 		wooriBank2.solution(grid);
+		*/
 		
+		Toss2 toss2 = new Toss2();
+		int[] levels = {1};
+		toss2.solution(levels);
 		
 	}
 
