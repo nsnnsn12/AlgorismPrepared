@@ -12,6 +12,7 @@ public class Graph5{
     static List<List<Integer>> graph = new ArrayList<>();
     static int[] visitedLog;
     static int result = 0;
+    static int index = 0;
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -32,27 +33,40 @@ public class Graph5{
         for(int i = 0; i < split.length; i++){
             visitedLog[i] = Integer.parseInt(split[i]);
         }
-        dfs(1, 0, 0);
+        if(dfs(1)){
+            result = 1;
+        }
+        if(visitedLog[0] != 1){
+            result = 0;
+        }
 
         System.out.println(result);
         bw.flush();
         bw.close();
     }
 
-    public static void dfs(int value, int index, int beforeValue){
-        System.out.println(String.format("value : %d, index : %d, before : %d", value, index, beforeValue));
-        if(index == visitedLog.length) return;
-        if(visitedLog[index] != value) return;
-        if(index == visitedLog.length-1 && visitedLog[index] == value){
-            result = 1;
-            return;
-        }
-        index++;
+    public static boolean dfs(int value){
+        //System.out.println(value+" "+index);
         List<Integer> childs = graph.get(value);
-        for(int i = 0; i < childs.size(); i++){
-            if(!childs.get(i).equals(beforeValue)){
-                dfs(childs.get(i), index, value);
-            }
+        int size = childs.size() - 1;
+        if(value == 1) size++;
+        index++;
+        for(int i = 0; i < size; i++){
+            int nextValue = binarySearch(visitedLog[index], childs, 0, childs.size()-1);
+            if(nextValue == -1) return false;
+            if(!dfs(nextValue)) return false;
+        }
+        return true;
+    }
+
+    public static int binarySearch(int value, List<Integer> list, int startIndex, int endIndex){
+        if(startIndex > endIndex) return -1;
+        int mid = (startIndex + endIndex) / 2;
+        if(list.get(mid) == value) return value;
+        if(list.get(mid) > value){
+            return binarySearch(value, list, startIndex, mid-1);
+        }else{
+            return binarySearch(value, list, mid+1, endIndex);
         }
     }
 }
