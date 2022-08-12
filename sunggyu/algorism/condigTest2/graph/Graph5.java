@@ -33,6 +33,7 @@ public class Graph5{
         for(int i = 0; i < split.length; i++){
             visitedLog[i] = Integer.parseInt(split[i]);
         }
+        
         if(dfs(1)){
             result = 1;
         }
