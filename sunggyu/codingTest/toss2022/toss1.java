@@ -1,4 +1,4 @@
-
+package sunggyu.codingTest.toss2022;
 import java.io.*;
 import java.util.*;
 import java.util.*;

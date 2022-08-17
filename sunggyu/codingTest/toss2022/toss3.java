@@ -1,3 +1,4 @@
+package sunggyu.codingTest.toss2022;
 import java.util.*;
 class toss3 {
     /*
