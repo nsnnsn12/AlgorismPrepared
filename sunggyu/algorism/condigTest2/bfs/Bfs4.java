@@ -15,12 +15,16 @@ import java.util.*;
     a, b, c에 각각 최대 크기는 500
 
     1000개 중 3개를 뽑는 경우의 수 = 166167000
+
+    1. 시작한 지점으로 다시 돌아오면 멈춘다.
+    2. visit를 체크한다.
 */
 public class Bfs4{
     static BufferedReader bf;
     static BufferedWriter bw;
     static int result = 0;
-    static boolean[][] visited = new boolean[3][1000];
+    
+    static List<int[]> visited = new ArrayList<>();
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -41,65 +45,57 @@ public class Bfs4{
 
         while(!queue.isEmpty()){
             int[] info = queue.poll();
+            Arrays.sort(info);
             int nowA = info[0];
             int nowB = info[1];
             int nowC = info[2];
 
-            if(!canVisit(nowA, nowB, nowC)) continue;
+            if(!canVisit(info)) continue;
 
-            visit(nowA, nowB, nowC);
+            visit(info);
 
+            if(nowA == nowB && nowB == nowC){
+                result = 1;
+                return;
+            }
+
+            
             if(nowA != nowB){
-                int nextA = nowA * 2;
-                int nextB = nowB - nowA;
-                int nextC = nowC;
-
-
-                if(nowA > nowB){
-                    nextA = nowA - nowB;
-                    nextB = nowB * 2;
-                }
-
-                queue.add(new int[]{nextA, nextB, nextC});
+                nextStep(nowA, nowB, nowC, queue);
             }
 
             if(nowA != nowC){
-                int nextA = nowA * 2;
-                int nextB = nowB;
-                int nextC = nowC - nowA;
-
-
-                if(nowA > nowC){
-                    nextA = nowA - nowC;
-                    nowC = nowC * 2;
-                }
-
-                queue.add(new int[]{nextA, nextB, nextC});
+                nextStep(nowA, nowC, nowB, queue);
             }
 
             if(nowB != nowC){
-                int nextA = nowA;
-                int nextB = nowB * 2;
-                int nextC = nowC - nowB;
-
-
-                if(nextB > nowC){
-                    nextB = nextB - nowC;
-                    nowC = nowC * 2;
-                }
-
-                queue.add(new int[]{nextA, nextB, nextC});
+                nextStep(nowB, nowC, nowA, queue);
             }
-            result = 1;
-            return;
         }
+        return;
     }
 
-    public static boolean canVisit(int a, int b, int c){
-        return false;
+    public static void nextStep(int a, int b, int c, Queue<int[]> queue){
+        int nextA = a * 2;
+        int nextB = b - a;
+
+
+        if(a > b){
+            nextA = a - b;
+            nextB = b * 2;
+        }
+
+        queue.add(new int[]{nextA, nextB, c});
     }
 
-    public static void visit(int a, int b, int c){
+    public static boolean canVisit(int[] info){
+        for(int[] visit : visited){
+            if(visit[0] == info[0] && visit[1] == info[1] && visit[2] == info[2]) return false;
+        }
+        return true;
+    }
 
+    public static void visit(int[] info){
+        visited.add(info);
     }
 }
