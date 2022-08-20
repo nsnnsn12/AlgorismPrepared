@@ -18,13 +18,24 @@ import java.util.*;
 
     1. 시작한 지점으로 다시 돌아오면 멈춘다.
     2. visit를 체크한다.
+
+    sum = a + b + c
+
+    a와 b의 크기가 같지  않고 a가 b보다 작다고 했을 때
+    a + a + b - a + c
+    a + b + c
+
+    즉 3개의 연산은 아무리 연산을 하여도 총합이 변하지 않는다.
+    고로 총합이 3개로 나누어지지 않으면 절대 같은 갯수로 나눌 수 없다.
+    
+    총합이 항상 동일하기 때문에 2개의 그룹의 갯수가 정해지면 나머지 그룹은 동일한 갯수일 수 밖에 없다.
 */
 public class Bfs4{
     static BufferedReader bf;
     static BufferedWriter bw;
     static int result = 0;
-    
-    static List<int[]> visited = new ArrayList<>();
+    static boolean[][] visited = new boolean[1501][1501];
+    static int sum;
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -32,7 +43,10 @@ public class Bfs4{
         int a = Integer.parseInt(abc[0]);
         int b = Integer.parseInt(abc[1]);
         int c = Integer.parseInt(abc[2]);
-        bfs(a, b, c);
+        sum = a + b + c;
+        if(sum % 3 == 0){
+            bfs(a, b, c);
+        }
 
         System.out.println(result);
         bw.flush();
@@ -89,13 +103,13 @@ public class Bfs4{
     }
 
     public static boolean canVisit(int[] info){
-        for(int[] visit : visited){
-            if(visit[0] == info[0] && visit[1] == info[1] && visit[2] == info[2]) return false;
+        if(visited[info[0]][info[1]]){
+            return false;
         }
         return true;
     }
 
     public static void visit(int[] info){
-        visited.add(info);
+        visited[info[0]][info[1]] = true;
     }
 }
