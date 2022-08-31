@@ -49,14 +49,13 @@ public class Bfs12{
         while(!queue.isEmpty()){
             Position now = queue.poll();
             if(!canVisit(now, visited)) continue;
-
             visited[now.value] = true;
             if(now.value == end.value){
                 return String.valueOf(now.count);
             }
 
             for(int i = 0; i < 4; i++){
-                for(int j = 0; j < 9; j++){
+                for(int j = 0; j < 10; j++){
                     int[] newNumbers = {now.numbers[0], now.numbers[1], now.numbers[2], now.numbers[3]};
                     newNumbers[i] = j;
                     queue.add(new Position(newNumbers, now.count + 1));
@@ -69,7 +68,7 @@ public class Bfs12{
     }
     static boolean canVisit(Position position, boolean[] visited){
         if(position.value <= 1000 || position.value >= 10000) return false;
-        if(!isPrime(position.value)) return false;
+        if(!isPrimes[position.value]) return false;
         if(visited[position.value]) return false;
         return true;
     }
@@ -79,7 +78,7 @@ public class Bfs12{
         int value;
         int count;
         Position(int[] numbers, int count){
-            numbers = this.numbers;
+            this.numbers = numbers;
             value = numbers[0] * 1000 + numbers[1] * 100 +  numbers[2] * 10 +  numbers[3] * 1;
             this.count = count;
         }
