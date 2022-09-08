@@ -1,9 +1,9 @@
 package seokwoo.codingtest;
-
 import seokwoo.codingtest.Nhn202205.Nhn1;
 import seokwoo.codingtest.Nhn202205.Nhn2;
 import seokwoo.codingtest.Nhn202205.Nhn3;
 import seokwoo.codingtest.Nhn202205.Nhn4;
+import seokwoo.codingtest.autoever2208.Solution3;
 import seokwoo.codingtest.dev2_220623.Dev1;
 import seokwoo.codingtest.dev2_220623.Dev3;
 import seokwoo.codingtest.eleven202205.Eleven1;
@@ -130,10 +130,12 @@ public class Main {
 		wooriBank2.solution(grid);
 		*/
 		
+		/*
 		Toss2 toss2 = new Toss2();
 		int[] levels = {1};
 		toss2.solution(levels);
-		
+		*/
+
 	}
 
 }
