@@ -6,18 +6,9 @@ import java.util.*;
 /*
     더러운 칸을 모두 깨끗한 칸으로 만드는데 필요한 이동 횟수의 최솟값을 구하라.
 
-    bfs는 두 노드 간의 최단거리를 알 수 있다.
-
-    a -> b = 5
-    a -> c = 3
-
-    c -> b = 4
-
-    c -> e = 5
-    b -> e = 2
-    더러운 칸 간의 최단거리로 요약하게 되면 거리간 가중치가 생기게 된다.
 
     1. bfs를 이용하여 더러운 칸 간의 모든 distance를 구한다.
+    -> bfs는 두 노드 간의 최단거리를 알 수 있다.
     2. 모든 경로의 대한 경우의 수를 구한다.
 
 */
@@ -28,8 +19,8 @@ public class Bfs19{
     static int N;
     static int M;
     static char[][] map;
-    static List<Position> dirtyPositions;
-    static int[][] dirtyDistance;
+    static int[][] connectedInfo;
+    static List<Node> nodes;
     static int MIN = Integer.MAX_VALUE;
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
@@ -39,32 +30,34 @@ public class Bfs19{
         M = Integer.parseInt(mn[0]);
         while(N != 0 && M != 0){
             map = new char[N][M];
-            dirtyPositions = new ArrayList<>();
-            Position start = null;
-            int dirtyCount = 0;
+            nodes = new ArrayList<>();
+            Node robot = null;
+            MIN = Integer.MAX_VALUE;
+
             for(int i = 0; i < N; i++){
                 map[i] = bf.readLine().toCharArray();
                 for(int j = 0; j < M; j++){
                     if(map[i][j] == 'o'){
-                        start = new Position(i, j, 0);
+                        robot = new Node(i, j, 0);
                     }
 
                     if(map[i][j] == '*'){
-                        dirtyPositions.add(new Position(i, j, 0));
-                        dirtyCount++;
+                        nodes.add(new Node(i, j, 0));
                     }
                 }
             }
-
-            dirtyDistance = new int[dirtyCount][dirtyCount];
-            for(int i = 0; i < dirtyCount; i++){
-                setDistance(i);
+            nodes.add(0, robot);
+            connectedInfo = new int[nodes.size()][nodes.size()];
+            for(int i = 0; i < nodes.size(); i++){
+                connect(i);
             }
-            MIN = Integer.MAX_VALUE;
 
-            getDistance(start);
+            boolean[] visited = new boolean[nodes.size()];
+            visited[0] = true;
+            dfs(1, visited, 0, nodes.size(), 0);
 
             if(Integer.MAX_VALUE == MIN) MIN = -1;
+
             bw.write(String.valueOf(MIN));
             bw.newLine();
 
@@ -76,93 +69,60 @@ public class Bfs19{
         bw.close();
     }
 
-    public static void setDistance(int dirtyCount){
-        Queue<Position> queue = new LinkedList<>();
-        queue.add(dirtyPositions.get(dirtyCount));
+    public static void connect(int index){
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(nodes.get(index));
         boolean[][] visited = new boolean[N][M];
 
         while(!queue.isEmpty()){
-            Position now = queue.poll();
+            Node now = queue.poll();
             if(!canVisit(now)) continue;
             if(visited[now.x][now.y]) continue;
 
             visited[now.x][now.y] = true;
 
-            if(map[now.x][now.y] == '*'){
-                int index = getDirtyIndex(now.x, now.y);
-                dirtyDistance[dirtyCount][index] = now.distance;
-            }
+            if(map[now.x][now.y] == '*') connectedInfo[index][getNodeIndex(now)] = now.distance;
 
             for(int[] direction : directions){
                 int nx = direction[0] + now.x;
                 int ny = direction[1] + now.y;
-                queue.add(new Position(nx, ny, now.distance+1));
+                queue.add(new Node(nx, ny, now.distance+1));
             }
         }
     }
 
-    public static int getDirtyIndex(int x, int y){
-        for(int i = 0; i < dirtyPositions.size(); i++){
-            if(x == dirtyPositions.get(i).x && y == dirtyPositions.get(i).y){
+    public static int getNodeIndex(Node node){
+        for(int i = 0; i < nodes.size(); i++){
+            if(node.x == nodes.get(i).x && node.y == nodes.get(i).y){
                 return i;
             }
         }
         return 0;
     }
 
-    public static void getDistance(Position start){
-        Queue<Position> queue = new LinkedList<>();
-        queue.add(start);
-        boolean[][] visited = new boolean[N][M];
-
-        while(!queue.isEmpty()){
-            Position now = queue.poll();
-            if(!canVisit(now)) continue;
-            if(visited[now.x][now.y]) continue;
-
-            visited[now.x][now.y] = true;
-
-            if(map[now.x][now.y] == '*'){
-                int distance = now.distance;
-                int index = getDirtyIndex(now.x, now.y);
-                boolean[] v = new boolean[dirtyPositions.size()];
-                v[index] = true;
-                dfs(1, v, distance, dirtyPositions.size(), index);
-            }
-
-            for(int[] direction : directions){
-                int nx = direction[0] + now.x;
-                int ny = direction[1] + now.y;
-                queue.add(new Position(nx, ny, now.distance+1));
-            }
-        }
-    }
-
-    public static void dfs(int depth, boolean[] visited, int distance, int max, int index){
-        if(depth == max){
+    public static void dfs(int selectedCount, boolean[] visited, int distance, int depth, int selectedIndex){
+        if(selectedCount == depth){
             MIN = Math.min(MIN, distance);
         }
 
-        for(int i = 0; i < dirtyPositions.size(); i++){
-            if(!visited[i] && dirtyDistance[index][i] != 0){
+        for(int i = 0; i < nodes.size(); i++){
+            if(!visited[i] && connectedInfo[selectedIndex][i] != 0){
                 visited[i] = true;
-                distance += dirtyDistance[index][i];
-                dfs(depth + 1, visited, distance, max, i);
-                distance -= dirtyDistance[index][i];
+                dfs(selectedCount + 1, visited, distance + connectedInfo[selectedIndex][i], depth, i);
                 visited[i] = false;
             }
         }
     }
 
-    public static boolean canVisit(Position position){
-        if(position.x < 0 || position.x >= N || position.y < 0 || position.y >= M) return false;
-        if(map[position.x][position.y] == 'x') return false;
+    public static boolean canVisit(Node node){
+        if(node.x < 0 || node.x >= N || node.y < 0 || node.y >= M) return false;
+        if(map[node.x][node.y] == 'x') return false;
         return true;
     }
 
-    static class Position{
-        int x, y, distance;
-        public Position(int x, int y, int distance){
+    static class Node{
+        int x, y , distance;
+        public Node(int x, int y, int distance){
             this.x = x;
             this.y = y;
             this.distance = distance;
