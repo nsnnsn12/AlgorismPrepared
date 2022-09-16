@@ -14,9 +14,9 @@ import java.util.*;
     2. a 막대기에 존재하는 b원판을 b막대기로 옮긴다.
 
     경우의 수는 3가지가 존재한다.
-    a 막대기 위에 있는 원판을 제자리에 놓는 경우
-    b 막대기 위에 있는 원판을 제자리에 놓는 경우
-    c 막대기 위에 있는 원판을 제자리에 놓는 경우
+    a 막대기 위에 있는 원판을 알맞은 자리에 놓는 경우
+    b 막대기 위에 있는 원판을 알맞은 자리에 놓는 경우
+    c 막대기 위에 있는 원판을 알맞은 자리에 놓는 경우
 
     dequeu 사용하지 말고 그냥 배열 사용하기
 */
@@ -24,32 +24,22 @@ public class Bfs21{
     static BufferedReader bf;
     static BufferedWriter bw;
     static long min = Long.MAX_VALUE;
-
+    static final char A = 'A';
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        Stick[] start = new Stick[3];
-        start[0] = new Stick('A');
-        start[1] = new Stick('B');
-        start[2] = new Stick('C');
-
+        StickInfo start = new StickInfo();
         for(int i = 0; i < 3; i++){
             String[] split = bf.readLine().split(" ");
             int n = Integer.parseInt(split[0]);
             char[] list = split[1].toCharArray();
-            Stick stick = start[i];
             for(int j = 0; j < n; j++){
-                stick.add(list[j]);
+                start.sticks[i][j] = list[j];
             }
         }
 
-        for(int i = 0; i < 3; i++){
-            System.out.println(start[i].dirtySize);
-            System.out.println(start[i].stickInfo);
-        }
-
         Queue<StickInfo> queue = new LinkedList<>();
-        queue.add(new StickInfo(start, 0));
+        queue.add(start);
 
         while(!queue.isEmpty()){
             StickInfo now = queue.poll();
@@ -57,10 +47,13 @@ public class Bfs21{
 
             int count = 0;
             for(int i = 0; i < 3; i++){
-                if(now.sticks[i].dirtySize > 0){
-                    StickInfo stickInfo = new StickInfo(now.sticks, now.count+1);
-                    queue.add(stickInfo);
+                char stickValue = (char) (A + i);
+                int index = getInvalidIndex(stickValue, now.sticks[i]);
+                if(index != -1){
                     count++;
+                    StickInfo next = new StickInfo(now);
+                    int target = now.sticks[i][index] - A;
+                    next.move(i, target, index);
                 }
             }
             if(count == 0) min = Math.min(min, now.count);
@@ -70,61 +63,49 @@ public class Bfs21{
         bw.close();
     }
 
-    static class StickInfo{
-        int count;
-        Stick[] sticks = new Stick[3];
-        public StickInfo(Stick[] sticks, int count){
-            this.count = count;
-            for(int i = 0; i < 3; i++){
-                this.sticks[i] = new Stick(sticks[i]);
+    static int getInvalidIndex(char stickValue, char[] list){
+        for(int i = 9; i >= 0; i--){
+            if(list[i] != '\u0000' && list[i] != stickValue){
+                return i;
             }
         }
-
-        public void moveDisk(int index){
-            int target = getTarget(index);
-
-            char top = sticks[index].stickInfo.pop();
-            if(top != sticks[index].top){
-
-            }
-        }
-
-        int getTarget(int index){
-            for(int i = 0; i < 3; i++){
-                if(sticks[index].top == sticks[i].stickType) return i;
-            }
-
-            return 0;
-        }
+        return -1;
     }
 
-    static class Stick{
-        Deque<Character> stickInfo = new LinkedList<>();
-        int dirtySize;
-        char top;
-        char stickType;
-        public Stick(char stickType){
-            this.stickType = stickType;
+    static class StickInfo{
+        int count;
+        char[][] sticks = new char[3][10];
+
+        public StickInfo(){}
+        public StickInfo(StickInfo copy){
+            this.count = copy.count;
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < 10; j++){
+                    this.sticks[i][j] = copy.sticks[i][j];
+                }
+            }
         }
 
-        public Stick(Stick stick){
-            this.dirtySize = stick.dirtySize;
-            this.stickType = stick.stickType;
-            this.top = stick.top;
-            stick.stickInfo.stream().forEach(c -> this.stickInfo.add(Character.valueOf(c)));
+        public boolean move(int src, int target, int index){
+            int tempIndex = 3 - src - target;
+            
+            int moveCount = 0;
+            for(int i = index + 1; i < 10; i++){
+                if(sticks[src][i] != '\u0000') moveCount++;
+            }
+
+            int stockCount = 0;
+            for(int i = 9; i >= 0; i--){
+                if(sticks[tempIndex][i] == '\u0000'){
+                    stockCount++;
+                }else{
+                    break;
+                }
+            }
+
+            if(moveCount > stockCount) return false;
+
+            return false;
         }
-
-        public void add(char disk){
-            if(disk != stickType) top = disk;
-            if(disk != stickType || dirtySize > 0) dirtySize++;
-            stickInfo.add(disk);
-        }
-
-        public char pop(){
-            if(dirtySize > 0) dirtySize--;
-
-            return stickInfo.pop();
-        }
-
     }
 }
