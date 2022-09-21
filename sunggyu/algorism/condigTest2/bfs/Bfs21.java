@@ -4,108 +4,101 @@ import java.util.*;
 //https://www.acmicpc.net/problem/12906
 //새로운 하노이 탑
 /*
-    막대기 바닥에 해당하는 원반이 위치하면 해당 원반은 더이상 움직일 필요가 없다.
-    제일 위에서부터 막대와 일치하지 않는 원반을 찾는다.
-    일치하지 않는 원반을 일치하는 막대기의 가장 밑부분으로 옮긴다.
-    그러기 위해서는 밑에서부터 일치하지 않는 원반을 찾아 다른 막대기로 옮겨야 한다.
-
-    a 막대기에 b원판이 존재한다고 했을 때 a를 b에 옮기는 방법
-    1. b 막대기에 일치하지 않는 원판을 모두 c로 옮긴다.
-    2. a 막대기에 존재하는 b원판을 b막대기로 옮긴다.
-
-    경우의 수는 3가지가 존재한다.
-    a 막대기 위에 있는 원판을 알맞은 자리에 놓는 경우
-    b 막대기 위에 있는 원판을 알맞은 자리에 놓는 경우
-    c 막대기 위에 있는 원판을 알맞은 자리에 놓는 경우
-
-    dequeu 사용하지 말고 그냥 배열 사용하기
+    모든 경우의 수를 다 확인한다.
+    움직이지 않는 경우 없거나 동일한 것으로 이루어져 있을 때
 */
 public class Bfs21{
     static BufferedReader bf;
     static BufferedWriter bw;
-    static long min = Long.MAX_VALUE;
-    static final char A = 'A';
+    static Set<String> visited = new HashSet<>();
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StickInfo start = new StickInfo();
+        String start = "";
         for(int i = 0; i < 3; i++){
             String[] split = bf.readLine().split(" ");
             int n = Integer.parseInt(split[0]);
-            char[] list = split[1].toCharArray();
-            for(int j = 0; j < n; j++){
-                start.sticks[i][j] = list[j];
-            }
+            String str = "";
+            if(n != 0) str = split[1];
+            start += str;
+            if(i != 2) start += "|";
         }
-
-        Queue<StickInfo> queue = new LinkedList<>();
-        queue.add(start);
-
+        Queue<Stick> queue = new LinkedList<>();
+        queue.add(new Stick(start, 0));
         while(!queue.isEmpty()){
-            StickInfo now = queue.poll();
-            if(now.count >= min) continue;
-
-            int count = 0;
-            for(int i = 0; i < 3; i++){
-                char stickValue = (char) (A + i);
-                int index = getInvalidIndex(stickValue, now.sticks[i]);
-                if(index != -1){
-                    count++;
-                    StickInfo next = new StickInfo(now);
-                    int target = now.sticks[i][index] - A;
-                    next.move(i, target, index);
-                }
+            Stick now = queue.poll();
+            if(visited.contains(now.value)) continue;
+            
+            visited.add(now.value);
+            int firstIndex = now.value.indexOf("|");
+            int secondIndex = now.value.indexOf("|", firstIndex+1);
+            if(isValid(firstIndex, secondIndex, now.value)){
+                System.out.println(now.count);
+                return;
             }
-            if(count == 0) min = Math.min(min, now.count);
+            String a = "";
+            String b = "";
+            String c = "";
+            if(firstIndex != 0) a = now.value.substring(0, firstIndex);
+            
+            if(firstIndex+1 != secondIndex) b = now.value.substring(firstIndex+1, secondIndex);
+    
+            if(now.value.length() - 1 != secondIndex) c = now.value.substring(secondIndex+1, now.value.length());
+
+            if(a.length() > 0){
+                String na = a.substring(0, a.length()-1);
+                char ch = a.charAt(a.length()-1);
+                queue.add(new Stick(String.format("%s|%s|%s", na, b + ch, c), now.count + 1));
+                queue.add(new Stick(String.format("%s|%s|%s", na, b, c + ch), now.count + 1));
+            }
+
+            if(b.length() > 0){
+                String nb = b.substring(0, b.length()-1);
+                char ch = b.charAt(b.length()-1);
+                queue.add(new Stick(String.format("%s|%s|%s", a + ch, nb, c), now.count + 1));
+                queue.add(new Stick(String.format("%s|%s|%s", a, nb, c + ch), now.count + 1));
+            }
+
+            if(c.length() > 0){
+                String nc = c.substring(0, c.length()-1);
+                char ch = c.charAt(c.length()-1);
+                queue.add(new Stick(String.format("%s|%s|%s", a + ch, b, nc), now.count + 1));
+                queue.add(new Stick(String.format("%s|%s|%s", a, b + ch, nc), now.count + 1));
+            }
         }
         
         bw.flush();
         bw.close();
     }
 
-    static int getInvalidIndex(char stickValue, char[] list){
-        for(int i = 9; i >= 0; i--){
-            if(list[i] != '\u0000' && list[i] != stickValue){
-                return i;
+    static boolean isValid(int firstIndex, int secondIndex, String stick){
+        if(firstIndex != 0){
+            for(int i = 0; i < firstIndex; i++){
+                if(stick.charAt(i) != 'A') return false;
             }
         }
-        return -1;
+
+        if(firstIndex+1 != secondIndex){
+            for(int i = firstIndex+1; i < secondIndex; i++){
+                if(stick.charAt(i) != 'B') return false;
+            }
+        }
+
+        if(stick.length() - 1 != secondIndex){
+            for(int i = secondIndex+1; i < stick.length(); i++){
+                if(stick.charAt(i) != 'C') return false;
+            }
+        }
+        return true;
     }
 
-    static class StickInfo{
+    static class Stick{
+        String value;
         int count;
-        char[][] sticks = new char[3][10];
 
-        public StickInfo(){}
-        public StickInfo(StickInfo copy){
-            this.count = copy.count;
-            for(int i = 0; i < 3; i++){
-                for(int j = 0; j < 10; j++){
-                    this.sticks[i][j] = copy.sticks[i][j];
-                }
-            }
-        }
-
-        public boolean move(int src, int target, int index){
-            int tempIndex = 3 - src - target;
-            
-            int moveCount = 0;
-            for(int i = index + 1; i < 10; i++){
-                if(sticks[src][i] != '\u0000') moveCount++;
-            }
-
-            int stockCount = 0;
-            for(int i = 9; i >= 0; i--){
-                if(sticks[tempIndex][i] == '\u0000'){
-                    stockCount++;
-                }else{
-                    break;
-                }
-            }
-
-            if(moveCount > stockCount) return false;
-
-            return false;
+        public Stick(String value, int count){
+            this.value = value;
+            this.count = count;
         }
     }
 }
