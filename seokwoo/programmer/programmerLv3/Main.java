@@ -8,8 +8,14 @@ public class Main {
 		System.out.println(k.solution(new String[] {"frodo", "fradi", "crodo", "abc123", "frodoc"}, new String[] {"fr*d*", "abc1**"}));
 		*/
 		
+		/*
 		Kakao3 k = new Kakao3();
 		System.out.println(k.solution(new int[] {3}, 3));
+		*/
+		
+		Kakao4 k = new Kakao4();
+		k.solution(new String[] {"ZZZ", "YYY", "NNNN", "YYY", "BBB"});
+		
 	}
 
 }
