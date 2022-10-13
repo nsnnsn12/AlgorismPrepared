@@ -1,4 +1,5 @@
 package seokwoo.backjon.implement2;
+
 import java.util.*;
 import java.io.*;
 // https://www.acmicpc.net/problem/16235
@@ -19,164 +20,142 @@ import java.io.*;
  */
 
 /*
-10 10 1000
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-100 100 100 100 100 100 100 100 100 100
-1 1 1
-2 2 1
-3 3 1
-4 4 1
-5 5 1
-6 6 1
-7 7 1
-8 8 1
-9 9 1
-10 10 1
+ * 봄 때 나무 제거 하는거 for문 돌려서 바로바로 제거 하기 위해 iterator사용 O(1)
+ * 가을 때 새로 추가되는 나무 for문돌려서 list에 넣지 말고 addAll 사용해서 O(1)으로 넣으니 해결
 */
 public class Implement2 {
-	private static int[][] matrix; //양분 값
-	private static HashMap<String,PriorityQueue<Integer>> hashMap;	// key: xy value: 나무 나이
-	private static int[][] addMatrix;	//겨울에 양분 추가용 
+	private static int[][] matrix; // 양분 값
+	private static LinkedList<Tree> treeArray;
+	private static int[][] addMatrix; // 겨울에 양분 추가용
 	private static int n;// NxN(땅 크기)
 	private static int result;
-	public static void main(String[] args) throws IOException{
+
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] temp =br.readLine().split(" ");
-		n = Integer.parseInt(temp[0]);	// NxN(땅 크기)
-		int m = Integer.parseInt(temp[1]);	// 나무 개수
-		int k = Integer.parseInt(temp[2]);	// K년 지난 후 땅의 나무 개수 구하기
-		
+		String[] temp = br.readLine().split(" ");
+		n = Integer.parseInt(temp[0]); // NxN(땅 크기)
+		int m = Integer.parseInt(temp[1]); // 나무 개수
+		int k = Integer.parseInt(temp[2]); // K년 지난 후 땅의 나무 개수 구하기
+
 		result = 0;
 		matrix = new int[n][n];
 		addMatrix = new int[n][n];
-		hashMap = new HashMap<>();
-		
-		for(int i = 0; i<n; i++) {
+		treeArray = new LinkedList<>();
+
+		for (int i = 0; i < n; i++) {
 			temp = br.readLine().split(" ");
-			for(int j = 0; j<temp.length; j++) {
-				addMatrix[i][j] = Integer.parseInt(temp[j]);	//겨울 양분 추가용
-				matrix[i][j] = 5;	//현재 땅 양분
+			for (int j = 0; j < temp.length; j++) {
+				addMatrix[i][j] = Integer.parseInt(temp[j]); // 겨울 양분 추가용
+				matrix[i][j] = 5; // 현재 땅 양분
 			}
 		}
-		
-		for(int i  = 0; i<m; i++) {	//입력으로 들어오는 나무 위치는 모두 서로 다름
+
+		for (int i = 0; i < m; i++) { // 입력으로 들어오는 나무 위치는 모두 서로 다름
 			temp = br.readLine().split(" ");
-			int x = Integer.parseInt(temp[0])-1;
-			int y = Integer.parseInt(temp[1])-1;
-			String key = String.valueOf(x) + String.valueOf(y);
-			hashMap.put(key, new PriorityQueue<>());
-			hashMap.get(key).add(Integer.parseInt(temp[2]));
+			int x = Integer.parseInt(temp[0]) - 1;
+			int y = Integer.parseInt(temp[1]) - 1;
+			Tree tree = new Tree(x, y, Integer.parseInt(temp[2]));
+			treeArray.add(tree);
 			result++;
 		}
-		
-		
-		for(int i = 0; i<k; i++) {
+		Collections.sort(treeArray);
+
+		for (int i = 0; i < k; i++) {
 			spring();
 			fall();
 			winter();
+			
+		
 		}
 		System.out.println(result);
-		
+
 	}
-	private static ArrayList<Integer> spring() {
+
+	private static void spring() {
 		// 봄: 나무가 양분을 나이만큼 먹고 나이가 1증가
 		// 나이가 어린 나무부터 양분 먹고, 나이만큼 양분 못먹으면 즉사
-		ArrayList<Integer> deadTree = new ArrayList<>();
-		ArrayList<Integer> liveTree = new ArrayList<>();
-		for(String key : hashMap.keySet()) {
-			deadTree = new ArrayList<>();
-			liveTree = new ArrayList<>();
-			
-			int x = Character.getNumericValue(key.charAt(0));
-			int y = Character.getNumericValue(key.charAt(1));
-			int size = hashMap.get(key).size();
-			for(int i = 0; i< size; i++) {
-				int treeAge = hashMap.get(key).poll();
-				if(matrix[x][y] >= treeAge) {	// 양분이 나무 나이보다 많을 때
-					matrix[x][y] = matrix[x][y] - treeAge;	//양분 차감
-					liveTree.add(treeAge+1);
-				}else {	//양분 커버 못할 경우
-					deadTree.add(treeAge);
-					result--;
-				}
+		ArrayList<Tree> deadTree = new ArrayList<>();
+
+		Iterator<Tree> iterator = treeArray.iterator();
+		while (iterator.hasNext()) {
+			Tree tree = iterator.next();
+			int x = tree.x;
+			int y = tree.y;
+			int age = tree.age;
+			if (matrix[x][y] >= age) {
+				matrix[x][y] = matrix[x][y] - age;
+				tree.getAge();
+			} else {
+				deadTree.add(tree);
+				iterator.remove();
+				result--;
 			}
-			
-			liveTreeAdd(key,liveTree);	//나이 1살먹은 나무들 adds
-			summer(x,y,deadTree);	//봄에 죽은 나무가 양분으로 변함. 죽은 나무 나이 / 2 한 값 (소수점 버림)
-
-			
 		}
-		return deadTree;
+		summer(deadTree);
 	}
 
-	private static void liveTreeAdd(String key, ArrayList<Integer> liveTree) {
-		for(int live : liveTree){	//나이 1살먹은 나무들 adds
-			hashMap.get(key).add(live);
+	private static void summer(ArrayList<Tree> deadTree) {
+		for (Tree dead : deadTree) { // 죽은 나무들 양분으로 삼기(여름)
+			matrix[dead.x][dead.y] += dead.age / 2;
 		}
-		
 	}
-	private static void summer(int x, int y, ArrayList<Integer> deadTree) {
-		for(int dead: deadTree) {	//죽은 나무들 양분으로 삼기(여름)
-			matrix[x][y] += dead/2;
-		}
-		
-	}
-	
+
 	private static void fall() {
 		// 나이가 5배수인 나무가 번식한다. (인근 8칸) -> 1인 나무가 생긴다.
-		int[] dx = {-1,-1,-1, 0, 0, 1, 1, 1};
-		int[] dy = {-1, 0, 1,-1, 1,-1, 0, 1};
-		ArrayList<String> newTreeLoc = new ArrayList<>();
-		for(String key : hashMap.keySet()) {
-			int x = Character.getNumericValue(key.charAt(0));
-			int y = Character.getNumericValue(key.charAt(1));
-			ArrayList<Integer> temp = new ArrayList<>(hashMap.get(key));
-			
-			for(int treeAge : temp) {
-				if(treeAge >= 5 && treeAge%5 == 0) {	//나이가 5배수인 경우
-					for(int i = 0; i<dx.length; i++) {
-						int nx = x + dx[i];
-						int ny = y + dy[i];
-						
-						if(!isGo(nx,ny)) {
-							continue;
-						}
-						newTreeLoc.add(String.valueOf(nx) + String.valueOf(ny));
+		int[] dx = { -1, -1, -1, 0, 0, 1, 1, 1 };
+		int[] dy = { -1, 0, 1, -1, 1, -1, 0, 1 };
+		LinkedList<Tree> newTree = new LinkedList<>();
+		for (Tree tree : treeArray) {
+			if (tree.age % 5 == 0) {
+				for (int i = 0; i < dx.length; i++) {
+					int nx = tree.x + dx[i];
+					int ny = tree.y + dy[i];
+
+					if (!isGo(nx, ny)) {
+						continue;
 					}
+					newTree.add(new Tree(nx, ny, 1));
 				}
 			}
 		}
-		for(String newTree : newTreeLoc) {
-			if(!hashMap.keySet().contains(newTree)) {
-				hashMap.put(newTree, new PriorityQueue<>());
-			}
-			hashMap.get(newTree).add(1);
-			result++;
-		}
+		treeArray.addAll(0,newTree);	//for문돌려서 안넣고 allAll쓰면 O(1)
+		result += newTree.size();
 	}
-	
+
 	private static boolean isGo(int x, int y) {
-		if(0<= x && x <n && 0<= y && y < n) {
+		if (0 <= x && x < n && 0 <= y && y < n) {
 			return true;
 		}
 		return false;
 	}
 
 	private static void winter() {
-		for(int i = 0; i<n; i++) {
-			for(int j = 0; j<n; j++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
 				matrix[i][j] += addMatrix[i][j];
 			}
 		}
-		
+
 	}
 
+	private static class Tree implements Comparable<Tree> {
+		int x;
+		int y;
+		int age;
+
+		public Tree(int x, int y, int age) {
+			this.x = x;
+			this.y = y;
+			this.age = age;
+		}
+
+		public void getAge() {
+			this.age++;
+		}
+
+		@Override
+		public int compareTo(Tree o) {
+			return this.age - o.age;
+		}
+	}
 }
