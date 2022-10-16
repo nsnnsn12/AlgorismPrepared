@@ -2,7 +2,7 @@ package sunggyu.algorism.condigTest2.dp;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/11048
-//이동하기
+//이동하기(정답 봤음)
 /*
     단순 bfs로 푸는 경우 메모리 초과
     왜? 재방문으로 인해 queue의 메모리가 초과

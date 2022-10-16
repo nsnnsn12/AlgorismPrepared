@@ -1,7 +1,7 @@
 package sunggyu.programmersLv3;
 
 //https://school.programmers.co.kr/learn/courses/30/lessons/92344
-//파괴되지 않은 건물
+//파괴되지 않은 건물(정답 봤음)
 class kakao7 {
     /*
         1. 각 skill 적용 범위의 맞게 플래그 값을 준다.
