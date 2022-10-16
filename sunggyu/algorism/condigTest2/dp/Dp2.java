@@ -8,6 +8,7 @@ import java.util.*;
     현재 선택한 index를 기준으로 이전 index를 다 탐색한다.
 
     28%에서 틀림
+    해결 => 도달하지 못 하는 index인 경우 MAX_VALUE로 초기화해야 하는데 하지 못 해서 틀렸던 것
 */
 public class Dp2 {
     static BufferedReader bf;
@@ -36,7 +37,7 @@ public class Dp2 {
                     min = Math.min(min, dp[j]);
                 }
             }
-            
+
             dp[selectIndex] = min == Integer.MAX_VALUE ? Integer.MAX_VALUE : min + 1;
         }
 
