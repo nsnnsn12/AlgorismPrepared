@@ -8,43 +8,41 @@ import java.util.*;
     합을 나타낼 때는 수를 1개 이상 사용해야 한다.
     합을 이루고 있는 수의 순서만 다른 것은 같은 것으로 친다.
     
-    경우의 수
-    1 => 1
-    2 => 2
-    3 => 3
-    4 => 
+    n의 요소를 만드는데 
+    1로 시작하는 경우, 2로 시작하는 경우, 3으로 시작하는 경우를 각각 메모제이션한다.
+    왜? 중복되는 요소를 지우기 위해서
 
-    n-1
-    n-2
-    n-3 
+    핵심은 n을 이루는 1,2,3의 요소 갯수가 중복되는 경우가 없어야 한다.
+    4의 값을 구한다고 해보자.
+    n - 1인 3을 만드는 경우의 수에는  
+    n - 2인 2를 만드는 경우의 수가 포함되어 있을 수 밖에 없다.
+    고로 2를 만드는 경우의 수에서 3을 만드는 경우의 수를 제거해야 한다.
 */
 public class Dp4 {
     static BufferedReader bf;
     static BufferedWriter bw;
     static int T;
-    static int[] dp = new int[10001];
+    static int[][] dp = new int[10001][4];
     public static void main(String[] args) throws Exception {
         bf = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
         T = Integer.parseInt(bf.readLine());
-        dp[1] = 1;
-        dp[2] = 2;
-        dp[3] = 3;
-        dp[4] = 4;
-        for(int i = 5; i < dp.length; i++){
-            int total = 0;
-            total += dp[i-1];
-            total += dp[i-2];
-            total += dp[i-3];
+        dp[1][1] = 1;
+        dp[2][1] = 1;
+        dp[2][2] = 1;
+        dp[3][1] = 2;
+        dp[3][3] = 1;
 
-            //경우의 수가 중복되는 것을 어떻게 해결할 것인가?
-
-            dp[i] = total;
+        for(int i = 4; i < dp.length; i++){
+            dp[i][1] = dp[i-1][1] + dp[i-1][2] + dp[i-1][3];
+            dp[i][2] = dp[i-2][2] + dp[i-2][3];
+            dp[i][3] = dp[i-3][3];
         }
 
         for(int i = 0; i < T; i++){
             int index = Integer.parseInt(bf.readLine());
-            bw.write(String.valueOf(dp[index]));
+            int result = dp[index][1] + dp[index][2] + dp[index][3];
+            bw.write(String.valueOf(result));
             bw.newLine();
         }
         bw.flush();
