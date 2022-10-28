@@ -42,57 +42,23 @@ public class Dp6 {
 
         //각 무게별 아이템 select 정보
         int[][] selectItems = new int[K+1][N];
-        //각 무게별 최대value 정보
-        int[] maxValues = new int[K+1];
-        for(int weight = 1; weight <= K; weight++){ //10만번
-            int maxValue = -1;
-            int selectItemIndex = -1;
-            int selectWeight = -1;
-            int distance = Integer.MAX_VALUE;
-            for(int itemNo = 0; itemNo < items.length; itemNo++){ //100번
+        
+        for(int weight = 1; weight <= K; weight++){
+            //각 무게마다 해당 아이템을 선택하지 않은 최대 value를 저장한다.
+            for(int itemNo = 0; itemNo < N; itemNo++){
                 Item item = items[itemNo];
+                if(weight - item.weight < 0) continue;
+                //현재 item을 선택하지 않았을 때의 value
+                int value = selectItems[weight-item.weight][itemNo] + item.value;
                 
-                int nowWeight = weight - item.weight;
-                if(nowWeight < 0) continue;
+                for(int i = 0; i < N; i++){
+                    if(itemNo == i) continue;
+                    selectItems[weight][i] = Math.max(selectItems[weight][i], value);
+                }
 
-                //n-weight의 최댓값을 넣는다.
-                int nowValue = maxValues[nowWeight];
-                //if(weight == 304) System.out.println(String.format("item.weight:%d, nowWeight:%d,  nowValue:%d, selectItems[nowWeight][itemNo] : %d", item.weight, nowWeight, nowValue, selectItems[nowWeight][itemNo]));
-                //중복확인 후 값을 넣는다.
-                if(selectItems[nowWeight][itemNo] != 1){
-                    nowValue += item.value;
-                }
-                //if(weight == 304) System.out.println(nowValue);
-                if(nowValue > maxValue){
-                    maxValue = nowValue;
-                    selectItemIndex = itemNo;
-                    selectWeight = nowWeight;
-                    distance = nowWeight - item.weight;
-                    distance = distance < 0 ? distance * -1 : distance;
-                }else if(maxValue != -1 && nowValue == maxValue){
-                    //동일한 value일 경우 최대한 작은 무게를 사용해야 한다.
-                    int temp = nowWeight - item.weight;
-                    temp = temp < 0 ? temp * -1 : temp;
-                    if(temp < distance){
-                        maxValue = nowValue;
-                        selectItemIndex = itemNo;
-                        selectWeight = nowWeight;
-                        distance = temp;
-                    }
-                }
-            }
-            if(maxValue > 0){
-                maxValues[weight] = maxValue;
 
-                for(int j = 0; j < N; j++){ //100번
-                    selectItems[weight][j] = selectItems[selectWeight][j];
-                }
-                selectItems[weight][selectItemIndex] = 1;
             }
         }
-        
-        int max = Arrays.stream(maxValues).max().getAsInt();
-        bw.write(String.valueOf(max));
 
 
         bw.flush();
