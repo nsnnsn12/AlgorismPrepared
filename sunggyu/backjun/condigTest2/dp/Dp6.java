@@ -34,32 +34,32 @@ public class Dp6 {
         String[] nk = bf.readLine().split(" ");
         int N = Integer.parseInt(nk[0]);
         int K = Integer.parseInt(nk[1]);
-        Item[] items = new Item[N];
-        for(int i = 0; i < N; i++){
+        Item[] items = new Item[N+1];
+        items[0] = new Item(0,0);
+        for(int i = 1; i <= N; i++){
             String[] split = bf.readLine().split(" ");
             items[i] = new Item(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
         }
 
         //각 무게별 아이템 select 정보
-        int[][] selectItems = new int[K+1][N];
-        
+        int[][] selectItems = new int[K+1][N+1];
+        int result = 0;
         for(int weight = 1; weight <= K; weight++){
             //각 무게마다 해당 아이템을 선택하지 않은 최대 value를 저장한다.
-            for(int itemNo = 0; itemNo < N; itemNo++){
-                Item item = items[itemNo];
-                if(weight - item.weight < 0) continue;
-                //현재 item을 선택하지 않았을 때의 value
-                int value = selectItems[weight-item.weight][itemNo] + item.value;
+            for(int itemNo = 1; itemNo <= N; itemNo++){
+                int max = selectItems[weight][itemNo-1];
                 
-                for(int i = 0; i < N; i++){
-                    if(itemNo == i) continue;
-                    selectItems[weight][i] = Math.max(selectItems[weight][i], value);
+                Item item = items[itemNo];
+                if(weight - item.weight >= 0){
+                    max = Math.max(max, selectItems[weight-item.weight][itemNo-1] + item.value);
                 }
-
-
+                selectItems[weight][itemNo] = max;
+                
+                result = Math.max(result, max);
             }
         }
-
+        
+        bw.write(String.valueOf(result));
 
         bw.flush();
         bw.close();
