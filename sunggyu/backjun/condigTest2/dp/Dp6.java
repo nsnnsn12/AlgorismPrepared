@@ -2,7 +2,7 @@ package sunggyu.backjun.condigTest2.dp;
 import java.io.*;
 import java.util.*;
 //https://www.acmicpc.net/problem/12865
-//평범한 배낭
+//평범한 배낭(정답 봤음)
 /*
     N개의 물건이 존재한다.
     각 물건은 무게 W와 가치 V를 가지고 있다.
@@ -19,7 +19,7 @@ import java.util.*;
 
     i - 1 == i를 포함하지 않은 최적값을 가지고 있다.
     dp[weight-item.weight] == i번째 아이템을 포함시키기 위해서 현재 weight에서 i번째 item의 무게를 뺀다.
-    
+
 */
 public class Dp6 {
     static BufferedReader bf;
