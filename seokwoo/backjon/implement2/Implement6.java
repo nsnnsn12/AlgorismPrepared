@@ -32,8 +32,11 @@ public class Implement6 {
 	private static int n;
 	private static int k;
 	private static int[][] matrix;
-	private static int[][] isExist;	//가장 아래 친구 index 저장
-	private static PriorityQueue<Horse> queue;
+	private static int[] dx = {0,0,-1,1}; //오,왼,위,아래
+	private static int[] dy = {1,-1,0,0};
+	private static int[] change = {1,0,3,2};
+	private static LinkedList<Integer>[][] stack;
+	private static Horse[] horses;
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -43,66 +46,85 @@ public class Implement6 {
 		k = Integer.parseInt(temp[1]);
 		
 		matrix = new int[n][n];	//0:흰색, 1:빨간색, 2:파란색
-		isExist = new int[n][n];
-		queue = new PriorityQueue<>();
+		stack = new LinkedList[n][n];
+		horses = new Horse[k];
 		
 		for(int i = 0; i<n; i++) {
 			temp = br.readLine().split(" ");
 			for(int j = 0; j<n; j++) {
 				matrix[i][j] = Integer.parseInt(temp[j]);
-				isExist[i][j] = -1;
+				stack[i][j] = new LinkedList<>();
 			}
 		}
 		
 		for(int i = 0; i<k; i++) {
 			temp = br.readLine().split(" ");
-			int no = i;
 			int x = Integer.parseInt(temp[0]) -1;
 			int y = Integer.parseInt(temp[1]) -1;
-			int dir = Integer.parseInt(temp[2]);
+			int dir = Integer.parseInt(temp[2])-1;
+			stack[x][y].add(i);
 			
-			isExist[x][y] = no;
-			LinkedList<Integer> linkedList = new LinkedList<>();
-			linkedList.add(no);
-			Horse horse = new Horse(no,x,y,dir,linkedList);
-			
-			queue.add(horse);
+			horses[i] = new Horse(x,y,dir);
 		}
-	
-		while(true) {
-			int size = queue.size();
+		
+		int count = 0;
+		boolean flag = false;
+		while(count < 1000) {
+			count++;
 			
-			for(int i = 0; i<size; i++) {
-				Horse horse = queue.poll();
-				int[] node = getNode(horse);
-				int nx = node[0];
-				int ny = node[1];
-				int dir = horse.dir;
-				if(isOut(nx,ny) || matrix[nx][ny] == 2) {
-					node = changeNode(horse);
-					nx = node[0];
-					ny = node[1];
-					dir = node[2];
+			for(int i = 0; i<horses.length; i++) {
+				int x = horses[i].x;
+				int y = horses[i].y;
+				
+				if(stack[x][y].get(0) != i) {	//현재 말이 가장 아래에 있는 놈이 아니라면 continue
+					continue;
 				}
 				
-				if(matrix[nx][ny] == 0) {	//흰
-					if(isExist[nx][ny] != -1) { //z
-						
-					}else {
-						
-					}
-					
-					
-				}else if(matrix[nx][ny] == 1) { 	//빨
-					
-				}else {	//파
-					queue.add(new Horse(horse.no,nx,ny,dir,horse.array));
+				int nx = x + dx[horses[i].dir];
+				int ny = y + dy[horses[i].dir];
+				
+				if(isOut(nx,ny) || matrix[nx][ny] == 2) { //매트릭스 나가거나 파란색 만난 경우
+					horses[i].dir = change[horses[i].dir];
+					nx = x + dx[horses[i].dir];
+					ny = y + dy[horses[i].dir];
 				}
 				
+				if(isOut(nx,ny) || matrix[nx][ny] == 2) { // 또 매트릭스 나가거나 파란색 만난 경우
+					continue;
+				}else if(matrix[nx][ny] == 0) {	//흰색
+					for(int z = 0; z<stack[x][y].size(); z++) {
+						int horseNo = stack[x][y].get(z);
+						stack[nx][ny].add(horseNo);
+						horses[horseNo].x = nx;
+						horses[horseNo].y = ny;
+ 					}
+					stack[x][y].clear();
+				}else if(matrix[nx][ny] == 1) {	//빨간색
+					for(int z = stack[x][y].size()-1; z>=0; z--) {
+						int horseNo = stack[x][y].get(z);
+						stack[nx][ny].add(horseNo);
+						horses[horseNo].x = nx;
+						horses[horseNo].y = ny;
+ 					}
+					stack[x][y].clear();
+				}
+				
+				if(stack[nx][ny].size() >= 4) {
+					flag = true;
+					break;
+				}
 			}
+			if(flag) {
+				break;
+			}
+			
+		}
+		if(count >= 1000) {
+			System.out.println(-1);
+		}else {
+			System.out.println(count);
 		}
 	}
-	
 	private static boolean isOut(int x, int y) {
 		if(0<= x && x < n && 0<= y && y < n) {
 			return false;
@@ -110,73 +132,15 @@ public class Implement6 {
 		return true;
 	}
 	
-	private static int[] changeNode(Horse horse) {
-		int[] node = new int[3];
-		int nx = horse.x;
-		int ny = horse.y;
-		int ndir = horse.dir;
-		switch(horse.dir) {
-		case 1: //오
-			ny -= 1;
-			ndir = 2;
-			break;
-		case 2: //왼
-			ny += 1;
-			ndir = 1;
-			break;
-		case 3: //위
-			nx += 1;
-			ndir= 4;
-			break; 
-		case 4: //아래
-			nx -= 1;
-			ndir =3;
-			break;
-		}
-		node[0] = nx;
-		node[1] = ny;
-		node[2] = ndir;
-		return node;
-	}
 	
-	private static int[] getNode(Horse horse) {
-		int[] node = new int[2];
-		int nx = horse.x;
-		int ny = horse.y;
-		switch(horse.dir) {
-		case 1: //오
-			ny += 1;
-			break;
-		case 2: //왼
-			ny -= 1;
-			break;
-		case 3: //위
-			nx -= 1;
-			break; 
-		case 4: //아래
-			nx += 1;
-			break;
-		}
-		node[0] = nx;
-		node[1] = ny;
-		return node;
-	}
-	
-	private static class Horse implements Comparable<Horse>{
-		int no;
+	private static class Horse{
 		int x;
 		int y;
 		int dir;
-		LinkedList<Integer> array;
-		public Horse(int no, int x, int y, int dir, LinkedList<Integer> array) {
-			this.no = no;
+		public Horse(int x, int y, int dir) {
 			this.x = x;
 			this.y = y;
-			this.array = array;
-		}
-		@Override
-		public int compareTo(Horse o) {
-			return this.no - o.no;
+			this.dir = dir;
 		}
 	}
 }
