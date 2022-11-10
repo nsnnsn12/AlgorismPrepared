@@ -64,7 +64,7 @@ public class Dp8 {
         int[][][] dp = new int[61][61][n];
 
         for(int i = 1; i < 61; i++){
-            dp[i-1][i-9]
+            //dp[i-1][i-9];
         }
         bw.flush();
         bw.close();
