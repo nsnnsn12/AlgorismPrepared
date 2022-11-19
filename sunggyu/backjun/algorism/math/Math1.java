@@ -15,18 +15,20 @@ public class Math1 {
         long a = Long.parseLong(abc[0]);
         long b = Long.parseLong(abc[1]);
         long c = Long.parseLong(abc[2]);
-        long count = 0L;
-        long value1 = a;
-        long value2 = 0L;
 
-        while(value1 >= value2){
-            count++;
-            value1 += b;
-            value2 += c;
+        long rest = c - b;
+        if(rest < 1){
+            System.out.println("-1");
+            return;
         }
 
-        System.out.println(count);
-        //011
+        if(a == 0){
+            System.out.println("1");
+            return;
+        }
+        long count = a / rest;
+
+        System.out.println(count+1);
         bw.flush();
         bw.close();
     }
