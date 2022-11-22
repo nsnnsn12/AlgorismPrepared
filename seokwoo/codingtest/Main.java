@@ -7,6 +7,7 @@ import seokwoo.codingtest.autoever2208.Solution3;
 import seokwoo.codingtest.dev2_220623.Dev1;
 import seokwoo.codingtest.dev2_220623.Dev3;
 import seokwoo.codingtest.eleven202205.Eleven1;
+import seokwoo.codingtest.hanhwasol2211.Hanwha1;
 import seokwoo.codingtest.lotte202206.Lotte2;
 import seokwoo.codingtest.ssg202205.Ssg1;
 import seokwoo.codingtest.ssg202205.Ssg2;
@@ -135,7 +136,8 @@ public class Main {
 		int[] levels = {1};
 		toss2.solution(levels);
 		*/
-
+		Hanwha1 h = new Hanwha1();
+		h.solution();
 	}
 
 }
