@@ -1,4 +1,4 @@
-package sunggyu.backjun.algorism.math;
+package sunggyu.backjun.algorism.math1;
 
 import java.io.*;
 
