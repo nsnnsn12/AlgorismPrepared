@@ -6,30 +6,36 @@ public class Math2 {
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int m = Integer.parseInt(bf.readLine());
         int n = Integer.parseInt(bf.readLine());
-        int[] list = new int[n];
-        String[] split = bf.readLine().split(" ");
-        for(int i = 0; i < n; i++){
-            list[i] = Integer.parseInt(split[i]);
-        }
+        boolean[] isNotPrimeNumber = new boolean[10001];
+        isNotPrimeNumber[1] = true;
 
-        boolean isNumberic[] = new boolean[1001];
-        
-        for(int i = 2; i < 1001; i++){
-            isNumberic[i] = true;
-            for(int j = 2; j < i; j++){
-                if(i % j == 0){
-                    isNumberic[i] = false;
-                    break;
-                }
+        for(int i = 2; i < 10001; i++){
+            if(isNotPrimeNumber[i]) continue;
+            int count = 2;
+            while(i * count <= 10000){
+                isNotPrimeNumber[i*count] = true;
+                count++;
             }
         }
-        int count = 0;
-        for(int i = 0; i < n; i++){
-            if(isNumberic[list[i]]) count++;
+        int result = 0;
+        int min = -1;
+        for(int i = m; i <= n; i++){
+            if(!isNotPrimeNumber[i]){
+                if(min == -1) min = i;
+                result += i;
+            }
+
         }
 
-        System.out.println(count);
+        if(min == -1) {
+            System.out.println(min);
+            return;
+        }
+
+        System.out.println(result);
+        System.out.println(min);
         bw.flush();
         bw.close();
     }
