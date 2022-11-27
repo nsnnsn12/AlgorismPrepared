@@ -44,9 +44,9 @@ public class Implement7 {
 		}
 		int count = 0;
 		boolean flag = false;
-	//	while (true) {
+		while (true) {
 			count++;
-
+			//System.out.println("------------------------");
 			for (int i = 0; i < horses.length; i++) {
 				Horse cur = horses[i];
 				int dir = cur.dir;
@@ -60,58 +60,73 @@ public class Implement7 {
 
 					nx = cx + dx[dir];
 					ny = cy + dy[dir];
+					horses[i].dir = dir;
 				}
 
 				int size = horseMatrix[cx][cy].size();
 				
-				if (!isGo(nx, ny) || matrix[nx][ny] == 2) {
-					horses[i].dir = dir;
+				if (!isGo(nx, ny) || matrix[nx][ny] == 2) {	//파란색 만난경우 
 					continue;
 				} else if (matrix[nx][ny] == 0) { // 흰색 만난 경우
 					int loc = 0;
 					for (int z = 0; z < size; z++) {
-						if(horseMatrix[cx][cy].get(z) == z) {
+						if(horseMatrix[cx][cy].get(z) == i) {
 							loc = z;
 							break;
 						}
 					}
-					//System.out.println(nx + " " + ny + " " + cur.x + " " + cur.y);	
 					for(int z= loc; z<size; z++) {
-						horses[z].x = nx;
-						horses[z].y = ny;
-
-						horseMatrix[nx][ny].add(z);
-						horseMatrix[cx][cy].remove(loc);
+						int curHorse = horseMatrix[cx][cy].get(z);
+						horses[curHorse].x = nx;
+						horses[curHorse].y = ny;
+						horseMatrix[nx][ny].add(curHorse);
 					}
-					for(int z = 0; z<horseMatrix[nx][ny].size(); z++) {
-						System.out.print(horseMatrix[nx][ny].get(z) + " ");
+					
+					for(int z= size-1; z>=loc; z--) {
+						horseMatrix[cx][cy].remove(z);
 					}
-					System.out.println();
-					//System.out.println(horseMatrix[nx][ny].size());	
 
 				} else if (matrix[nx][ny] == 1) { // 빨간색 만난 경우
-
-					for (int z = size - 1; z >= i; z--) {
-						int index = horseMatrix[cur.x][cur.y].get(z);
-						horses[index].x = nx;
-						horses[index].y = ny;
-
-						horseMatrix[nx][ny].add(index);
-						horseMatrix[cur.x][cur.y].removeLast();
+					int loc = 0;
+					
+					for(int z = 0; z<size; z++) {
+						if(horseMatrix[cx][cy].get(z) == i) {
+							loc = z;
+							break;
+						}
 					}
+					for(int z= size -1; z>=loc; z--) {
+						int curHorse = horseMatrix[cx][cy].get(z);
+						horses[curHorse].x = nx;
+						horses[curHorse].y = ny;
+						horseMatrix[nx][ny].add(curHorse);
+					}
+					
+					for(int z= size -1; z>=loc; z--) {
+						horseMatrix[cx][cy].remove(z);
+					}
+					
 				}
-
+				/*
+				System.out.println("전: " + cx + " " + cy +" " +  dir);
+				System.out.println("현: " + nx + " " + ny +" " +  dir);
+				for(int z = 0; z<horseMatrix[nx][ny].size(); z++) {
+					System.out.print(horseMatrix[nx][ny].get(z) + " ");
+				}
+				System.out.println();
+				*/
 				if (horseMatrix[nx][ny].size() >= 4) {
 					flag = true;
 					break;
 				}
-		//		System.out.println(nx + " " + ny + " " + horseMatrix[nx][ny].size());
-			}
-			if (flag || count >= 1000) {
-			//	break;
+				
 			}
 			
-	//	}
+			if (flag || count >= 1000) {
+				break;
+			}
+			
+		}
 		if (count >= 1000) {
 			System.out.println(-1);
 		} else {
