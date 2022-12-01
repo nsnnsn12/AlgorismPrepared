@@ -39,8 +39,8 @@ public class TwoPoint3 {
 				left++;
 			}
 			//System.out.println(left + " " + right + " " + result);
-			
 		}
+		
 		if(result == 0) {
 			System.out.println(1);
 		}else if(result == Integer.MAX_VALUE){
@@ -48,11 +48,6 @@ public class TwoPoint3 {
 		}else {
 			System.out.println(result);
 		}
-			
-		
-		
-		
-
 	}
 
 }
