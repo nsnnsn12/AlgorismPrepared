@@ -1,6 +1,8 @@
 package seokwoo.codingtest;
+
 import seokwoo.codingtest.Nhn202205.Nhn1;
 import seokwoo.codingtest.Nhn202205.Nhn2;
+import seokwoo.codingtest.Nhn202205.Nhn2_Re;
 import seokwoo.codingtest.Nhn202205.Nhn3;
 import seokwoo.codingtest.Nhn202205.Nhn4;
 import seokwoo.codingtest.autoever2208.Solution3;
@@ -79,65 +81,56 @@ public class Main {
 		 * nhn1.solution(cards1,cards2);
 		 */
 
-		/*
-		 * Nhn2 nhn2 = new Nhn2(); int[] balance = {30, 30, 30, 30}; int[][] transaction
-		 * = {{1, 2, 10}, {2, 3, 20}, {3, 4, 5}, {3, 4, 30}}; int[] abnormal = {2, 3};
-		 * nhn2.solution(balance, transaction, abnormal);
-		 */
-		
+		Nhn2_Re nhn2 = new Nhn2_Re();
+		int[] balance = { 30, 30, 30, 30 };
+		int[][] transaction = { { 1, 2, 10 }, { 2, 3, 20 }, { 3, 4, 5 }, { 3, 4, 30 } };
+		int[] abnormal = { 2,3 };
+		nhn2.solution(balance, transaction, abnormal);
+
 		/*
 		 * Nhn3 nhn3 = new Nhn3(); String[] maze = {"AAAAA", "AABBB", "CAEFG", "AAEFF"};
 		 * String[] queries = {"1 1 1 5 AF", "1 1 4 5 AF", "2 1 4 5 FAE", "1 5 4 5 ABF",
 		 * "1 1 4 1 A"}; nhn3.solution(maze, queries);
 		 */
-		
+
 		/*
-		Nhn4 nhn4 = new Nhn4();
-				
-		long[] players = {10, 11, 15, 14, 16, 18, 19, 20};
-		int power = 10;
-		int k =2;
-		nhn4.solution(players, power, k);
-		*/
-		
+		 * Nhn4 nhn4 = new Nhn4();
+		 * 
+		 * long[] players = {10, 11, 15, 14, 16, 18, 19, 20}; int power = 10; int k =2;
+		 * nhn4.solution(players, power, k);
+		 */
+
 		/*
-		Lotte2 lotte2 = new Lotte2();
-		int r = 3;
-		int c = 5;
-		lotte2.solution(r, c);
-		*/
-		
+		 * Lotte2 lotte2 = new Lotte2(); int r = 3; int c = 5; lotte2.solution(r, c);
+		 */
+
 		/*
-		Dev1 dev1 = new Dev1();
-		// ex) {1,3,2} -> {1,2,2}  result: 1
-		// ex) {4,3,2} -> {2,2,2}  result: 3
-		// ex) {5,2,1,1,5,3,4} -> {1,1,1,1,3,3,4} result: 7
-		int[] array = {5,2,1,1,5,3,4};
-		dev1.solution(array);
-		*/
-		
+		 * Dev1 dev1 = new Dev1(); // ex) {1,3,2} -> {1,2,2} result: 1 // ex) {4,3,2} ->
+		 * {2,2,2} result: 3 // ex) {5,2,1,1,5,3,4} -> {1,1,1,1,3,3,4} result: 7 int[]
+		 * array = {5,2,1,1,5,3,4}; dev1.solution(array);
+		 */
+
 		/*
-		Dev3 dev3 = new Dev3();
-		int a = 9;
-		int b = 7;
-		int[][] lands = {{2, 2}, {2, 3}, {2, 5}, {3, 2}, {3, 4}, {3, 5}, {3, 6}, {4, 3}, {4, 6}, {5, 2}, {5, 5}, {6, 2}, {6, 3}, {6, 4}, {6, 6}, {7, 2}, {7, 6}, {8, 3}, {8, 4}, {8, 5}};
-		dev3.solution(a,b,lands);
-		*/
-		
+		 * Dev3 dev3 = new Dev3(); int a = 9; int b = 7; int[][] lands = {{2, 2}, {2,
+		 * 3}, {2, 5}, {3, 2}, {3, 4}, {3, 5}, {3, 6}, {4, 3}, {4, 6}, {5, 2}, {5, 5},
+		 * {6, 2}, {6, 3}, {6, 4}, {6, 6}, {7, 2}, {7, 6}, {8, 3}, {8, 4}, {8, 5}};
+		 * dev3.solution(a,b,lands);
+		 */
+
 		/*
-		WooriBank2 wooriBank2 = new WooriBank2();
-		String[] grid = {"......####", "...#...###", "..#.##..##", "..#...#..#", "...#.#....", "....#..###"};
-		String[] grid2 = {"...#......","..#.##....","..#...#...","...#.#...."};
-		wooriBank2.solution(grid);
-		*/
-		
+		 * WooriBank2 wooriBank2 = new WooriBank2(); String[] grid = {"......####",
+		 * "...#...###", "..#.##..##", "..#...#..#", "...#.#....", "....#..###"};
+		 * String[] grid2 = {"...#......","..#.##....","..#...#...","...#.#...."};
+		 * wooriBank2.solution(grid);
+		 */
+
 		/*
-		Toss2 toss2 = new Toss2();
-		int[] levels = {1};
-		toss2.solution(levels);
-		*/
-		Hanwha1 h = new Hanwha1();
-		h.solution();
+		 * Toss2 toss2 = new Toss2(); int[] levels = {1}; toss2.solution(levels);
+		 */
+
+		/*
+		 * Hanwha1 h = new Hanwha1(); h.solution();
+		 */
 	}
 
 }
