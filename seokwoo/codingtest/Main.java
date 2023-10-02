@@ -1,5 +1,10 @@
 package seokwoo.codingtest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 import seokwoo.codingtest.Nhn202205.Nhn1;
 import seokwoo.codingtest.Nhn202205.Nhn2;
 import seokwoo.codingtest.Nhn202205.Nhn2_Re;
@@ -131,6 +136,19 @@ public class Main {
 		/*
 		 * Hanwha1 h = new Hanwha1(); h.solution();
 		 */
+		
+		List<String> array = Arrays.asList("자기소개", "이직 사유", "직무에서 가장 필요한 역량은?", "지원하게 된 동기는 무엇인가요?", "스트레스 푸는법(취미, 특기)", "MZ세대들이 현대오토에버에 지원을 하는 이유", "자신의 장단점", "원치 않는 직무를 배정받으면 어떻게 할건지?", "도전 경험", "업무를 하면서 가장 힘들었던 경험 (실패 경험)", "DBA 직무를 지원하지 않고 어플리케이션 개발 직무를 지원한 이유", "입사 후 포부 (자기 PR)", "상사가 부당한 업무를 시킨 경우", "나에게 가장 나쁜 상사란", "상사와 의견 차이가 발생한 경우", "상사와 관계가 좋지 못하다면 어떻게 해결할 것인가?", "최근 현대오토에버의 기사를 본적이 있는지");
+		
+		Random random = new Random();
+		
+		int index = random.nextInt(array.size());
+		System.out.println(array.get(index));
+		
+		char[] a = new char[3];
+		if(a[0] == 0) {
+			System.out.println(a[0] + "d");
+		}
+		
 	}
 
 }
