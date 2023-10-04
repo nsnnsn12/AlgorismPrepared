@@ -1,6 +1,6 @@
 package seokwoo.codingtest.sktelecom202206;
 
-class SkTel2 {
+public class SkTel2 {
     int[] answer = new int[2];
     public int[] solution(int[] periods, int[][] payments, int[] estimates) {
         int n = periods.length;

@@ -2,7 +2,7 @@ package seokwoo.codingtest.sktelecom202206;
 
 import java.util.*;
 
-class SkTel4 {
+public class SkTel4 {
 	int[] dx = { 1, 0, -1, 0 };
 	int[] dy = { 0, 1, 0, -1 };
 	char[][] matrix;

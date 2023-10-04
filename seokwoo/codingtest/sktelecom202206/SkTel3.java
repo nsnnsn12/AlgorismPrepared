@@ -2,7 +2,7 @@ package seokwoo.codingtest.sktelecom202206;
 
 import java.util.*;
 
-class SkTel3 {
+public class SkTel3 {
 	int[] result;
 
 	public int[] solution(int n, String[] plans, String[] clients) {

@@ -8,6 +8,7 @@ import java.util.Random;
 import seokwoo.codingtest.Nhn202205.Nhn1;
 import seokwoo.codingtest.Nhn202205.Nhn2;
 import seokwoo.codingtest.Nhn202205.Nhn2_Re;
+import seokwoo.codingtest.Nhn202205.Nhn2_rere;
 import seokwoo.codingtest.Nhn202205.Nhn3;
 import seokwoo.codingtest.Nhn202205.Nhn4;
 import seokwoo.codingtest.autoever2208.Solution3;
@@ -16,6 +17,8 @@ import seokwoo.codingtest.dev2_220623.Dev3;
 import seokwoo.codingtest.eleven202205.Eleven1;
 import seokwoo.codingtest.hanhwasol2211.Hanwha1;
 import seokwoo.codingtest.lotte202206.Lotte2;
+import seokwoo.codingtest.sktelecom202206.SkTel1_Re;
+import seokwoo.codingtest.sktelecom202206.SkTel2_Re;
 import seokwoo.codingtest.ssg202205.Ssg1;
 import seokwoo.codingtest.ssg202205.Ssg2;
 import seokwoo.codingtest.ssg202205.Ssg3;
@@ -86,11 +89,13 @@ public class Main {
 		 * nhn1.solution(cards1,cards2);
 		 */
 
-		Nhn2_Re nhn2 = new Nhn2_Re();
-		int[] balance = { 30, 30, 30, 30 };
-		int[][] transaction = { { 1, 2, 10 }, { 2, 3, 20 }, { 3, 4, 5 }, { 3, 4, 30 } };
-		int[] abnormal = { 2,3 };
+		/*
+		Nhn2_rere nhn2 = new Nhn2_rere();
+		int[] balance = { 100,1,1,1,1 };
+		int[][] transaction = { { 1, 2, 100 }, { 2, 3, 101 }, { 3, 4, 102 }, { 4,5,103 }, { 5,1,104 }  };
+		int[] abnormal = { 1 };
 		nhn2.solution(balance, transaction, abnormal);
+		*/
 
 		/*
 		 * Nhn3 nhn3 = new Nhn3(); String[] maze = {"AAAAA", "AABBB", "CAEFG", "AAEFF"};
@@ -137,6 +142,19 @@ public class Main {
 		 * Hanwha1 h = new Hanwha1(); h.solution();
 		 */
 		
+		SkTel1_Re sk = new SkTel1_Re();
+		int[] temp = new int[1000];
+		for(int i = 1; i <= 1000; i++) {
+			temp[i-1] = i;
+		}
+		
+		sk.solution(temp);
+		/*
+		SkTel2_Re sk = new SkTel2_Re();
+		sk.solution(new int[] {24,59,59,60}, new int[][] {{50000,550000},{50000,550000},{350000,550000},{50000,550000}},new int[] {350000,50000,40000,50000});
+		*/
+		
+		/*
 		List<String> array = Arrays.asList("자기소개", "이직 사유", "직무에서 가장 필요한 역량은?", "지원하게 된 동기는 무엇인가요?", "스트레스 푸는법(취미, 특기)", "MZ세대들이 현대오토에버에 지원을 하는 이유", "자신의 장단점", "원치 않는 직무를 배정받으면 어떻게 할건지?", "도전 경험", "업무를 하면서 가장 힘들었던 경험 (실패 경험)", "DBA 직무를 지원하지 않고 어플리케이션 개발 직무를 지원한 이유", "입사 후 포부 (자기 PR)", "상사가 부당한 업무를 시킨 경우", "나에게 가장 나쁜 상사란", "상사와 의견 차이가 발생한 경우", "상사와 관계가 좋지 못하다면 어떻게 해결할 것인가?", "최근 현대오토에버의 기사를 본적이 있는지");
 		
 		Random random = new Random();
@@ -148,7 +166,7 @@ public class Main {
 		if(a[0] == 0) {
 			System.out.println(a[0] + "d");
 		}
-		
+		*/
 	}
 
 }

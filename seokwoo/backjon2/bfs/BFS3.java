@@ -1,4 +1,4 @@
-package seokwoo.backjon.bfs_re;
+package seokwoo.backjon2.bfs;
 
 // https://www.acmicpc.net/problem/14226
 // 이모티콘(골4)
