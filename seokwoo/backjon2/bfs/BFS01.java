@@ -5,7 +5,7 @@ import java.io.*;
 
 // https://www.acmicpc.net/problem/1697
 // 숨바꼭질 (실버1)
-public class BFS1 {
+public class BFS01 {
 
 	static int max = 100001;
 	static int[] matrix;

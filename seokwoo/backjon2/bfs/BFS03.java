@@ -6,7 +6,7 @@ package seokwoo.backjon2.bfs;
 import java.util.*;
 import java.io.*;
 
-public class BFS3 {
+public class BFS03 {
 
 	static int[][] matrix; // [화면개수][클립보드 개수] = 시간
 	static boolean[][] isVisit;

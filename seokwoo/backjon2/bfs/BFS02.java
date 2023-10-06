@@ -6,7 +6,7 @@ import java.io.*;
 // https://www.acmicpc.net/problem/13913
 // 숨바꼭질4
 
-public class BFS2 {
+public class BFS02 {
 
 	static int[] matrix;
 	static boolean[] isVisit;
