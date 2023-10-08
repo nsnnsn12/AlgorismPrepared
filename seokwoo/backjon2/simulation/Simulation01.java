@@ -6,7 +6,7 @@ package seokwoo.backjon2.simulation;
 import java.io.*;
 import java.util.*;
 
-public class Simulation1 {
+public class Simulation01 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

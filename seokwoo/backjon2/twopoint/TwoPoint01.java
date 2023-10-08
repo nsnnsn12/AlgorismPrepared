@@ -1,8 +1,10 @@
 package seokwoo.backjon2.twopoint;
 
 import java.io.*;
+
 // https://www.acmicpc.net/problem/2470
 // 두 용액(골5)
+
 import java.util.Arrays;
 
 public class TwoPoint01 {
