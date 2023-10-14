@@ -21,6 +21,7 @@ import seokwoo.codingtest.sktelecom202206.SkTel1_Re;
 import seokwoo.codingtest.sktelecom202206.SkTel2_Re;
 import seokwoo.codingtest.ssg202205.Ssg1;
 import seokwoo.codingtest.ssg202205.Ssg2;
+import seokwoo.codingtest.ssg202205.Ssg2_re;
 import seokwoo.codingtest.ssg202205.Ssg3;
 import seokwoo.codingtest.ssg202205.Ssg4;
 import seokwoo.codingtest.ssg202205.Ssg4_re;
@@ -50,17 +51,18 @@ public class Main {
 		 * System.out.println(ssg1.solution(v,a,b));
 		 */
 
-		Ssg2 ssg2 = new Ssg2();
-		String[] logs = { "0001 3 95", "0001 5 90", "0001 5 100", "0002 3 95", "0001 7 80", "0001 8 80", "0001 10 90",
-				"0002 10 90", "0002 7 80", "0002 8 80", "0002 5 100", "0003 99 90" };
+		Ssg2_re ssg2 = new Ssg2_re();
+		//String[] logs = { "0001 3 95", "0001 5 90", "0001 5 100", "0002 3 95", "0001 7 80", "0001 8 80", "0001 10 90",
+		//		"0002 10 90", "0002 7 80", "0002 8 80", "0002 5 100", "0003 99 90" };
 		/*String[] logs = { "1901 1 100", "1901 2 100", "1901 4 100", "1901 7 100", "1901 8 100", "1902 2 100",
 				"1902 1 100", "1902 7 100", "1902 4 100", "1902 8 100", "1903 8 100", "1903 7 100", "1903 4 100",
 				"1903 2 100", "1903 1 100", "1101 1 95", "1101 2 100", "1101 4 100", "1101 7 100", "1101 9 100",
 				"1102 1 95", "1102 2 100", "1102 4 100", "1102 7 100", "1102 9 100" };
-		String[] logs = { "1901 10 50", "1909 10 50" };
+		*/
+	//	String[] logs = { "1901 10 50", "1909 10 50" };
 		String[] logs = { "0001 1 0", "0001 2 0", "0001 3 0", "0001 4 0", "0001 5 0", "0456 1 0", "0456 2 0",
 				"0456 3 0", "0456 4 0", "0456 5 0" };
-	*/
+	
 		ssg2.solution(logs);
 
 		/*
