@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
+// https://www.acmicpc.net/problem/9019
+// DSLR (골4)
+
 public class BFS10 {
 
 	private static int b;
